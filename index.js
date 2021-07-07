@@ -1,9 +1,17 @@
-/**
- * @format
- */
+import React from 'react';
+import {Navigation} from 'react-native-navigation';
+import {registerScreen} from './app/Screens/screens';
+import {YellowBox} from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+registerScreen();
 
-AppRegistry.registerComponent(appName, () => App);
+Navigation.events().registerAppLaunchedListener(() => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'Initializing',
+      },
+    },
+  });
+});
