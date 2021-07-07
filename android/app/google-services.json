@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "850964374759",
+    "project_id": "ifcaengineer",
+    "storage_bucket": "ifcaengineer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850964374759:android:ff349eb9c3b823f9912e42",
+        "android_client_info": {
+          "package_name": "com.ifcaengineer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850964374759-utb9eebfnq37sss51pbf7omi4pbg203h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifcaengineer",
+            "certificate_hash": "89c0c3f50906cd13afa98f292ae2757c63f12edb"
+          }
+        },
+        {
+          "client_id": "850964374759-fgs6qisg9iqajocd4j01rel45vkbr4v3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8sjznbj3I2M6dIVmdihkz31_qpiN9EV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850964374759-fgs6qisg9iqajocd4j01rel45vkbr4v3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

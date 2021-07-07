@@ -29,6 +29,8 @@ import {
 
 import nbStyles from './Style';
 import Style from '@Theme/Style';
+import DeviceInfo from 'react-native-device-info';
+import {goHome} from '../navigation';
 
 class Login extends Component {
   static options(passProps) {
