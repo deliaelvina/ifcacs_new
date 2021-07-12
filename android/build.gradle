@@ -3,11 +3,14 @@
 buildscript {
     ext {
         RNNKotlinVersion = "1.4.31"
-        buildToolsVersion = "29.0.3"
+        buildToolsVersion = "28.0.3"
         minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
+        compileSdkVersion = 28
+        targetSdkVersion = 28
         ndkVersion = "20.1.5948944"
+        // supportLibVersion = "28.0.0"
+        // androidXCore = "1.0.2"
+        supportLibVersion = "28.0.0"
     }
     repositories {
         google()
