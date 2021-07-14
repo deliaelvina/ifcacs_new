@@ -51,14 +51,14 @@ export default {
     textAlign: 'center',
     fontSize: 20,
     marginBottom: '8%',
-    fontFamily: 'Montserrat-SemiBold',
+    //fontFamily: 'Montserrat-SemiBold',,
     color: '#191919',
   },
   subTitle: {
     textAlign: 'center',
     fontSize: 15,
     color: 'white',
-    fontFamily: 'Montserrat-Regular',
+    //fontFamily: 'Montserrat-Regular',
   },
   textInput: {
     // borderBottomWidth: 1,
@@ -68,7 +68,7 @@ export default {
     fontSize: 16,
     width: '90%',
     borderRadius: 5,
-    fontFamily: 'Montserrat-Regular',
+    //fontFamily: 'Montserrat-Regular',
   },
   btnYellow: {
     width: '100%',
@@ -101,7 +101,7 @@ export default {
   },
   loginBtnText: {
     color: '#fff',
-    fontFamily: 'Montserrat-Regular',
+    //fontFamily: 'Montserrat-Regular',
     fontSize: 12,
   },
   loginBtnIcon: {

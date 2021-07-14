@@ -20,7 +20,6 @@ import {
   Label,
   Input,
   Button,
-  Icon,
   Header,
   Left,
   Body,
@@ -31,14 +30,15 @@ import Style from '@Theme/Style';
 import DeviceInfo from 'react-native-device-info';
 import {goHome} from '../navigation';
 // import firebase from 'react-native-firebase';
-import firebase from '@react-native-firebase/app';
-import messaging from '@react-native-firebase/messaging';
+// import firebase from '@react-native-firebase/app';
+// import messaging from '@react-native-firebase/messaging';
 import {USER_KEY} from '../config';
 import OfflineNotice from '@Component/OfflineNotice';
 import {_storeData, _getData} from '@Component/StoreAsync';
 import {urlApi} from '@Config';
-// import {authService, productService} from '../../_services';
+import {authService, productService} from '../../_services';
 import {nav, sessions} from '../../_helpers';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Login extends Component {
   static options(passProps) {
@@ -93,14 +93,16 @@ class Login extends Component {
   async componentDidMount() {
     this.setState({device: Platform.OS});
 
-    this.checkPermission();
-    this.createNotificationListeners();
+    // this.checkPermission();
+    // this.createNotificationListeners();
   }
 
   btnLoginClick = async () => {
-    const mac = await DeviceInfo.getMACAddress().then(mac => {
+    const mac = await DeviceInfo.getMacAddress().then(mac => {
       return mac;
     });
+
+    // console.log('mac', mac);
     const formData = {
       email: this.state.emailTextInput,
       password: this.state.passwordTextInput,
@@ -110,30 +112,32 @@ class Login extends Component {
       mac: mac,
       app: 'O',
     };
+    console.log('form data login', formData);
     var lengthPass = this.state.passwordTextInput.length;
     if (lengthPass < 4) {
       alert('Wrong password !!!');
     } else {
       this.doLogin(formData);
+      // console.log('form data login', formData);
     }
   };
 
   async doLogin(value) {
     this.setState({showSpinner: !this.state.showSpinner});
 
-    // await authService.login(value).then(res => {
-    //   if (!res.Error) {
-    //     if (!res.Data.isResetPass == 1) {
-    //       this.getTower(res);
-    //     } else {
-    //       nav.push(this.props.componentId, 'screen.ChangePass', {
-    //         email: res.Data.user,
-    //       });
-    //     }
-    //   } else {
-    //     alert(res.Pesan);
-    //   }
-    // });
+    await authService.login(value).then(res => {
+      if (!res.Error) {
+        if (!res.Data.isResetPass == 1) {
+          this.getTower(res);
+        } else {
+          nav.push(this.props.componentId, 'screen.ChangePass', {
+            email: res.Data.user,
+          });
+        }
+      } else {
+        alert(res.Pesan);
+      }
+    });
   }
 
   getTower = async rest => {
@@ -186,10 +190,12 @@ class Login extends Component {
               nav.pop(this.props.componentId);
             }}>
             <Icon
-              active
               name="arrow-left"
+              // backgroundColor="#3b5998"
+              // active
+              // name="arrow-left"
               style={Style.textWhite}
-              type="MaterialCommunityIcons"
+              // type="MaterialCommunityIcons"
             />
           </Button>
         </View>
@@ -197,70 +203,70 @@ class Login extends Component {
     );
   }
 
-  async checkPermission() {
-    const enabled = await firebase_msg.messaging().hasPermission();
-    if (enabled) {
-      this.getToken();
-    } else {
-      this.requestPermission();
-    }
-  }
+  // async checkPermission() {
+  //   const enabled = await firebase_msg.messaging().hasPermission();
+  //   if (enabled) {
+  //     this.getToken();
+  //   } else {
+  //     this.requestPermission();
+  //   }
+  // }
 
-  async getToken() {
-    let fcmToken = await AsyncStorage.getItem('fcmToken');
-    // console.log('fcmToken', fcmToken);
-    if (!fcmToken) {
-      fcmToken = await firebase_msg.messaging().getToken();
-      if (fcmToken) {
-        // user has a device token
-        await AsyncStorage.setItem('token', fcmToken);
-        console.log('fcmToken', fcmToken);
-        this.setState({
-          token: fcmToken,
-        });
-      }
-    }
-  }
+  // async getToken() {
+  //   let fcmToken = await AsyncStorage.getItem('fcmToken');
+  //   // console.log('fcmToken', fcmToken);
+  //   if (!fcmToken) {
+  //     fcmToken = await firebase_msg.messaging().getToken();
+  //     if (fcmToken) {
+  //       // user has a device token
+  //       await AsyncStorage.setItem('token', fcmToken);
+  //       console.log('fcmToken', fcmToken);
+  //       this.setState({
+  //         token: fcmToken,
+  //       });
+  //     }
+  //   }
+  // }
 
-  async requestPermission() {
-    try {
-      await firebase_msg.messaging().requestPermission();
-      // User has authorised
-      this.getToken();
-    } catch (error) {
-      // User has rejected permissions
-      console.log('permission rejected');
-    }
-  }
+  // async requestPermission() {
+  //   try {
+  //     await firebase_msg.messaging().requestPermission();
+  //     // User has authorised
+  //     this.getToken();
+  //   } catch (error) {
+  //     // User has rejected permissions
+  //     console.log('permission rejected');
+  //   }
+  // }
 
-  async createNotificationListeners() {
-    messaging.notifications().setBadge(0);
-    this.notificationListener = firebase
-      .notifications()
-      .onNotification(notification => {
-        const {title, body} = notification;
-        this.showAlert(title, body);
-      });
+  // async createNotificationListeners() {
+  //   messaging.notifications().setBadge(0);
+  //   this.notificationListener = firebase
+  //     .notifications()
+  //     .onNotification(notification => {
+  //       const {title, body} = notification;
+  //       this.showAlert(title, body);
+  //     });
 
-    this.notificationOpenedListener = firebase
-      .notifications()
-      .onNotificationOpened(notificationOpen => {
-        const {title, body} = notificationOpen.notification;
-        this.showAlert(title, body);
-      });
+  //   this.notificationOpenedListener = firebase
+  //     .notifications()
+  //     .onNotificationOpened(notificationOpen => {
+  //       const {title, body} = notificationOpen.notification;
+  //       this.showAlert(title, body);
+  //     });
 
-    const notificationOpen = await firebase
-      .notifications()
-      .getInitialNotification();
-    if (notificationOpen) {
-      const {title, body} = notificationOpen.notification;
-      this.showAlert(title, body);
-    }
+  //   const notificationOpen = await firebase
+  //     .notifications()
+  //     .getInitialNotification();
+  //   if (notificationOpen) {
+  //     const {title, body} = notificationOpen.notification;
+  //     this.showAlert(title, body);
+  //   }
 
-    this.messageListener = firebase_msg.messaging().onMessage(message => {
-      console.log(JSON.stringify(message));
-    });
-  }
+  //   this.messageListener = firebase_msg.messaging().onMessage(message => {
+  //     console.log(JSON.stringify(message));
+  //   });
+  // }
 
   handleEyeChanger = () => {
     this.setState({isHidden: !this.state.isHidden}, () => {
@@ -280,16 +286,17 @@ class Login extends Component {
     return (
       <NativeBaseProvider style={nbStyles.content}>
         <ImageBackground
-          source={require('@Img/bg-login/loginbg2.png')}
+          // source={require('@Img/bg-login/loginbg2.png')}
           style={{flex: 1, resizeMode: 'cover'}}>
           {/* {this.renderHeader()} */}
           <OfflineNotice />
           <SafeAreaView>
             <View style={Style.LogoLeftTopWarp}>
-              <Image
+              {/* <Image
                 style={{height: 48, width: 150}}
                 source={require('@Asset/images/logo-login/alfaland-logo2.png')}
-              />
+              /> */}
+              <Text>Logo Ifca Engineering</Text>
             </View>
 
             <View style={nbStyles.wrap}>
@@ -320,25 +327,36 @@ class Login extends Component {
                     this.onChangeText('passwordTextInput', val)
                   }
                 />
-                <Icon
+                {/* <Icon
                   onPress={() => this.handleEyeChanger()}
                   active
                   name={this.state.isHidden ? 'eye' : 'eye-off'}
                   type="MaterialCommunityIcons"
                   style={nbStyles.EyePasswordBtnIcon}
+                /> */}
+                <Icon
+                  onPress={() => this.handleEyeChanger()}
+                  active
+                  // name="facebook"
+                  // type={MaterialCommunityIcons}
+                  name={this.state.isHidden ? 'eye' : 'eye-slash'}
+                  size={20}
+                  color="red"
                 />
               </View>
+              {/* <Button onPress={() => this.btnLoginClick()}>PRIMARY</Button> */}
               <View style={nbStyles.subWrap1}>
                 <Button
-                  style={nbStyles.btnGreenAlfa}
-                  onPress={this.btnLoginClick}>
+                  // style={nbStyles.btnGreenAlfa}s
+                  // onPress={this.btnLoginClick}
+                  onPress={() => this.btnLoginClick()}>
                   <Text style={nbStyles.loginBtnText}>
-                    {'Login'.toUpperCase()}
+                    {'Loginnn'.toUpperCase()}
                   </Text>
                   <Icon
                     active
                     name="arrow-right"
-                    type="MaterialCommunityIcons"
+                    // type="MaterialCommunityIcons"
                     style={nbStyles.loginBtnIcon}
                   />
                 </Button>

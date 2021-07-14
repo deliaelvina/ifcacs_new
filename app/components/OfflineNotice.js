@@ -46,11 +46,7 @@ class OfflineNotice extends React.Component {
     //   this.handleConnectivityChange,
     // );
     // NetInfo.addEventListener('connectionChange', this.handleConnectivityChange);
-    NetInfo.addEventListener(state => {
-      console.log('Connection type', state.type);
-      console.log('Is connected?', state.isConnected);
-      state.type, this.handleConnectivityChange;
-    });
+    NetInfo.addEventListener(this.handleConnectivityChange);
   }
 
   componentWillUnmount() {
@@ -93,6 +89,7 @@ class OfflineNotice extends React.Component {
   }
 
   render() {
+    console.log('offline?', this.state.isConnected);
     if (!this.state.isConnected) {
       return this.renderOffline();
     }

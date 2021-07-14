@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Arial',
     fontSize: 17,
     fontWeight: '300',
   },
