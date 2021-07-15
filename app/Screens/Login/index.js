@@ -83,6 +83,7 @@ class Login extends Component {
       passwordError: '',
 
       data: [],
+      isLoading: false,
     };
   }
 
@@ -98,6 +99,8 @@ class Login extends Component {
   }
 
   btnLoginClick = async () => {
+    this.setState({isLoading: true});
+    console.log('isloading button klik', this.state.isLoading);
     const mac = await DeviceInfo.getMacAddress().then(mac => {
       return mac;
     });
@@ -115,30 +118,34 @@ class Login extends Component {
     console.log('form data login', formData);
     var lengthPass = this.state.passwordTextInput.length;
     if (lengthPass < 4) {
+      this.setState({isLoading: false});
       alert('Wrong password !!!');
     } else {
+      this.setState({isLoading: false});
       this.doLogin(formData);
+
       // console.log('form data login', formData);
     }
   };
 
   async doLogin(value) {
     this.setState({showSpinner: !this.state.showSpinner});
-
+    this.setState({isLoading: true});
     await authService.login(value).then(res => {
-      console.log('is reset pass', res.Data.isResetPass);
-      //noted .. 0 = false, 1 = true dari res.Data.isResetPass
-      if (!res.Error) {
+      if (res.Error === false || !res.Error) {
+        console.log('errorr false');
         if (res.Data.isResetPass === false || !res.Data.isResetPass == 1) {
           console.log('false');
           this.getTower(res);
         } else {
-          console.log('true');
           nav.push(this.props.componentId, 'screen.ChangePass', {
             email: res.Data.user,
           });
         }
       } else {
+        console.log('error true');
+
+        this.setState({isLoading: false});
         alert(res.Pesan);
       }
     });
@@ -351,29 +358,23 @@ class Login extends Component {
               {/* <Button onPress={() => this.btnLoginClick()}>PRIMARY</Button> */}
               <View style={nbStyles.subWrap1}>
                 <Button
-                  // style={nbStyles.btnGreenAlfa}s
-                  // onPress={this.btnLoginClick}
+                  endIcon={
+                    <Icon
+                      active
+                      name="arrow-right"
+                      // type="MaterialCommunityIcons"
+                      // style={nbStyles.loginBtnIcon}
+                      style={{left: 20, fontSize: 20, color: '#fff'}} //icon ada jarak di kiri sebesar 20
+                    />
+                  }
+                  style={nbStyles.btnGreenAlfa}
+                  isLoading={this.state.isLoading === true ? true : false}
                   onPress={() => this.btnLoginClick()}>
                   <Text style={nbStyles.loginBtnText}>
-                    {'Loginnn'.toUpperCase()}
+                    {'Login'.toUpperCase()}
                   </Text>
-                  <Icon
-                    active
-                    name="arrow-right"
-                    // type="MaterialCommunityIcons"
-                    style={nbStyles.loginBtnIcon}
-                  />
                 </Button>
               </View>
-              {/* <View>
-                            <Text style={nbStyles.subTitle}>OR</Text>
-                        </View>
-                        <View style={nbStyles.subWrap2}>
-                            <Button style={nbStyles.btnBlue} >
-                                <Text style={nbStyles.loginBtnText}>{'Login With Facebook'.toUpperCase()}</Text>
-                                <Icon active name='arrow-right' type="MaterialCommunityIcons" style={nbStyles.loginBtnIcon} />
-                            </Button>
-                        </View> */}
             </View>
           </SafeAreaView>
         </ImageBackground>

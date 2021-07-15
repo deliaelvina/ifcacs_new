@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Image, Alert, StatusBar} from 'react-native';
+import {
+  View,
+  ImageBackground,
+  Image,
+  Alert,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import {
   NativeBaseProvider,
   Box,
@@ -10,13 +17,13 @@ import {
   Input,
   Link,
   Button,
-  // Icon,
+  Icon,
   IconButton,
   HStack,
   Divider,
   Container,
 } from 'native-base';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import IconVector from 'react-native-vector-icons/FontAwesome';
 import nbStyles from './Style';
 import Style from '@Theme/Style';
 import OfflineNotice from '@Component/OfflineNotice';
@@ -25,15 +32,25 @@ import {authService} from '../../_services';
 import {PasswordInput} from '../../components/Input';
 
 class ChangePass extends Component {
+  // show / change name title top bar is here
   static options(passProps) {
     return {
       topBar: {
-        noBorder: false,
-        height: 10,
+        title: {
+          text: 'Change Password',
+          // fontFamily: 'Montserrat-SemiBold',
+        },
+        background: {
+          color: '#fff',
+          translucent: true,
+          transparent: true,
+        },
+        elevation: 0,
+        drawBehind: true,
       },
-      statusBar: {
-        style: 'dark',
-        backgroundColor: '#fff',
+      bottomTabs: {
+        visible: false,
+        drawBehind: true,
       },
     };
   }
@@ -68,35 +85,6 @@ class ChangePass extends Component {
       : this.showAlert('Error', "Your password doesn't match");
   };
 
-  UNSAFE_componentWillMount() {
-    this.startHeaderHeight = 300;
-    if (Platform.OS == 'android') {
-      this.startHeaderHeight = 100 + StatusBar.currentHeight;
-    }
-  }
-
-  // renderHeader() {
-  //   return (
-  //     <Header style={Style.navigationTransparent}>
-  //       <View style={Style.actionBarLeft}>
-  //         <Button
-  //           transparent
-  //           style={Style.actionBarBtn}
-  //           onPress={() => {
-  //             nav.pop(this.props.componentId);
-  //           }}>
-  //           <Icon
-  //             active
-  //             name="arrow-left"
-  //             style={Style.textWhite}
-  //             type="MaterialCommunityIcons"
-  //           />
-  //         </Button>
-  //       </View>
-  //     </Header>
-  //   );
-  // }
-
   showAlert(title, body) {
     Alert.alert(
       title,
@@ -108,13 +96,44 @@ class ChangePass extends Component {
   render() {
     return (
       <NativeBaseProvider>
-        <Box style={{flex: 1}}>
-          <OfflineNotice style={{marginTop: 50}} />
-        </Box>
-
-        {/* <ImageBackground
+        <ImageBackground
           source={require('@Img/bg-login/loginbg2.png')}
-          style={{flex: 1, resizeMode: 'cover'}}></ImageBackground> */}
+          style={{flex: 1, resizeMode: 'cover'}}>
+          <OfflineNotice />
+          <View
+            style={{
+              marginLeft: 20,
+              marginTop: 100, //this margin only for ios. if andro, please do condition
+            }}>
+            <Image
+              style={{height: 48, width: 150}}
+              source={require('@Asset/images/logo-login/alfaland-logo2.png')}
+            />
+          </View>
+          <View style={nbStyles.wrap}>
+            <PasswordInput
+              name={'newPassword'}
+              placeholder={'New Password'}
+              onChanges={this.onChangeValue}
+              value={this.state.newPassword}
+            />
+            <PasswordInput
+              name={'conPassword'}
+              placeholder={'Confirm Password'}
+              onChanges={this.onChangeValue}
+              value={this.state.conPassword}
+            />
+            <View style={nbStyles.subWrap1}>
+              <Button style={nbStyles.btnGreenAlfa} onPress={this.doReset}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={nbStyles.loginBtnText}>
+                    {'SAVE'.toUpperCase()}
+                  </Text>
+                </View>
+              </Button>
+            </View>
+          </View>
+        </ImageBackground>
       </NativeBaseProvider>
     );
   }

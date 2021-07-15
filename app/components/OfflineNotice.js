@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width,
-    // position: 'absolute',
+    position: 'absolute',
     // top: 0,
     top: startTop,
   },
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width,
-    // position: 'absolute',
+    position: 'absolute',
     top: startTop,
   },
   onlineText: {
