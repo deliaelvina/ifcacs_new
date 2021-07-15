@@ -1,31 +1,39 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Image, Alert} from 'react-native';
-import {Container, Content, Text, Button, Icon, Header} from 'native-base';
+import {View, ImageBackground, Image, Alert, StatusBar} from 'react-native';
+import {
+  NativeBaseProvider,
+  Box,
+  Text,
+  Heading,
+  VStack,
+  FormControl,
+  Input,
+  Link,
+  Button,
+  // Icon,
+  IconButton,
+  HStack,
+  Divider,
+  Container,
+} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import nbStyles from './Style';
 import Style from '@Theme/Style';
 import OfflineNotice from '@Component/OfflineNotice';
 import {nav} from '../../_helpers';
 import {authService} from '../../_services';
 import {PasswordInput} from '../../components/Input';
+
 class ChangePass extends Component {
   static options(passProps) {
     return {
       topBar: {
-        title: {
-          text: 'Change Password',
-          fontFamily: 'Montserrat-SemiBold',
-        },
-        background: {
-          color: 'transparent',
-          translucent: true,
-          transparent: true,
-        },
-        elevation: 0,
-        drawBehind: true,
+        noBorder: false,
+        height: 10,
       },
-      bottomTabs: {
-        visible: false,
-        drawBehind: true,
+      statusBar: {
+        style: 'dark',
+        backgroundColor: '#fff',
       },
     };
   }
@@ -60,27 +68,34 @@ class ChangePass extends Component {
       : this.showAlert('Error', "Your password doesn't match");
   };
 
-  renderHeader() {
-    return (
-      <Header style={Style.navigationTransparent}>
-        <View style={Style.actionBarLeft}>
-          <Button
-            transparent
-            style={Style.actionBarBtn}
-            onPress={() => {
-              nav.pop(this.props.componentId);
-            }}>
-            <Icon
-              active
-              name="arrow-left"
-              style={Style.textWhite}
-              type="MaterialCommunityIcons"
-            />
-          </Button>
-        </View>
-      </Header>
-    );
+  UNSAFE_componentWillMount() {
+    this.startHeaderHeight = 300;
+    if (Platform.OS == 'android') {
+      this.startHeaderHeight = 100 + StatusBar.currentHeight;
+    }
   }
+
+  // renderHeader() {
+  //   return (
+  //     <Header style={Style.navigationTransparent}>
+  //       <View style={Style.actionBarLeft}>
+  //         <Button
+  //           transparent
+  //           style={Style.actionBarBtn}
+  //           onPress={() => {
+  //             nav.pop(this.props.componentId);
+  //           }}>
+  //           <Icon
+  //             active
+  //             name="arrow-left"
+  //             style={Style.textWhite}
+  //             type="MaterialCommunityIcons"
+  //           />
+  //         </Button>
+  //       </View>
+  //     </Header>
+  //   );
+  // }
 
   showAlert(title, body) {
     Alert.alert(
@@ -92,11 +107,15 @@ class ChangePass extends Component {
   }
   render() {
     return (
-      <Container style={nbStyles.content}>
-        <View>
-          <Text>change password</Text>
-        </View>
-      </Container>
+      <NativeBaseProvider>
+        <Box style={{flex: 1}}>
+          <OfflineNotice style={{marginTop: 50}} />
+        </Box>
+
+        {/* <ImageBackground
+          source={require('@Img/bg-login/loginbg2.png')}
+          style={{flex: 1, resizeMode: 'cover'}}></ImageBackground> */}
+      </NativeBaseProvider>
     );
   }
 }

@@ -1,6 +1,18 @@
 import React, {PureComponent} from 'react';
-import {View, Text, Dimensions, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  Platform,
+} from 'react-native';
 const {width} = Dimensions.get('window');
+const startTop = 30;
+if (Platform.OS == 'android') {
+  // startTop = 100 + StatusBar.currentHeight;
+  startTop = 0;
+}
 import NetInfo from '@react-native-community/netinfo';
 
 const unsubscribe = NetInfo.addEventListener(state => {
@@ -106,7 +118,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width,
     // position: 'absolute',
-    top: 0,
+    // top: 0,
+    top: startTop,
   },
   offlineText: {
     color: '#fff',
@@ -120,7 +133,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width,
     // position: 'absolute',
-    top: 0,
+    top: startTop,
   },
   onlineText: {
     color: '#fff',

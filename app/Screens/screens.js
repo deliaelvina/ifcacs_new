@@ -6,6 +6,7 @@ import Initializing from './Initializing';
 
 //Login
 import Login from './Login';
+import ChangePass from './Login/changePass';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -16,5 +17,8 @@ export function registerScreen() {
   //Login
   Navigation.registerComponent('screen.Login', () =>
     gestureHandlerRootHOC(Login),
+  );
+  Navigation.registerComponent('screen.ChangePass', () =>
+    gestureHandlerRootHOC(ChangePass),
   );
 }

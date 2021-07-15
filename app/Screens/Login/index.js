@@ -126,10 +126,14 @@ class Login extends Component {
     this.setState({showSpinner: !this.state.showSpinner});
 
     await authService.login(value).then(res => {
+      console.log('is reset pass', res.Data.isResetPass);
+      //noted .. 0 = false, 1 = true dari res.Data.isResetPass
       if (!res.Error) {
-        if (!res.Data.isResetPass == 1) {
+        if (res.Data.isResetPass === false || !res.Data.isResetPass == 1) {
+          console.log('false');
           this.getTower(res);
         } else {
+          console.log('true');
           nav.push(this.props.componentId, 'screen.ChangePass', {
             email: res.Data.user,
           });

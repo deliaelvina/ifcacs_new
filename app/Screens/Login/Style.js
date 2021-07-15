@@ -2,6 +2,8 @@ export default {
   content: {
     width: '100%',
     justifyContent: 'center',
+    flex: 1,
+    // padding: 10,
   },
   wrap: {
     paddingHorizontal: 30,
