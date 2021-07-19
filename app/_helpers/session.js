@@ -4,6 +4,8 @@ export const sessions = {
   setSess,
   getSess,
   destroySess,
+  _getAllData,
+  _removeData,
 };
 
 async function setSess(name, data) {
@@ -34,5 +36,23 @@ async function destroySess() {
     console.log('Data Stored');
   } catch (error) {
     console.log('ErrorStoreData', error);
+  }
+}
+
+async function _getAllData() {
+  try {
+    const cb = await AsyncStorage.getAllKeys();
+    return cb;
+  } catch (exception) {
+    return false;
+  }
+}
+
+async function _removeData(key) {
+  try {
+    await AsyncStorage.removeItem(key);
+    return true;
+  } catch (exception) {
+    return false;
   }
 }

@@ -211,13 +211,25 @@ class Profile extends React.Component {
   };
 
   logout = async () => {
-    console.log('func logout');
     try {
       await sessions.destroySess();
+      const data = await sessions._getAllData();
+      data.map(val => {
+        if (val != '@isIntro') {
+          sessions._removeData(val);
+        }
+      });
       goToAuth();
     } catch (err) {
       console.log('error signing out...: ', err);
     }
+    // console.log('func logout');
+    // try {
+    //   await sessions.destroySess();
+    //   goToAuth();
+    // } catch (err) {
+    //   console.log('error signing out...: ', err);
+    // }
   };
 
   showAlertLogout(title, body) {

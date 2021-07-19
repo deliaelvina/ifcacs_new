@@ -109,15 +109,97 @@ export const goHome = () =>
 export const goToAuth = () =>
   Navigation.setRoot({
     root: {
-      stack: {
-        id: 'App',
+      bottomTabs: {
+        id: 'BottomTabsId',
         children: [
           {
-            component: {
-              name: 'screen.Login',
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'tab.Home',
+                    options: {
+                      // topBar:{
+                      //   visible:false,
+                      //   height:0
+                      // },
+
+                      animations: {
+                        push: {
+                          enabled: 'false',
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Home',
+                  icon: iconHome,
+                  iconInsets: {bottom: -5},
+                  iconColor: iconColor,
+                  textColor: iconColor,
+                  selectedIconColor: selectedColor,
+                  selectedTextColor: selectedColor,
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'tab.Profile',
+                    options: {
+                      topBar: {
+                        visible: false,
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Profile logout',
+                  icon: iconProfile,
+                  iconInsets: {bottom: -5},
+                  iconColor: iconColor,
+                  textColor: iconColor,
+                  selectedIconColor: selectedColor,
+                  selectedTextColor: selectedColor,
+                },
+              },
             },
           },
         ],
+        options: {
+          bottomTabs: {
+            visible: true,
+            animate: false,
+            translucent: false,
+            disableIconTint: true,
+            disableSelectedIconTint: true,
+            fontSize: 10,
+            titleDisplayMode: 'alwaysShow',
+          },
+        },
       },
     },
   });
+// Navigation.setRoot({
+//   root: {
+//     stack: {
+//       id: 'App',
+//       children: [
+//         {
+//           component: {
+//             // name: 'screen.Home',
+//             name: 'tab.Home',
+//           },
+//         },
+//       ],
+//     },
+//   },
+// });
