@@ -105,10 +105,10 @@ class ChangePass extends Component {
               marginLeft: 20,
               marginTop: 100, //this margin only for ios. if andro, please do condition
             }}>
-            <Image
+            {/* <Image
               style={{height: 48, width: 150}}
               source={require('@Asset/images/logo-login/alfaland-logo2.png')}
-            />
+            /> */}
           </View>
           <View style={nbStyles.wrap}>
             <PasswordInput

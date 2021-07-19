@@ -1,19 +1,20 @@
-import axios from "axios";
-import { configConstants } from "../_constants";
+import axios from 'axios';
+import {configConstants} from '../_constants';
 
 export const productService = {
-    getTower
+  getTower,
 };
 
-const { urlApi, headers } = configConstants;
+const {urlApi, headers} = configConstants;
 const api = `${urlApi}/c_product_info`;
 
 async function getTower(param) {
-    return await axios
-        .get(`${api}/getData/IFCAMOBILE/${param.email}/${param.app}`, {
-            headers
-        })
-        .then(res => {
-            return res.data;
-        });
+  return await axios
+    .get(`${api}/getData_oplus/IFCAMOBILE/${param.email}/${param.app}`, {
+      headers,
+    })
+    .then(res => {
+      console.log('res get tower', res);
+      return res.data;
+    });
 }

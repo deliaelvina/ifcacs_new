@@ -153,6 +153,7 @@ class Login extends Component {
 
   getTower = async rest => {
     let result = rest.Data;
+    console.log('result', result);
     const data = {
       email: this.state.emailTextInput,
       app: 'O',
@@ -166,9 +167,12 @@ class Login extends Component {
         console.log('resDataTower', resData);
       }
     });
+    // this.signIn(result); //langsung ke function signin, krn function prodcut
+    // goHome(); //sementara langsung ke home.
   };
 
   signIn = async res => {
+    console.log('res sign in', res);
     const {emailTextInput, passwordTextInput} = this.state;
     try {
       sessions.setSess('@UserId', res.UserId);
@@ -298,16 +302,16 @@ class Login extends Component {
       <NativeBaseProvider style={nbStyles.content}>
         <ImageBackground
           // source={require('@Img/bg-login/loginbg2.png')}
-          style={{flex: 1, resizeMode: 'cover'}}>
+          style={{flex: 1, resizeMode: 'cover', backgroundColor: '#'}}>
           {/* {this.renderHeader()} */}
           <OfflineNotice />
           <SafeAreaView>
             <View style={Style.LogoLeftTopWarp}>
-              {/* <Image
-                style={{height: 48, width: 150}}
-                source={require('@Asset/images/logo-login/alfaland-logo2.png')}
-              /> */}
-              <Text>Logo Ifca Engineering</Text>
+              <Image
+                style={{height: 150, width: 90}}
+                source={require('@Asset/images/logo-login/logo-login.png')}
+              />
+              {/* <Text>Logo Ifca Engineering</Text> */}
             </View>
 
             <View style={nbStyles.wrap}>

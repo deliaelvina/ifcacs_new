@@ -8,11 +8,19 @@ import Initializing from './Initializing';
 import Login from './Login';
 import ChangePass from './Login/changePass';
 
+//Profile
+import Profile from './Profile';
+
+//Home
+import Home from './Home';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
     gestureHandlerRootHOC(Initializing),
   );
+
+  Navigation.registerComponent('tab.Home', () => gestureHandlerRootHOC(Home));
 
   //Login
   Navigation.registerComponent('screen.Login', () =>
@@ -20,5 +28,10 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.ChangePass', () =>
     gestureHandlerRootHOC(ChangePass),
+  );
+
+  //Profile
+  Navigation.registerComponent('tab.Profile', () =>
+    gestureHandlerRootHOC(Profile),
   );
 }
