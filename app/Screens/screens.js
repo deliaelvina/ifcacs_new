@@ -14,6 +14,9 @@ import Profile from './Profile';
 //Home
 import Home from './Home';
 
+//Billing
+import Billing from './Billing';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -33,5 +36,10 @@ export function registerScreen() {
   //Profile
   Navigation.registerComponent('tab.Profile', () =>
     gestureHandlerRootHOC(Profile),
+  );
+
+  //Billing
+  Navigation.registerComponent('screen.Billing', () =>
+    gestureHandlerRootHOC(Billing),
   );
 }

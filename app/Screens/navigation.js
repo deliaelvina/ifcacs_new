@@ -9,17 +9,34 @@ let iconStatus;
 let iconEmergency;
 let iconInbox;
 let iconProfile;
+// if (Platform.OS == 'android') {
+//   iconHome = require('@Asset/icons/home.png');
+//   iconStatus = require('@Asset/icons/status.png');
+//   iconEmergency = require('@Asset/icons/emergency.png');
+//   iconInbox = require('@Asset/icons/notif.png');
+//   iconProfile = require('@Asset/icons/profile.png');
+// } else {
+//   iconHome = require('@Asset/icons/ios-home.png');
+//   iconStatus = require('@Asset/icons/ios-status.png');
+//   iconEmergency = require('@Asset/icons/ios-emergency.png');
+//   iconInbox = require('@Asset/icons/ios-notif.png');
+//   iconProfile = require('@Asset/icons/ios-profile.png');
+// }
 if (Platform.OS == 'android') {
   iconHome = require('@Asset/icons/home.png');
-  iconStatus = require('@Asset/icons/status.png');
-  iconEmergency = require('@Asset/icons/emergency.png');
-  iconInbox = require('@Asset/icons/notif.png');
+  iconStatus = require('@Asset/icons/emergency-call.png');
+
+  // iconEmergency = require('@Asset/icons/emergency.png')
+  // iconInbox = require('@Asset/icons/notif.png')
   iconProfile = require('@Asset/icons/profile.png');
 } else {
-  iconHome = require('@Asset/icons/ios-home.png');
-  iconStatus = require('@Asset/icons/ios-status.png');
-  iconEmergency = require('@Asset/icons/ios-emergency.png');
-  iconInbox = require('@Asset/icons/ios-notif.png');
+  // iconHome = require('@Asset/icons/ios-home.png')
+  iconHome = require('@Asset/icons/home-ios.png');
+  //   iconStatus = require('@Asset/icons/emergency-call-ios.png');
+  iconStatus = require('@Asset/icons/ios-emergency.png');
+  // iconStatus = require('@Asset/icons/ios-status.png')
+  // iconEmergency = require('@Asset/icons/ios-emergency.png')
+  // iconInbox = require('@Asset/icons/ios-notif.png')
   iconProfile = require('@Asset/icons/ios-profile.png');
 }
 

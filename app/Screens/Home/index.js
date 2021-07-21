@@ -42,7 +42,7 @@ import {
 } from '../../_services';
 import FlatListSlider from '@Component/FlatListSlider/FlatListSlider';
 
-// import InvoiceCard from '../../components/Home/InvoiceCard';
+import InvoiceCard from '../../components/Home/InvoiceCard';
 // import ItemCarousel from '../../components/ItemCarousel/item';
 // import LinearGradient from 'react-native-linear-gradient';
 
@@ -70,6 +70,8 @@ const data = [
   // { id: 'e', value: 'E', img: '@Asset/images/new/news/Shelton.jpg' },
   // { id: 'f', value: 'F', img: '@Asset/images/new/news/Shelton.jpg' },
 ];
+
+console.log('invoice', InvoiceCard);
 
 class Home extends React.Component {
   static options(passProps) {
@@ -108,7 +110,7 @@ class Home extends React.Component {
       isDisable: false,
       name: '',
       totalInvoice: 0,
-      totalInvoiceDue: '.00',
+      totalInvoiceDue: '0',
       dateNow: 0,
       token: '',
       username: '',
@@ -245,6 +247,31 @@ class Home extends React.Component {
       }
     }
   }
+
+  // getInvoice = async () => {
+  //   const {db_profile} = this.state.dataTower[0];
+  //   const data = {
+  //     cons: db_profile,
+  //     email: this.state.email,
+  //   };
+
+  //   dashboardService.getInvoice(data).then(res => {
+  //     const Data = res;
+  //     const inv = Data.totalInvoice;
+  //     const invDue = Data.totalInvoiceDue;
+  //     this.setState(
+  //       {
+  //         totalInvoice: inv,
+  //         totalInvoiceDue: invDue,
+  //         dateNow: Data.dateNow,
+  //       },
+  //       () => {
+  //         sessions.setSess('@TotalInvoiceDue', invDue);
+  //       },
+  //     );
+  //     this.setState({refreshing: false});
+  //   });
+  // };
 
   getProfile = () => {
     const data = {
@@ -383,6 +410,7 @@ class Home extends React.Component {
   render() {
     const {name} = this.state;
     const {user} = this.state;
+    console.log(this.state.totalInvoice);
 
     return (
       <NativeBaseProvider>
@@ -449,6 +477,7 @@ class Home extends React.Component {
               indicatorActiveWidth={30}
               animation
             />
+
             {user != null ? (
               <View
                 style={{
@@ -481,7 +510,8 @@ class Home extends React.Component {
                       marginLeft: 15,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      height: 60,
+                      height: 70,
+                      bottom: 5,
                     }}>
                     {/* <Icon name="receipt-outline" style={{ fontSize: 30, padding: 5, color: colors.bg_abuabu }}></Icon> */}
                     <View
@@ -508,9 +538,20 @@ class Home extends React.Component {
                           //fontFamily: 'Bold',
                           fontWeight: 'bold',
                         }}>
-                        INVOICE
+                        INVOICE DUE
                       </Text>
-                      <View style={{flexDirection: 'row'}}>
+                      <Text
+                        style={[
+                          Style.textGreyLight,
+                          {
+                            fontSize: 12,
+                            textAlign: 'left',
+                            fontWeight: '300',
+                          },
+                        ]}>
+                        Date {this.state.dateNow}
+                      </Text>
+                      <View style={{flexDirection: 'row', top: 10}}>
                         <Text
                           style={{
                             color: colors.bg_abuabu,
@@ -530,7 +571,7 @@ class Home extends React.Component {
                             // textAlign: 'right',
                             // flex: 1
                           }}>
-                          900,000,000.00
+                          {this.state.totalInvoice}
                         </Text>
                       </View>
                     </View>
@@ -541,7 +582,8 @@ class Home extends React.Component {
                       marginLeft: 15,
                       flexDirection: 'row',
                       alignItems: 'center',
-                      height: 60,
+                      height: 70,
+                      bottom: 5,
                     }}>
                     {/* <Icon name="receipt-outline" style={{ fontSize: 30, padding: 5, color: colors.bg_abuabu }}></Icon> */}
                     <View
@@ -559,44 +601,454 @@ class Home extends React.Component {
                         style={{width: 20, height: 20}}
                       />
                     </View>
-                    <View style={{flexGrow: 1, flexDirection: 'column'}}>
-                      <Text
-                        style={{
-                          color: colors.bg_abuabu,
-                          fontSize: 13,
-                          //fontFamily: 'Bold',
-                          fontWeight: 'bold',
-                        }}>
-                        TOTAL
-                      </Text>
-                      <Text
-                        style={{
-                          color: colors.bg_abuabu,
-                          fontSize: 15,
-                          //fontFamily: 'Bold',
-                          textAlign: 'left',
-                          fontWeight: 'bold',
-                        }}>
-                        20
-                      </Text>
-                    </View>
+                    <TouchableOpacity
+                      style={{flexGrow: 1, flexDirection: 'column'}}
+                      onPress={() =>
+                        this.handleNavigation(
+                          'screen.Billing',
+                          this.state.totalInvoiceDue,
+                        )
+                      }>
+                      <View>
+                        <Text
+                          style={{
+                            color: colors.bg_abuabu,
+                            fontSize: 13,
+                            //fontFamily: 'Bold',
+                            fontWeight: 'bold',
+                          }}>
+                          TOTAL
+                        </Text>
+                        <Text
+                          style={{
+                            color: colors.bg_abuabu,
+                            fontSize: 15,
+                            //fontFamily: 'Bold',
+                            textAlign: 'left',
+                            fontWeight: 'bold',
+                          }}>
+                          {this.state.totalInvoiceDue}
+                        </Text>
+                        <TouchableOpacity
+                          style={{top: 10}}
+                          onPress={
+                            () => alert(this.state.totalInvoiceDue)
+                            // this.handleNavigation(
+                            //   'screen.Billing',
+                            //   this.state.totalInvoiceDue,
+                            // )
+                          }>
+                          <Text style={{fontSize: 14, color: colors.bg_coklat}}>
+                            View all
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </TouchableOpacity>
                   </Col>
                 </Grid>
               </View>
             ) : (
               <View style={{marginBottom: 100}}></View>
             )}
+
+            {Platform.OS == 'ios' ? (
+              // {/* -------- MENU - MENU IOS----------- */}
+              <Grid>
+                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                    // // onPress={() => this.props.navigation.navigate('Cources')}
+                    // onPress={() => this.handleNavigation(
+                    //     "screen.Cources",
+                    //     // this.state.totalInvoiceDue
+                    // )}
+                    style={{
+                      flexDirection: 'column',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 100,
+                      width: '100%',
+                      paddingVertical: 10,
+
+                      paddingHorizontal: 5,
+                      marginBottom: 15,
+                      borderRadius: 20,
+                      textAlign: 'center',
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/billing.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View style={{flexGrow: 1, flexDirection: 'row'}}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 16,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                        }}>
+                        Billing
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+                <Col
+                  style={{
+                    height: 90,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    // paddingBottom: 10,
+                  }}>
+                  <TouchableOpacity
+                    // onPress={() => this.props.navigation.navigate('Cources')}
+                    // onPress={() => this.handleNavigation(
+                    //     "screen.Cources",
+                    //     // this.state.totalInvoiceDue
+                    // )}
+                    style={{
+                      flexDirection: 'column',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 100,
+                      width: '100%',
+                      paddingVertical: 10,
+                      borderRadius: 20,
+                      paddingHorizontal: 5,
+                      marginBottom: 10,
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/customerservice.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flexGrow: 1,
+                        flexDirection: 'row',
+                        flex: 1,
+                        flexWrap: 'wrap',
+                      }}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 15,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                          textAlign: 'center',
+                          // marginBottom: 10,
+                        }}>
+                        Customer Services
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                    // onPress={() =>
+                    //     Navigation.navigate('Amenities')
+                    // }
+                    onPress={() =>
+                      user != null
+                        ? this.handleNavigation(
+                            'screen.Amenities',
+                            this.state.totalInvoiceDue,
+                          )
+                        : alert('please login')
+                    }
+                    style={{
+                      flexDirection: 'column',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 100,
+                      width: '100%',
+                      paddingVertical: 10,
+                      borderRadius: 20,
+                      paddingHorizontal: 5,
+                      marginBottom: 10,
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/amenities2.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View style={{flexGrow: 1, flexDirection: 'row'}}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 15,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                        }}>
+                        Amenities
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+              </Grid>
+            ) : (
+              // {/* -------- END MENU - MENU IOS----------- */}
+              // {/* -------- MENU - MENU ANDRO----------- */}
+              <Grid>
+                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                    // // onPress={() => this.props.navigation.navigate('Cources')}
+                    // onPress={() => this.handleNavigation(
+                    //     "screen.Cources",
+                    //     // this.state.totalInvoiceDue
+                    // )}
+                    style={{
+                      flexDirection: 'row',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 80,
+                      width: '100%',
+                      paddingVertical: 10,
+
+                      paddingHorizontal: 5,
+                      marginBottom: 15,
+                      borderRadius: 20,
+                      textAlign: 'center',
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/billing.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View style={{flexGrow: 1, flexDirection: 'row'}}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 16,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                        }}>
+                        Billing
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                    // onPress={() => this.props.navigation.navigate('Cources')}
+                    // onPress={() => this.handleNavigation(
+                    //     "screen.Cources",
+                    //     // this.state.totalInvoiceDue
+                    // )}
+                    style={{
+                      flexDirection: 'row',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 80,
+                      width: '100%',
+                      paddingVertical: 10,
+                      borderRadius: 20,
+                      paddingHorizontal: 5,
+                      marginBottom: 10,
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/customerservice.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View
+                      style={{
+                        flexGrow: 1,
+                        flexDirection: 'row',
+                        flex: 1,
+                        flexWrap: 'wrap',
+                      }}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 15,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                        }}>
+                        Customer Services
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                    // onPress={() =>
+                    //     Navigation.navigate('Amenities')
+                    // }
+                    onPress={() =>
+                      user != null
+                        ? this.handleNavigation(
+                            'screen.Amenities',
+                            this.state.totalInvoiceDue,
+                          )
+                        : alert('please login')
+                    }
+                    style={{
+                      flexDirection: 'row',
+                      backgroundColor: '#fff',
+                      alignItems: 'center',
+
+                      height: 80,
+                      width: '100%',
+                      paddingVertical: 10,
+                      borderRadius: 20,
+                      paddingHorizontal: 5,
+                      marginBottom: 10,
+
+                      // -- create shadow
+                      shadowColor: '#000',
+                      shadowOffset: {
+                        width: 0,
+                        height: 1,
+                      },
+                      shadowOpacity: 0.22,
+                      shadowRadius: 2.22,
+                      elevation: 3,
+                      // -- end create shadow
+                    }}>
+                    <View
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('@Asset/icons/amenities2.png')}
+                        style={{width: 30, height: 30}}
+                      />
+                    </View>
+                    <View style={{flexGrow: 1, flexDirection: 'row'}}>
+                      <Text
+                        style={{
+                          color: colors.bg_abuabu,
+                          fontSize: 15,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                        }}>
+                        Amenities
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </Col>
+              </Grid>
+              // {/* -------- END MENU - MENU ANDRO----------- */}
+            )}
           </ScrollView>
         </ImageBackground>
       </NativeBaseProvider>
-
-      // <NativeBaseProvider>
-      //   <SafeAreaView style={{flex: 1}}>
-      //     <View>
-      //       <Text>ini home</Text>
-      //     </View>
-      //   </SafeAreaView>
-      // </NativeBaseProvider>
     );
   }
 }

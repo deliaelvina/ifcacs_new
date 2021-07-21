@@ -38,6 +38,9 @@ import nbStyles from './Style';
 import {goToAuth} from '../navigation';
 import {sessions} from '../../_helpers';
 import DeviceInfo from 'react-native-device-info';
+import colors from '../../Theme/Colors';
+import nbStyle from './Style';
+import FlatListMenu from '../../components/FlatListSlider/FlatListSlider';
 
 class Profile extends React.Component {
   static options(passProps) {
@@ -84,6 +87,12 @@ class Profile extends React.Component {
 
       dataProfile: [],
       modalVisible: false,
+      dataMenu: [
+        {id: '1', menu: 'info personal'},
+        {id: '2', menu: 'help'},
+        {id: '3', menu: 'about us'},
+        {id: '4', menu: 'sign out'},
+      ],
     };
 
     Navigation.events().bindComponent(this);
@@ -96,6 +105,7 @@ class Profile extends React.Component {
       token: await sessions.getSess('@Token'),
       userId: await sessions.getSess('@UserId'),
       mounted: true,
+      isLogin: await sessions.getSess('@isLogin'),
     };
     console.log('data sess profil', data);
     this.setState(data, () => this.getProfile());
@@ -232,6 +242,20 @@ class Profile extends React.Component {
     // }
   };
 
+  handleNavigation = screenName => {
+    this.setState({isDisable: true}, () => {
+      this.goToScreen(screenName);
+    });
+  };
+
+  goToScreen = screenName => {
+    Navigation.push(this.props.componentId, {
+      component: {
+        name: screenName,
+      },
+    });
+  };
+
   showAlertLogout(title, body) {
     Alert.alert(
       title,
@@ -247,6 +271,7 @@ class Profile extends React.Component {
   }
 
   render() {
+    let {fotoProfil} = this.state;
     const {name} = this.state;
     return (
       <NativeBaseProvider>
@@ -254,7 +279,151 @@ class Profile extends React.Component {
           <View>
             <Text>ini profil</Text>
           </View>
-          <Button onPress={() => this.setModalVisible(true)}>Logout</Button>
+          {/* <Button onPress={() => this.setModalVisible(true)}>Logout</Button> */}
+
+          {this.state.isLogin == true ? (
+            <View>
+              <View style={{top: '5%'}}>
+                <Text
+                  style={{
+                    color: colors.bg_putih,
+                    fontSize: 20,
+                    textAlign: 'center',
+                  }}>
+                  Profile
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: colors.bg_putih,
+                  borderTopLeftRadius: 60,
+                  borderTopRightRadius: 60,
+                  top: '10%',
+                  height: '100%',
+                }}>
+                {/* ----- image foto profil ------ */}
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 20,
+                  }}>
+                  <Image
+                    source={fotoProfil}
+                    style={{
+                      borderRadius: 40,
+                      width: 80,
+                      height: 80,
+                    }}
+                  />
+                </View>
+                {/* ----- end image foto profil ------ */}
+
+                {/* ------ content profil -------  */}
+                <View
+                  style={{
+                    marginTop: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 20,
+                  }}>
+                  <Text style={{fontSize: 18, color: colors.bg_abuabu}}>
+                    {this.state.username}
+                  </Text>
+                  <Text style={{fontSize: 14, color: colors.bg_hijaugelap}}>
+                    {this.state.email}
+                  </Text>
+                </View>
+
+                {/* ----- menu profil ---- */}
+                {this.state.dataMenu.map((item, index) => (
+                  // <View key={index}>
+                  <FlatListMenu
+                    key={index}
+                    onPress={() => this.btnLogout()}
+                    bg={colors.bg_putih}
+                    menu_name={item.menu}
+                    borderColor={colors.bg_coklat}></FlatListMenu>
+                  // </View>
+                ))}
+                {/* ----- end menu profil ---- */}
+
+                {/* ------ end content profil -------  */}
+
+                {/* ------ button logout ------ */}
+                {/* <View style={{ alignItems: 'center', marginTop: 20 }}>
+                                <TouchableOpacity
+                                    style={{ backgroundColor: colors.bg_putih, borderColor: colors.bg_coklat, borderWidth: 1, padding: 10, borderRadius: 10, width: 100 }}
+                                    // onPress={() => this.btnLogout()}
+                                    // onPress={() => this.handleNavigation(
+                                    //     "screen.Login"
+
+                                    // )}
+                                    // onPress={() => nav.push(this.props.componentId, "screen.Login")}
+                                    onPress={() => this.btnLogout()}
+                                >
+                                    <Text style={{ color: colors.bg_coklat, textAlign: 'center' }}>
+                                        Sign out
+                                    </Text>
+                                </TouchableOpacity>
+                            </View> */}
+                <Button onPress={() => this.setModalVisible(true)}>
+                  Logout
+                </Button>
+
+                {/* ------ end button logout ------ */}
+              </View>
+            </View>
+          ) : (
+            <View>
+              <View style={{top: '5%'}}>
+                <Text
+                  style={{
+                    color: colors.bg_abuabu,
+                    fontSize: 18,
+                    textAlign: 'center',
+                  }}>
+                  Profile
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  backgroundColor: colors.bg_putih,
+                  borderTopLeftRadius: 60,
+                  borderTopRightRadius: 60,
+                  top: '10%',
+                  height: '100%',
+                }}>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    source={fotoProfil}
+                    style={{
+                      borderRadius: 40,
+                      width: 80,
+                      height: 80,
+                    }}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={nbStyle.btnYes}
+                  // onPress={() => this.btnLogout()}
+                  onPress={() => this.handleNavigation('screen.Login')}
+                  // onPress={() => nav.push(this.props.componentId, "screen.Login")}
+                  // onPress={() =>
+                  //   nav.push(this.props.componentId, 'screen.Login')
+                  // }
+                >
+                  <Text style={nbStyle.textYes}>login</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
 
           <Modal
             animationType="slide"
