@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "ifcaengineer.app"
-               BlueprintName = "ifcaengineer"
-               ReferencedContainer = "container:ifcaengineer.xcodeproj">
+               BuildableName = "ifcacs.app"
+               BlueprintName = "ifcacs"
+               ReferencedContainer = "container:ifcacs.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "ifcaengineerTests.xctest"
-               BlueprintName = "ifcaengineerTests"
-               ReferencedContainer = "container:ifcaengineer.xcodeproj">
+               BuildableName = "ifcacsTests.xctest"
+               BlueprintName = "ifcacsTests"
+               ReferencedContainer = "container:ifcacs.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ifcaengineer.app"
-            BlueprintName = "ifcaengineer"
-            ReferencedContainer = "container:ifcaengineer.xcodeproj">
+            BuildableName = "ifcacs.app"
+            BlueprintName = "ifcacs"
+            ReferencedContainer = "container:ifcacs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "ifcaengineer.app"
-            BlueprintName = "ifcaengineer"
-            ReferencedContainer = "container:ifcaengineer.xcodeproj">
+            BuildableName = "ifcacs.app"
+            BlueprintName = "ifcacs"
+            ReferencedContainer = "container:ifcacs.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,4 +1,4 @@
-package com.ifcaengineer;
+package com.ifcacs;
 
 import com.reactnativenavigation.NavigationActivity;
 
