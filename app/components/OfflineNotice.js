@@ -8,12 +8,13 @@ import {
   Platform,
 } from 'react-native';
 const {width} = Dimensions.get('window');
-const startTop = 30;
+let startTop = 30;
 if (Platform.OS == 'android') {
   // startTop = 100 + StatusBar.currentHeight;
   startTop = 0;
 }
 import NetInfo from '@react-native-community/netinfo';
+import {left} from 'styled-system';
 
 const unsubscribe = NetInfo.addEventListener(state => {
   console.log('Connection type', state.type);

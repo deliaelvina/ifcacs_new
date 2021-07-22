@@ -30,7 +30,7 @@ import {
 } from 'native-base';
 
 class Billing extends React.Component {
-  _isMounted: false;
+  // _isMounted: false;
 
   static options(passProps) {
     return {

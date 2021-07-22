@@ -124,10 +124,25 @@ export const goHome = () =>
   });
 
 export const goToAuth = () =>
+  // Navigation.setRoot({
+  //   root: {
+  //     stack: {
+  //       id: 'App',
+  //       children: [
+  //         {
+  //           component: {
+  //             // name: 'screen.Home',
+  //             name: 'tab.Home',
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   },
+  // });
   Navigation.setRoot({
     root: {
       bottomTabs: {
-        id: 'BottomTabsId',
+        id: 'App',
         children: [
           {
             stack: {
@@ -205,18 +220,3 @@ export const goToAuth = () =>
       },
     },
   });
-// Navigation.setRoot({
-//   root: {
-//     stack: {
-//       id: 'App',
-//       children: [
-//         {
-//           component: {
-//             // name: 'screen.Home',
-//             name: 'tab.Home',
-//           },
-//         },
-//       ],
-//     },
-//   },
-// });
