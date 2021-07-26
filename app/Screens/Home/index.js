@@ -32,7 +32,7 @@ import {
 import {Navigation} from 'react-native-navigation';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import Style from '../../Theme/Style';
-import OfflineNotice from '@Component/OfflineNotice';
+// import OfflineNotice from '@Component/OfflineNotice';
 import {sessions} from '../../_helpers';
 import colors from '../../Theme/Colors';
 import {
@@ -40,7 +40,6 @@ import {
   // dashboardService,
   // newsService
 } from '../../_services';
-import FlatListSlider from '@Component/FlatListSlider/FlatListSlider';
 
 import InvoiceCard from '../../components/Home/InvoiceCard';
 // import ItemCarousel from '../../components/ItemCarousel/item';
@@ -420,7 +419,7 @@ class Home extends React.Component {
             height: '100%',
             backgroundColor: colors.bg_peach,
           }}>
-          <OfflineNotice />
+          {/* <OfflineNotice /> */}
           <SafeAreaView
             style={{backgroundColor: colors.bg_hijautua, height: 130}}>
             <View style={{flexDirection: 'row'}}>
@@ -467,17 +466,6 @@ class Home extends React.Component {
           </SafeAreaView>
 
           <ScrollView>
-            <FlatListSlider
-              data={this.state.datagambar}
-              timer={5000}
-              onPress={item => alert(JSON.stringify(item))}
-              indicatorContainerStyle={{position: 'absolute', bottom: 20}}
-              indicatorActiveColor={'#8e44ad'}
-              indicatorInActiveColor={'#ffffff'}
-              indicatorActiveWidth={30}
-              animation
-            />
-
             {user != null ? (
               <View
                 style={{

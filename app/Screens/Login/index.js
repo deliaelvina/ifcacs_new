@@ -132,6 +132,7 @@ class Login extends Component {
     this.setState({showSpinner: !this.state.showSpinner});
     this.setState({isLoading: true});
     await authService.login(value).then(res => {
+      console.log('res di lgin', res);
       if (res.Error === false || !res.Error) {
         console.log('errorr false');
         if (res.Data.isResetPass === false || !res.Data.isResetPass == 1) {

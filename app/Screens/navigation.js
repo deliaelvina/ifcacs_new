@@ -142,7 +142,7 @@ export const goToAuth = () =>
   Navigation.setRoot({
     root: {
       bottomTabs: {
-        id: 'App',
+        id: 'BottomTabsId',
         children: [
           {
             stack: {

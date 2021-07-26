@@ -40,7 +40,6 @@ import {sessions} from '../../_helpers';
 import DeviceInfo from 'react-native-device-info';
 import colors from '../../Theme/Colors';
 import nbStyle from './Style';
-import FlatListMenu from '../../components/FlatListSlider/FlatListSlider';
 
 class Profile extends React.Component {
   static options(passProps) {
@@ -337,16 +336,7 @@ class Profile extends React.Component {
                 </View>
 
                 {/* ----- menu profil ---- */}
-                {this.state.dataMenu.map((item, index) => (
-                  // <View key={index}>
-                  <FlatListMenu
-                    key={index}
-                    onPress={() => this.btnLogout()}
-                    bg={colors.bg_putih}
-                    menu_name={item.menu}
-                    borderColor={colors.bg_coklat}></FlatListMenu>
-                  // </View>
-                ))}
+
                 {/* ----- end menu profil ---- */}
 
                 {/* ------ end content profil -------  */}

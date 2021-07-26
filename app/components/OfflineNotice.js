@@ -62,13 +62,13 @@ class OfflineNotice extends React.Component {
     NetInfo.addEventListener(this.handleConnectivityChange);
   }
 
-  componentWillUnmount() {
-    unsubscribe();
-    // NetInfo.removeEventListener(
-    //   'connectionChange',
-    //   this.handleConnectivityChange,
-    // );
-  }
+  // UNSAFE_componentWillUnmount() {
+  //   unsubscribe();
+  //   // NetInfo.removeEventListener(
+  //   //   'connectionChange',
+  //   //   this.handleConnectivityChange,
+  //   // );
+  // }
 
   handleConnectivityChange = networkStatus => {
     console.log('network status', networkStatus);
