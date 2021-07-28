@@ -41,36 +41,21 @@ import {
   // newsService
 } from '../../_services';
 
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import SliderEntry from '@Component/SliderEntry/SliderEntry';
+import styleSlider from './styleSlider';
+import ItemsHeader from '../../components/SliderEntry/ItemsHeader';
+
 import InvoiceCard from '../../components/Home/InvoiceCard';
+import {color} from 'styled-system';
 // import ItemCarousel from '../../components/ItemCarousel/item';
 // import LinearGradient from 'react-native-linear-gradient';
 
-const data = [
-  {
-    id: 'ini judul untuk news',
-    value:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
-    img: '@Asset/images/new/news/Shelton.jpg',
-  },
-  {
-    id: 'ini judul untuk news',
-    value:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
-    img: '@Asset/images/new/news/Shelton.jpg',
-  },
-  {
-    id: 'ini judul untuk news',
-    value:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum',
-    img: '@Asset/images/new/news/Shelton.jpg',
-  },
-  // { id: 'c', value: 'C', img: '@Asset/images/new/news/Shelton.jpg' },
-  // { id: 'd', value: 'D', img: '@Asset/images/new/news/Shelton.jpg' },
-  // { id: 'e', value: 'E', img: '@Asset/images/new/news/Shelton.jpg' },
-  // { id: 'f', value: 'F', img: '@Asset/images/new/news/Shelton.jpg' },
-];
+const IS_ANDROID = Platform.OS === 'android';
+const SLIDER_1_FIRST_ITEM = 0;
+const {height, width} = Dimensions.get('window');
 
-console.log('invoice', InvoiceCard);
+// console.log('invoice', InvoiceCard);
 
 class Home extends React.Component {
   static options(passProps) {
@@ -123,6 +108,32 @@ class Home extends React.Component {
 
       scrollY: new Animated.Value(0),
       noOfPic: 2,
+
+      //for carousel
+      activeIndex: 0,
+      carouselItems: [
+        {
+          title: 'Item 1',
+          text: 'Text 1',
+        },
+        {
+          title: 'Item 2',
+          text: 'Text 2',
+        },
+        {
+          title: 'Item 3',
+          text: 'Text 3',
+        },
+        {
+          title: 'Item 4',
+          text: 'Text 4',
+        },
+        {
+          title: 'Item 5',
+          text: 'Text 5',
+        },
+      ],
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
 
       datagambar: [
         {
@@ -245,6 +256,69 @@ class Home extends React.Component {
         this.getProfile();
       }
     }
+  }
+
+  //for carousel promo header
+  renderHeaderCarousel = ({item, index}, parallaxProps) => {
+    return (
+      <ItemsHeader
+        item={item}
+        even={(index + 1) % 2 === 0}
+        parallax={true}
+        parallaxProps={parallaxProps}
+        // onPress={() => this.handleNavigation('screen.NewsDetail', item.id)}
+      />
+    );
+  };
+
+  headerCarousel() {
+    const {slider1ActiveSlide} = this.state;
+    return (
+      <View>
+        <Carousel
+          autoplay={true}
+          sliderWidth={width}
+          sliderHeight={width}
+          itemWidth={width - 25}
+          data={this.state.datagambar}
+          renderItem={this.renderHeaderCarousel}
+          hasParallaxImages={true}
+          //dari atas
+          loop={true}
+          inactiveSlideScale={0.94}
+          inactiveSlideOpacity={0.7}
+          loopClonesPerSide={1}
+          firstItem={SLIDER_1_FIRST_ITEM}
+          ref={c => (this._slider1Ref = c)}
+          onSnapToItem={index => this.setState({slider1ActiveSlide: index})}
+        />
+        <Pagination
+          dotsLength={this.state.datagambar.length}
+          activeDotIndex={slider1ActiveSlide}
+          containerStyle={{
+            paddingTop: 8,
+            paddingBottom: 0,
+            marginBottom: 0,
+            // backgroundColor: '#000',
+          }}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            // marginHorizontal: 8,
+            backgroundColor: 'rgba(255, 255, 255, 0.92)',
+            // marginTop: 5,
+            paddingTop: 0,
+            top: 0,
+          }}
+          carouselRef={this._slider1Ref}
+          tappableDots={!!this._slider1Ref}
+          inactiveDotStyle={{backgroundColor: colors.goldUrban}}
+          inactiveDotOpacity={0.4}
+          delayPressInDot={500}
+        />
+      </View>
+    );
   }
 
   // getInvoice = async () => {
@@ -409,7 +483,9 @@ class Home extends React.Component {
   render() {
     const {name} = this.state;
     const {user} = this.state;
-    console.log(this.state.totalInvoice);
+    console.log('total invoice', this.state.totalInvoice);
+
+    const headerCarousel = this.headerCarousel();
 
     return (
       <NativeBaseProvider>
@@ -466,6 +542,8 @@ class Home extends React.Component {
           </SafeAreaView>
 
           <ScrollView>
+            {/* {example1} */}
+            {headerCarousel}
             {user != null ? (
               <View
                 style={{
@@ -636,7 +714,7 @@ class Home extends React.Component {
                 </Grid>
               </View>
             ) : (
-              <View style={{marginBottom: 100}}></View>
+              <View style={{marginBottom: 25}}></View>
             )}
 
             {Platform.OS == 'ios' ? (

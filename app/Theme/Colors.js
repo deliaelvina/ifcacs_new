@@ -16,7 +16,7 @@ const colors = {
   bloodOrange: '#fb5f26',
   yellowsoft: '#faf9f0',
   snow: 'white',
-  black: 'black',
+  black: '#000000',
   ember: 'rgba(164, 0, 48, 0.5)',
   fire: '#e73536',
   redWine: '#a61f21',

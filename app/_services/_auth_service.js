@@ -8,16 +8,31 @@ export const authService = {
 };
 
 const {urlApi, headers} = configConstants;
-const api = `${urlApi}/c_auth`;
-console.log('apo', api);
+console.log('urlapi', urlApi);
+// const api = `${urlApi}/c_auth`;
+// console.log('apo', api);
 
+// async function login(datas) {
+//   const data = datas;
+//   console.log('data', data);
+//   return await axios
+//     .post(`${api}/Login`, data, {headers})
+//     .then(res => {
+//       console.log(res);
+//       return res.data;
+//     })
+//     .catch(err => {
+//       console.log('err', err);
+//       alert('error nih');
+//     });
+// }
 async function login(datas) {
   const data = datas;
   console.log('data', data);
   return await axios
-    .post(`${api}/Login`, data, {headers})
+    .post(`${urlApi}`, data, {headers})
     .then(res => {
-      console.log(res);
+      console.log('res urlapi', res);
       return res.data;
     })
     .catch(err => {

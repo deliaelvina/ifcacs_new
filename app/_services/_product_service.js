@@ -6,11 +6,23 @@ export const productService = {
 };
 
 const {urlApi, headers} = configConstants;
-const api = `${urlApi}/c_product_info`;
+
+// const api = `${urlApi}/c_product_info`;
+
+// async function getTower(param) {
+//   return await axios
+//     .get(`${api}/getData_oplus/IFCAMOBILE/${param.email}/${param.app}`, {
+//       headers,
+//     })
+//     .then(res => {
+//       console.log('res get tower', res);
+//       return res.data;
+//     });
+// }
 
 async function getTower(param) {
   return await axios
-    .get(`${api}/getData_oplus/IFCAMOBILE/${param.email}/${param.app}`, {
+    .get(`${urlApi}/getTower/IFCAMOBILE/${param.email}/${param.app}`, {
       headers,
     })
     .then(res => {
