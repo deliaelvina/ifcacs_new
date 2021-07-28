@@ -45,6 +45,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SliderEntry from '@Component/SliderEntry/SliderEntry';
 import styleSlider from './styleSlider';
 import ItemsHeader from '../../components/SliderEntry/ItemsHeader';
+// import {sliderWidth, itemWidth} from '../../components/SliderEntry/Style';
 
 import InvoiceCard from '../../components/Home/InvoiceCard';
 import {color} from 'styled-system';
@@ -72,7 +73,7 @@ class Home extends React.Component {
       },
       statusBar: {
         style: isIos ? 'dark' : 'light',
-        backgroundColor: '#008bbf',
+        backgroundColor: '#000000',
       },
     };
   }
@@ -193,6 +194,20 @@ class Home extends React.Component {
           image:
             'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
         },
+        {
+          id: 'd',
+          judul: 'Promo Galon 15%',
+          date: '6/6/2021',
+          image:
+            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+        },
+        {
+          id: 'e',
+          judul: 'Promo Sembako 20%',
+          date: '6/6/2021',
+          image:
+            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+        },
       ],
     };
 
@@ -260,6 +275,7 @@ class Home extends React.Component {
 
   //for carousel promo header
   renderHeaderCarousel = ({item, index}, parallaxProps) => {
+    console.log('index render carousel', index);
     return (
       <ItemsHeader
         item={item}
@@ -271,30 +287,33 @@ class Home extends React.Component {
     );
   };
 
-  headerCarousel() {
-    const {slider1ActiveSlide} = this.state;
+  headerCarousel(number, title) {
+    // const slider1ActiveSlide = this.state;
     return (
       <View>
         <Carousel
-          autoplay={true}
-          sliderWidth={width}
+          sliderWidth={width + 25}
           sliderHeight={width}
-          itemWidth={width - 25}
-          data={this.state.datagambar}
-          renderItem={this.renderHeaderCarousel}
-          hasParallaxImages={true}
-          //dari atas
-          loop={true}
+          itemWidth={width}
           inactiveSlideScale={0.94}
           inactiveSlideOpacity={0.7}
-          loopClonesPerSide={1}
           firstItem={SLIDER_1_FIRST_ITEM}
           ref={c => (this._slider1Ref = c)}
+          //dari google
+          // layout={'default'}
+          data={this.state.datapromo}
+          autoplayInterval={4000}
+          autoplay
+          loop
+          hasParallaxImages={true}
+          inactiveSlideScale={1}
+          loopClonesPerSide={this.state.datapromo.length - 1}
+          renderItem={this.renderHeaderCarousel}
           onSnapToItem={index => this.setState({slider1ActiveSlide: index})}
         />
         <Pagination
-          dotsLength={this.state.datagambar.length}
-          activeDotIndex={slider1ActiveSlide}
+          dotsLength={this.state.datapromo.length}
+          activeDotIndex={this.state.slider1ActiveSlide}
           containerStyle={{
             paddingTop: 8,
             paddingBottom: 0,

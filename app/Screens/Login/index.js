@@ -36,7 +36,7 @@ import {USER_KEY} from '../config';
 import OfflineNotice from '@Component/OfflineNotice';
 import {_storeData, _getData} from '@Component/StoreAsync';
 import {urlApi} from '@Config';
-import {authService, productService} from '../../_services';
+import {authService, contactService, productService} from '../../_services';
 import {nav, sessions} from '../../_helpers';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -161,6 +161,7 @@ class Login extends Component {
     };
 
     await productService.getTower(data).then(res => {
+      console.log('res get tower service', res);
       if (res.Error === false) {
         let resData = res.Data;
         result['UserProject'] = resData;

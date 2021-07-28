@@ -9,7 +9,7 @@ export const authService = {
 
 const {urlApi, headers} = configConstants;
 console.log('urlapi', urlApi);
-// const api = `${urlApi}/c_auth`;
+const api = `${urlApi}/login_mobile`;
 // console.log('apo', api);
 
 // async function login(datas) {
@@ -29,8 +29,9 @@ console.log('urlapi', urlApi);
 async function login(datas) {
   const data = datas;
   console.log('data', data);
+  console.log('urlapi login', urlApi);
   return await axios
-    .post(`${urlApi}`, data, {headers})
+    .post(`${api}`, data, {headers})
     .then(res => {
       console.log('res urlapi', res);
       return res.data;

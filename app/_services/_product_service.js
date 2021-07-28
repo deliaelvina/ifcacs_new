@@ -21,8 +21,10 @@ const {urlApi, headers} = configConstants;
 // }
 
 async function getTower(param) {
+  console.log('urlapi', urlApi);
+  console.log('params', param);
   return await axios
-    .get(`${urlApi}/getTower/IFCAMOBILE/${param.email}/${param.app}`, {
+    .get(`${urlApi}/getData/mysql/${param.email}/${param.app}`, {
       headers,
     })
     .then(res => {
