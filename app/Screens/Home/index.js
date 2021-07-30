@@ -486,7 +486,12 @@ class Home extends React.Component {
     this.setState({refreshing: true});
     // this.loadData()
     this.getInvoice();
+
+    this.getNews();
+    this.getPromo();
+    this.getAnnouncement();
   };
+
   handleNavigation = (screenName, passedProps) => {
     this.setState({isDisable: true}, () => {
       this.goToScreen(screenName, passedProps);
@@ -524,14 +529,17 @@ class Home extends React.Component {
           }}>
           {/* <OfflineNotice /> */}
           <SafeAreaView
-            style={{backgroundColor: colors.bg_hijautua, height: 130}}>
+            style={{
+              backgroundColor: colors.bg_hijautua,
+              height: Platform.OS === 'ios' ? 130 : 100,
+            }}>
             <View style={{flexDirection: 'row'}}>
               <View>
                 <Text
                   style={{
                     paddingHorizontal: 15,
                     fontSize: 20,
-                    paddingTop: 20,
+                    paddingTop: Platform.OS === 'ios' ? 20 : 30,
                     //fontFamifly: 'Bold',
 
                     color: '#fff',
@@ -746,7 +754,7 @@ class Home extends React.Component {
 
             {Platform.OS == 'ios' ? (
               // {/* -------- MENU - MENU IOS----------- */}
-              <Grid>
+              <Grid style={{paddingBottom: 20}}>
                 <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
                   <TouchableOpacity
                     // // onPress={() => this.props.navigation.navigate('Cources')}
@@ -1197,7 +1205,7 @@ class Home extends React.Component {
                     // -- end create shadow
                   }}>
                   <View style={{flexDirection: 'column', width: '100%'}}>
-                    {this.state.announce ? (
+                    {this.state.announce.length != 0 ? (
                       <View>
                         <View>
                           <Text

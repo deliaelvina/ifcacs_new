@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, Image, Linking} from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  Linking,
+  Platform,
+} from 'react-native';
 // import ProgressCircle from 'react-native-progress-circle'
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../../Theme/Colors';
@@ -33,11 +40,19 @@ export default class PromoList extends React.Component {
         }}>
         <Image
           source={img}
+          // style={{
+          //   width: 100,
+          //   height: 100,
+          //   borderRadius: 20,
+          //   resizeMode: 'contain',
+          // }}
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 20,
-            resizeMode: 'contain',
+            marginTop: Platform.OS === 'ios' ? 12 : 0,
+            marginBottom: Platform.OS === 'ios' ? 12 : 0,
+            width: Platform.OS === 'ios' ? 100 : 100,
+            height: Platform.OS === 'ios' ? 75 : 100,
+            borderRadius: Platform.OS === 'ios' ? 15 : 20,
+            resizeMode: Platform.OS === 'ios' ? 'contain' : 'contain',
           }}
         />
 
