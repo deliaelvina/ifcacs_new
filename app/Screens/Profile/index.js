@@ -194,7 +194,8 @@ class Profile extends React.Component {
     console.log('formdata btn logout', formData);
 
     // console.log(this.state.token);
-    fetch(urlApi + 'c_auth/Logout/' + this.state.email, {
+    console.log('urlapi', urlApi);
+    fetch(urlApi + '/LoginMobileControler/Logout/' + this.state.email, {
       // method: 'GET', //awalnya get.
       method: 'POST', //pake post krn ngikutin logout di urban mobile
       body: JSON.stringify(formData),

@@ -275,7 +275,7 @@ class Home extends React.Component {
 
   //for carousel promo header
   renderHeaderCarousel = ({item, index}, parallaxProps) => {
-    console.log('index render carousel', index);
+    // console.log('index render carousel', index);s
     return (
       <ItemsHeader
         item={item}
@@ -940,7 +940,7 @@ class Home extends React.Component {
               // {/* -------- END MENU - MENU IOS----------- */}
               // {/* -------- MENU - MENU ANDRO----------- */}
               <Grid>
-                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                <Col style={{height: 110, paddingLeft: 10, paddingRight: 10}}>
                   <TouchableOpacity
                     // // onPress={() => this.props.navigation.navigate('Cources')}
                     // onPress={() => this.handleNavigation(
@@ -948,11 +948,11 @@ class Home extends React.Component {
                     //     // this.state.totalInvoiceDue
                     // )}
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: 'column',
                       backgroundColor: '#fff',
                       alignItems: 'center',
 
-                      height: 80,
+                      height: 100,
                       width: '100%',
                       paddingVertical: 10,
 
@@ -1000,7 +1000,13 @@ class Home extends React.Component {
                     </View>
                   </TouchableOpacity>
                 </Col>
-                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                <Col
+                  style={{
+                    height: 110,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    // paddingBottom: 10,
+                  }}>
                   <TouchableOpacity
                     // onPress={() => this.props.navigation.navigate('Cources')}
                     // onPress={() => this.handleNavigation(
@@ -1008,11 +1014,11 @@ class Home extends React.Component {
                     //     // this.state.totalInvoiceDue
                     // )}
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: 'column',
                       backgroundColor: '#fff',
                       alignItems: 'center',
 
-                      height: 80,
+                      height: 100,
                       width: '100%',
                       paddingVertical: 10,
                       borderRadius: 20,
@@ -1058,13 +1064,15 @@ class Home extends React.Component {
                           fontSize: 15,
                           //fontFamily: 'Bold',
                           paddingLeft: 5,
+                          textAlign: 'center',
+                          // marginBottom: 10,
                         }}>
                         Customer Services
                       </Text>
                     </View>
                   </TouchableOpacity>
                 </Col>
-                <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                <Col style={{height: 110, paddingLeft: 10, paddingRight: 10}}>
                   <TouchableOpacity
                     // onPress={() =>
                     //     Navigation.navigate('Amenities')
@@ -1078,11 +1086,11 @@ class Home extends React.Component {
                         : alert('please login')
                     }
                     style={{
-                      flexDirection: 'row',
+                      flexDirection: 'column',
                       backgroundColor: '#fff',
                       alignItems: 'center',
 
-                      height: 80,
+                      height: 100,
                       width: '100%',
                       paddingVertical: 10,
                       borderRadius: 20,
@@ -1131,6 +1139,181 @@ class Home extends React.Component {
               </Grid>
               // {/* -------- END MENU - MENU ANDRO----------- */}
             )}
+
+            {/* --------- ANNOUNCEMENT ------- */}
+            <View style={{paddingLeft: 10, paddingTop: 15}}>
+              <Text
+                style={{
+                  color: colors.bg_abuabu,
+                  fontSize: 16,
+                  //fontFamily: 'Bold',
+                  textAlign: 'left',
+                  width: '100%',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                }}>
+                Announcement
+              </Text>
+            </View>
+            <Grid style={{paddingTop: 10}}>
+              <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                <TouchableOpacity
+                  // // onPress={() => this.props.navigation.navigate('Cources')}
+                  // onPress={() => this.handleNavigation(
+                  //     "screen.Cources",
+                  //     // this.state.totalInvoiceDue
+                  // )}
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: '#fff',
+                    alignItems: 'center',
+
+                    height: 80,
+                    width: '100%',
+                    paddingVertical: 10,
+
+                    paddingHorizontal: 10,
+                    marginBottom: 15,
+                    borderRadius: 20,
+                    // textAlign: 'center',
+
+                    // -- create shadow
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 1,
+                    },
+                    shadowOpacity: 0.22,
+                    shadowRadius: 2.22,
+                    elevation: 3,
+                    // -- end create shadow
+                  }}>
+                  <View style={{flexDirection: 'column', width: '100%'}}>
+                    {this.state.announce ? (
+                      <View>
+                        <View>
+                          <Text
+                            style={{
+                              color: colors.bg_abuabu,
+                              fontSize: 16,
+                              //fontFamily: 'Bold',
+                              textAlign: 'center',
+                              width: '100%',
+                              fontWeight: 'bold',
+                            }}>
+                            {this.state.announce.announce_title}
+                          </Text>
+                        </View>
+                        <View>
+                          <Text
+                            style={{
+                              color: colors.bg_abuabu,
+                              fontSize: 14,
+                              //fontFamily: 'Bold',
+                              textAlign: 'center',
+                              width: '100%',
+                            }}>
+                            {this.state.announce.announce_descs}
+                          </Text>
+                        </View>
+                      </View>
+                    ) : (
+                      <View>
+                        <View>
+                          <Text
+                            style={{
+                              color: colors.bg_abuabu,
+                              fontSize: 16,
+                              //fontFamily: 'Bold',
+                              textAlign: 'center',
+                              width: '100%',
+                              fontWeight: 'bold',
+                            }}>
+                            Announcement
+                          </Text>
+                        </View>
+                        <View>
+                          <Text
+                            style={{
+                              color: colors.bg_abuabu,
+                              fontSize: 14,
+                              //fontFamily: 'Bold',
+                              textAlign: 'center',
+                              width: '100%',
+                            }}>
+                            No Announcement
+                          </Text>
+                        </View>
+                      </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              </Col>
+            </Grid>
+            {/* --------- END ANNOUNCEMENT ------- */}
+
+            {/* -------- PROMOTIONS -------- */}
+            <View style={{paddingLeft: 10, paddingTop: 15}}>
+              <Text
+                style={{
+                  color: colors.bg_abuabu,
+                  fontSize: 16,
+                  //fontFamily: 'Bold',
+                  textAlign: 'left',
+                  width: '100%',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                }}>
+                Promotions
+              </Text>
+            </View>
+            {/* ----- tampilan awal promo, list seperti biasa  */}
+            <View style={{paddingBottom: 10}}>
+              {this.state.promo.map((item, index) => (
+                <PromoList
+                  key={index}
+                  img={{uri: item.url_image}}
+                  title={item.promo_title}
+                  // bg={index % 2 === 0 ? "#fdddf3" : "#fef8e3"} //jika index  genap, maka warna krem. else ganjil warna pink
+                  bg={colors.bg_putih}
+                  datepost={moment(item.start_date).format('ll')}
+                />
+              ))}
+            </View>
+            {/* -----  tutup tampilan awal promo, list seperti biasa  */}
+            <TouchableOpacity style={{marginBottom: 10}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  paddingRight: 10,
+                  paddingTop: 5,
+                }}>
+                <Text style={{color: colors.bg_abuabu, fontWeight: 'bold'}}>
+                  more promo
+                </Text>
+                <IconFA
+                  name="chevron-right"
+                  style={{
+                    fontSize: 16,
+                    paddingTop: 5,
+                    paddingLeft: 8,
+                    color: colors.bg_abuabu,
+                  }}></IconFA>
+              </View>
+            </TouchableOpacity>
+            {/* <FlatListSlider
+                        data={this.state.promo}
+                        width={300}
+                        timer={4000}
+                        component={<Preview />}
+                        onPress={item => alert(JSON.stringify(item))}
+                        indicatorActiveWidth={30}
+                        contentContainerStyle={styles.contentStyle}
+                        indicatorStyle={{ marginTop: 0 }}
+                    /> */}
+            {/* -------- END PROMOTIONS -------- */}
           </ScrollView>
         </ImageBackground>
       </NativeBaseProvider>
