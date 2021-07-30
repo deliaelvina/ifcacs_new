@@ -34,10 +34,12 @@ async function login(datas) {
     .post(`${api}`, data, {headers})
     .then(res => {
       console.log('res urlapi', res);
+      // console.log('res urlapi', result.response.data);
+      // return result.response.data;
       return res.data;
     })
-    .catch(err => {
-      console.log('err', err);
+    .catch(error => {
+      console.log('err', error.response.data);
       alert('error nih');
     });
 }

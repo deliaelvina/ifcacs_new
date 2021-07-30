@@ -40,12 +40,18 @@ import {
   // dashboardService,
   // newsService
 } from '../../_services';
+import IconFA from 'react-native-vector-icons/FontAwesome';
+import moment from 'moment';
+
+import PromoList from '../Promo/PromoList';
+import NoPromo from '../Promo/NoPromo';
+
+import NewsList from '../News/NewsList';
 
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import SliderEntry from '@Component/SliderEntry/SliderEntry';
 import styleSlider from './styleSlider';
 import ItemsHeader from '../../components/SliderEntry/ItemsHeader';
-// import {sliderWidth, itemWidth} from '../../components/SliderEntry/Style';
 
 import InvoiceCard from '../../components/Home/InvoiceCard';
 import {color} from 'styled-system';
@@ -383,7 +389,7 @@ class Home extends React.Component {
 
   getNews = () => {
     fetch(
-      'https://my.api.mockaroo.com/news.json?key=0e67c810',
+      'http://34.87.121.155:8000/ifcaprop-api/api/news',
       // "https://my.api.mockaroo.com/news.json",
       {
         method: 'GET',
@@ -396,12 +402,14 @@ class Home extends React.Component {
     )
       .then(response => response.json())
       .then(res => {
+        console.log('res news', res);
         if (!res.Error) {
-          const resData = res;
+          const resData = res.data;
+          console.log('res data news', resData);
           this.setState({news: resData});
         } else {
           this.setState({isLoaded: !this.state.isLoaded}, () => {
-            alert(res.Pesan);
+            alert(res.pesan);
           });
         }
         console.log('getNews', res);
@@ -413,7 +421,7 @@ class Home extends React.Component {
 
   getPromo = () => {
     fetch(
-      'http://34.87.121.155:8000/ifcaprop-api/api/promo/id/1',
+      'http://34.87.121.155:8000/ifcaprop-api/api/promo',
       // "https://my.api.mockaroo.com/news.json",
       {
         method: 'GET',
@@ -1269,16 +1277,24 @@ class Home extends React.Component {
             </View>
             {/* ----- tampilan awal promo, list seperti biasa  */}
             <View style={{paddingBottom: 10}}>
-              {this.state.promo.map((item, index) => (
-                <PromoList
-                  key={index}
-                  img={{uri: item.url_image}}
-                  title={item.promo_title}
+              {this.state.promo.length == 0 ? (
+                <NoPromo
+                  title={'No Promo Available'}
                   // bg={index % 2 === 0 ? "#fdddf3" : "#fef8e3"} //jika index  genap, maka warna krem. else ganjil warna pink
                   bg={colors.bg_putih}
-                  datepost={moment(item.start_date).format('ll')}
                 />
-              ))}
+              ) : (
+                this.state.promo.map((item, index) => (
+                  <PromoList
+                    key={index}
+                    img={{uri: item.url_image}}
+                    title={item.promo_title}
+                    // bg={index % 2 === 0 ? "#fdddf3" : "#fef8e3"} //jika index  genap, maka warna krem. else ganjil warna pink
+                    bg={colors.bg_putih}
+                    datepost={moment(item.start_date).format('ll')}
+                  />
+                ))
+              )}
             </View>
             {/* -----  tutup tampilan awal promo, list seperti biasa  */}
             <TouchableOpacity style={{marginBottom: 10}}>
@@ -1314,6 +1330,90 @@ class Home extends React.Component {
                         indicatorStyle={{ marginTop: 0 }}
                     /> */}
             {/* -------- END PROMOTIONS -------- */}
+
+            {/* -------- NEWS -------- */}
+            <View style={{paddingLeft: 10, paddingTop: 15}}>
+              <Text
+                style={{
+                  color: colors.bg_abuabu,
+                  fontSize: 16,
+                  //fontFamily: 'Bold',
+                  textAlign: 'left',
+                  width: '100%',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                }}>
+                News
+              </Text>
+            </View>
+            {this.state.news.length == 0 ? (
+              <View>
+                <Text>No News Available</Text>
+              </View>
+            ) : (
+              <View>
+                <ScrollView horizontal>
+                  {this.state.news.map((item, index) => (
+                    <TouchableOpacity
+                      style={{
+                        paddingTop: 10,
+                        // -- create shadow
+                        shadowColor: '#000',
+                        shadowOffset: {
+                          width: 0,
+                          height: 1,
+                        },
+                        shadowOpacity: 0.22,
+                        shadowRadius: 2.22,
+                        elevation: 3,
+                        // -- end create shadow
+                        justifyContent: 'center',
+                      }}
+                      key={index}>
+                      <Col
+                        style={{
+                          marginHorizontal: 5,
+                          marginBottom: 5,
+                        }}>
+                        <NewsList
+                          desc={item.news_descs}
+                          bg={colors.bg_peachmuda}
+                          // bg={Style.hijaumuda}
+                          // img={{ uri: item.g }}
+                          img={require('@Asset/images/new/news/Shelton.jpg')}
+                          title={item.news_title}
+                          numColumns={2}
+                          colorTextTitle={colors.bg_abuabu}
+                          colorTextDesc={colors.bg_abuabu}></NewsList>
+                      </Col>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+                <TouchableOpacity style={{marginBottom: 10}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'flex-end',
+                      paddingRight: 10,
+                      paddingTop: 5,
+                    }}>
+                    <Text style={{color: colors.bg_abuabu, fontWeight: 'bold'}}>
+                      more news
+                    </Text>
+                    <IconFA
+                      name="chevron-right"
+                      style={{
+                        fontSize: 16,
+                        paddingTop: 5,
+                        paddingLeft: 8,
+                        color: colors.bg_abuabu,
+                      }}></IconFA>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            {/* ------ END NEWS ------- */}
           </ScrollView>
         </ImageBackground>
       </NativeBaseProvider>
