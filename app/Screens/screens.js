@@ -17,6 +17,9 @@ import Home from './Home';
 //Billing
 import Billing from './Billing';
 
+//Emergency
+import EmergencyCall from './Emergency/EmergencyCall';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -41,5 +44,10 @@ export function registerScreen() {
   //Billing
   Navigation.registerComponent('screen.Billing', () =>
     gestureHandlerRootHOC(Billing),
+  );
+
+  //Emergency
+  Navigation.registerComponent('tab.Emergency', () =>
+    gestureHandlerRootHOC(EmergencyCall),
   );
 }

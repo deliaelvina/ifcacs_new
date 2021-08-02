@@ -1,8 +1,9 @@
 import {Navigation} from 'react-native-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Platform} from 'react-native';
-const selectedColor = '#41B649';
-const iconColor = '#191919';
+import colors from '../Theme/Colors';
+const selectedColor = colors.bg_hijaugelap;
+const iconColor = colors.bg_coklat;
 
 let iconHome;
 let iconStatus;
@@ -71,6 +72,33 @@ export const goHome = () =>
                 bottomTab: {
                   text: 'Home',
                   icon: iconHome,
+                  iconInsets: {bottom: -5},
+                  iconColor: iconColor,
+                  textColor: iconColor,
+                  selectedIconColor: selectedColor,
+                  selectedTextColor: selectedColor,
+                },
+              },
+            },
+          },
+          {
+            stack: {
+              children: [
+                {
+                  component: {
+                    name: 'tab.Emergency',
+                    options: {
+                      topBar: {
+                        visible: false,
+                      },
+                    },
+                  },
+                },
+              ],
+              options: {
+                bottomTab: {
+                  text: 'Emergency Call',
+                  icon: iconProfile,
                   iconInsets: {bottom: -5},
                   iconColor: iconColor,
                   textColor: iconColor,

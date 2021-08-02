@@ -275,6 +275,9 @@ class Home extends React.Component {
       if (refresh) {
         sessions.setSess('@RefreshProfile', false);
         this.getProfile();
+        this.getNews();
+        this.getPromo();
+        this.getAnnouncement();
       }
     }
   }

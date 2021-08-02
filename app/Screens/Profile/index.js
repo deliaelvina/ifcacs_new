@@ -40,6 +40,7 @@ import {sessions} from '../../_helpers';
 import DeviceInfo from 'react-native-device-info';
 import colors from '../../Theme/Colors';
 import nbStyle from './Style';
+import MenuProfil from './menuProfil';
 
 class Profile extends React.Component {
   static options(passProps) {
@@ -56,7 +57,7 @@ class Profile extends React.Component {
       },
       statusBar: {
         style: isIos ? 'dark' : 'light',
-        backgroundColor: '#008bbf',
+        backgroundColor: '#000000',
       },
     };
   }
@@ -275,10 +276,7 @@ class Profile extends React.Component {
     const {name} = this.state;
     return (
       <NativeBaseProvider>
-        <SafeAreaView style={{flex: 1}}>
-          <View>
-            <Text>ini profil</Text>
-          </View>
+        <SafeAreaView style={{flex: 1, backgroundColor: colors.bg_peach}}>
           {/* <Button onPress={() => this.setModalVisible(true)}>Logout</Button> */}
 
           {this.state.isLogin == true ? (
@@ -286,11 +284,11 @@ class Profile extends React.Component {
               <View style={{top: '5%'}}>
                 <Text
                   style={{
-                    color: colors.bg_putih,
+                    color: colors.bg_abuabu,
                     fontSize: 20,
                     textAlign: 'center',
                   }}>
-                  Profile
+                  Profil
                 </Text>
               </View>
 
@@ -338,6 +336,63 @@ class Profile extends React.Component {
 
                 {/* ----- menu profil ---- */}
 
+                {this.state.isLogin == true ? (
+                  <View>
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Settings'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Privacy & Police'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'About Us'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Contact Us'}
+                      bg={colors.bg_putih}
+                    />
+                  </View>
+                ) : (
+                  <View>
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Privacy & Police'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'About Us'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Contact Us'}
+                      bg={colors.bg_putih}
+                    />{' '}
+                  </View>
+                )}
+
                 {/* ----- end menu profil ---- */}
 
                 {/* ------ end content profil -------  */}
@@ -359,8 +414,17 @@ class Profile extends React.Component {
                                     </Text>
                                 </TouchableOpacity>
                             </View> */}
-                <Button onPress={() => this.setModalVisible(true)}>
-                  Logout
+                <Button
+                  onPress={() => this.setModalVisible(true)}
+                  style={{
+                    marginTop: 20,
+                    marginHorizontal: 10,
+                    backgroundColor: colors.bg_coklat,
+                    borderRadius: 10,
+                  }}>
+                  <Text style={{fontSize: 14, color: colors.bg_putih}}>
+                    Log out
+                  </Text>
                 </Button>
 
                 {/* ------ end button logout ------ */}
@@ -375,43 +439,69 @@ class Profile extends React.Component {
                     fontSize: 18,
                     textAlign: 'center',
                   }}>
-                  Profile
+                  Profil
                 </Text>
               </View>
 
               <View
                 style={{
                   backgroundColor: colors.bg_putih,
-                  borderTopLeftRadius: 60,
-                  borderTopRightRadius: 60,
+                  borderTopLeftRadius: 30,
+                  borderTopRightRadius: 30,
                   top: '10%',
                   height: '100%',
                 }}>
                 <View
                   style={{
+                    marginLeft: 20,
+                    marginRight: 20,
+                    marginTop: 20,
                     justifyContent: 'center',
-                    alignItems: 'center',
+                    alignSelf: 'center',
                   }}>
-                  <Image
-                    source={fotoProfil}
+                  <TouchableOpacity
+                    // style={nbStyle.btnYes}
                     style={{
-                      borderRadius: 40,
-                      width: 80,
-                      height: 80,
+                      backgroundColor: colors.bg_hijautua,
+                      padding: 10,
+                      borderRadius: 10,
                     }}
+                    // onPress={() => this.btnLogout()}
+                    onPress={() => this.handleNavigation('screen.Login')}
+                    // onPress={() => nav.push(this.props.componentId, "screen.Login")}
+                    // onPress={() =>
+                    //   nav.push(this.props.componentId, 'screen.Login')
+                    // }
+                  >
+                    <Text style={{color: colors.bg_putih}}>Login</Text>
+                  </TouchableOpacity>
+                </View>
+
+                {/* ----- menu profil ---- */}
+                <View>
+                  <MenuProfil
+                    // key={index}
+                    // img={{ uri: item.url_image }}
+                    img={require('@Asset/icons/profile.png')}
+                    menu={'Privacy & Police'}
+                    bg={colors.bg_putih}
+                  />
+                  <MenuProfil
+                    // key={index}
+                    // img={{ uri: item.url_image }}
+                    img={require('@Asset/icons/profile.png')}
+                    menu={'About Us'}
+                    bg={colors.bg_putih}
+                  />
+                  <MenuProfil
+                    // key={index}
+                    // img={{ uri: item.url_image }}
+                    img={require('@Asset/icons/profile.png')}
+                    menu={'Contact Us'}
+                    bg={colors.bg_putih}
                   />
                 </View>
-                <TouchableOpacity
-                  style={nbStyle.btnYes}
-                  // onPress={() => this.btnLogout()}
-                  onPress={() => this.handleNavigation('screen.Login')}
-                  // onPress={() => nav.push(this.props.componentId, "screen.Login")}
-                  // onPress={() =>
-                  //   nav.push(this.props.componentId, 'screen.Login')
-                  // }
-                >
-                  <Text style={nbStyle.textYes}>login</Text>
-                </TouchableOpacity>
+                {/* ----- end menu profil ---- */}
               </View>
             </View>
           )}
