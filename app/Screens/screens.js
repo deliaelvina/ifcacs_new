@@ -20,6 +20,9 @@ import Billing from './Billing';
 //Emergency
 import EmergencyCall from './Emergency/EmergencyCall';
 
+//Amenities
+import Amenities from './Amenities';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -49,5 +52,10 @@ export function registerScreen() {
   //Emergency
   Navigation.registerComponent('tab.Emergency', () =>
     gestureHandlerRootHOC(EmergencyCall),
+  );
+
+  //Amenities
+  Navigation.registerComponent('screen.Amenities', () =>
+    gestureHandlerRootHOC(Amenities),
   );
 }
