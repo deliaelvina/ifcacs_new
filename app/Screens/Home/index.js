@@ -1394,6 +1394,9 @@ class Home extends React.Component {
                     // bg={index % 2 === 0 ? "#fdddf3" : "#fef8e3"} //jika index  genap, maka warna krem. else ganjil warna pink
                     bg={colors.bg_putih}
                     datepost={moment(item.start_date).format('ll')}
+                    onPress={() =>
+                      this.handleNavigation('screen.PromoDetail', item)
+                    }
                   />
                 ))
               )}

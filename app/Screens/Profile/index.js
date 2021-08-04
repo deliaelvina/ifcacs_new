@@ -377,6 +377,14 @@ class Profile extends React.Component {
                       // key={index}
                       // img={{ uri: item.url_image }}
                       img={require('@Asset/icons/profile.png')}
+                      menu={'Documents'}
+                      bg={colors.bg_putih}
+                      onPress={() => this.setClearCache()}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
                       menu={'Privacy & Police'}
                       bg={colors.bg_putih}
                     />

@@ -27,6 +27,9 @@ import Amenities from './Amenities';
 import NewsDetail from './News/NewsDetail';
 import NewsMore from './News/NewsMore';
 
+//PromoDetail
+import PromoDetail from './Promo/PromoDetail';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -69,5 +72,10 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.NewsMore', () =>
     gestureHandlerRootHOC(NewsMore),
+  );
+
+  //PromoDetail
+  Navigation.registerComponent('screen.PromoDetail', () =>
+    gestureHandlerRootHOC(PromoDetail),
   );
 }

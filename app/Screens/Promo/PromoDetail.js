@@ -25,12 +25,12 @@ const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
 // const modalizeRef = useRef(null);
 
-export default class NewsDetail extends React.Component {
+export default class PromoDetail extends React.Component {
   static options(passProps) {
     return {
       topBar: {
         title: {
-          text: 'News',
+          text: 'Promo',
           color: colors.bg_abuabu,
         },
         // background: {
@@ -52,7 +52,7 @@ export default class NewsDetail extends React.Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      dataNews: [],
+      dataPromo: [],
       isImageViewVisible: false,
     };
   }
@@ -62,14 +62,15 @@ export default class NewsDetail extends React.Component {
     //   this.startHeaderHeight = 100 + StatusBar.currentHeight;
     // }
     console.log('item from passed prop', this.props.passed);
-    const dataNews = this.props.passed;
+    const dataPromo = this.props.passed;
     const data = {
       // user: true,
-      news_title: dataNews.news_title,
-      date_created: dataNews.date_created,
-      news_descs: dataNews.news_descs,
-      source: dataNews.source,
-      url_image: dataNews.url_image,
+      start_date: dataPromo.start_date,
+      end_date: dataPromo.end_date,
+      promo_descs: dataPromo.promo_descs,
+      promo_title: dataPromo.promo_title,
+      tnc_descs: dataPromo.tnc_descs,
+      url_image: dataPromo.url_image,
       mounted: true,
     };
     console.log('data', data);
@@ -88,7 +89,7 @@ export default class NewsDetail extends React.Component {
     const images = [
       {
         uri: this.state.url_image,
-        title: this.state.news_title,
+        title: this.state.promo_title,
       },
     ];
 
@@ -98,17 +99,14 @@ export default class NewsDetail extends React.Component {
           <TouchableOpacity
             onPress={() => this.setState({isImageViewVisible: true})}>
             <Image
-              source={{uri: this.state.url_image}}
               style={{
-                height: 200,
+                height: 250,
                 width: '100%',
-                resizeMode: 'cover',
+                resizeMode: 'contain',
                 alignSelf: 'center',
                 top: 20,
-
-                //   marginRight: 30,
-                //   marginLeft: 30,
               }}
+              source={{uri: this.state.url_image}}
             />
           </TouchableOpacity>
           <ImageView
@@ -159,30 +157,31 @@ export default class NewsDetail extends React.Component {
                     paddingRight: 25,
                     paddingBottom: 5,
                   }}>
-                  <Text style={{fontSize: 23}}>{this.state.news_title}</Text>
+                  <Text style={{fontSize: 23}}>{this.state.promo_title}</Text>
                 </View>
+
                 <View style={{top: 20, left: 25}}>
-                  <Text style={{fontSize: 14, color: colors.bg_coklat}}>
-                    {moment(this.state.date_created).format(
-                      'dddd, DD MMMM YYYY HH:mm',
-                    )}
+                  <Text style={{fontSize: 15, color: colors.bg_coklat}}>
+                    Valid until :{' '}
+                    {moment(this.state.end_date).format('DD MMMM YYYY')}
                   </Text>
                 </View>
                 <View
                   style={{
-                    top: 20,
+                    marginTop: 40,
                     paddingLeft: 15,
                     paddingRight: 15,
-                    marginTop: 10,
                   }}>
                   <Text style={{textAlign: 'justify', fontSize: 15}}>
-                    {this.state.news_descs}
+                    {this.state.promo_descs}
                   </Text>
                 </View>
 
-                <View style={{top: 20, paddingLeft: 15, paddingRight: 15}}>
-                  <Text style={{color: colors.bg_coklat, fontSize: 14}}>
-                    Source : {this.state.source}
+                <View style={{left: 25, marginTop: 25}}>
+                  <Text style={{fontSize: 15, fontWeight: 'bold'}}>S&K</Text>
+                  <Text style={{fontSize: 14, color: colors.bg_abuabu}}>
+                    Promo period : {moment(this.state.start_date).format('DD')}{' '}
+                    - {moment(this.state.end_date).format('DD MMMM YYYY')}
                   </Text>
                 </View>
               </View>
