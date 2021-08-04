@@ -23,6 +23,10 @@ import EmergencyCall from './Emergency/EmergencyCall';
 //Amenities
 import Amenities from './Amenities';
 
+//NewsDetail
+import NewsDetail from './News/NewsDetail';
+import NewsMore from './News/NewsMore';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -57,5 +61,13 @@ export function registerScreen() {
   //Amenities
   Navigation.registerComponent('screen.Amenities', () =>
     gestureHandlerRootHOC(Amenities),
+  );
+
+  //NewsDetail
+  Navigation.registerComponent('screen.NewsDetail', () =>
+    gestureHandlerRootHOC(NewsDetail),
+  );
+  Navigation.registerComponent('screen.NewsMore', () =>
+    gestureHandlerRootHOC(NewsMore),
   );
 }

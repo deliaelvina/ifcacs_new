@@ -11,7 +11,7 @@ export default function ItemsHeader(props) {
     <TouchableWithoutFeedback onPress={() => onPress()}>
       <View style={styleItems.item}>
         <ParallaxImage
-          source={{uri: item.image}}
+          source={{uri: item.url_image}}
           containerStyle={styleItems.imageContainer}
           style={styleItems.image}
           parallaxFactor={0.4}
@@ -20,7 +20,7 @@ export default function ItemsHeader(props) {
         {item.id && (
           <View style={styleItems.newsTitle}>
             <Text style={[Style.textWhite, Style.textMedium]} numberOfLines={2}>
-              {item.id}
+              {item.promo_title}
             </Text>
             {/* <Text style={styleItems.newsTitleText_small}>{item.descs}</Text> */}
           </View>

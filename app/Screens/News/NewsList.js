@@ -73,6 +73,8 @@ export default class NewsList extends React.Component {
         />
         <View style={{width: 190}}>
           <Text
+            ellipsizeMode="tail"
+            numberOfLines={2}
             style={{
               color: colorTextTitle,
               // //fontFamily: "Bold",
