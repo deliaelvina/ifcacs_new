@@ -8511,6 +8511,11 @@ react-lifecycles-compat@^3.0.2:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-clear-app-cache@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-clear-app-cache/-/react-native-clear-app-cache-1.0.4.tgz#510cfd1b51025ac4d7adf93c9cc8baf1ba1b3778"
+  integrity sha512-vjQY/dRwoVGup2jVFOySKHCi/wtyPuuh33CmJwqPw7Bzy10wJN/0N7O0H57+yR35tJqQjdlh6itnGFEB1RJI+g==
+
 react-native-codegen@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-codegen/-/react-native-codegen-0.0.6.tgz#b3173faa879cf71bfade8d030f9c4698388f6909"

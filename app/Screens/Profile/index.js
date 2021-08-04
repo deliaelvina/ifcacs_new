@@ -12,6 +12,7 @@ import {
   Animated,
   Alert,
   Modal,
+  NativeModules,
 } from 'react-native';
 import {
   Container,
@@ -41,6 +42,11 @@ import DeviceInfo from 'react-native-device-info';
 import colors from '../../Theme/Colors';
 import nbStyle from './Style';
 import MenuProfil from './menuProfil';
+
+//for clear cache
+// import AppCacheClear from 'react-native-clear-app-cache';
+var clearCacheModuleObj = NativeModules.ClearCacheModule;
+console.log('clear cache', clearCacheModuleObj);
 
 class Profile extends React.Component {
   static options(passProps) {
@@ -93,12 +99,18 @@ class Profile extends React.Component {
         {id: '3', menu: 'about us'},
         {id: '4', menu: 'sign out'},
       ],
+
+      // for cache
+      unit: '',
+      cacheSize: '0',
     };
 
     Navigation.events().bindComponent(this);
   }
 
   async UNSAFE_componentWillMount() {
+    // get the storage usage
+
     const data = {
       email: await sessions.getSess('@User'),
       username: await sessions.getSess('@Name'),
@@ -271,6 +283,14 @@ class Profile extends React.Component {
     this.setState({modalVisible: visible});
   }
 
+  setClearCache() {
+    // AppCacheClear.getAppCacheSize((size, unit) => {
+    //   console.log(size, unit);
+    //   alert('size', size);
+    //   alert('unit', unit);
+    // });
+  }
+
   render() {
     let {fotoProfil} = this.state;
     const {name} = this.state;
@@ -338,6 +358,14 @@ class Profile extends React.Component {
 
                 {this.state.isLogin == true ? (
                   <View>
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Clear Cache'}
+                      bg={colors.bg_putih}
+                      onPress={() => this.setClearCache()}
+                    />
                     <MenuProfil
                       // key={index}
                       // img={{ uri: item.url_image }}

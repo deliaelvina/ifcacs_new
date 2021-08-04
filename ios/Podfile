@@ -13,6 +13,8 @@ target 'ifcacs' do
     :hermes_enabled => false
   )
 
+  pod 'react-native-app-cache-clear', :path => '../node_modules/react-native-app-cache-clear'
+
   target 'ifcacsTests' do
     inherit! :complete
     # Pods for testing
