@@ -296,7 +296,7 @@ class Profile extends React.Component {
     const {name} = this.state;
     return (
       <NativeBaseProvider>
-        <SafeAreaView style={{flex: 1, backgroundColor: colors.bg_peach}}>
+        <View style={{flex: 1, backgroundColor: colors.bg_peach}}>
           {/* <Button onPress={() => this.setModalVisible(true)}>Logout</Button> */}
 
           {this.state.isLogin == true ? (
@@ -318,152 +318,128 @@ class Profile extends React.Component {
                   borderTopLeftRadius: 60,
                   borderTopRightRadius: 60,
                   top: '10%',
-                  height: '100%',
+                  // height: '100%',
                 }}>
-                {/* ----- image foto profil ------ */}
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: 20,
-                  }}>
-                  <Image
-                    source={fotoProfil}
+                <ScrollView style={{top: '5%'}}>
+                  {/* ----- image foto profil ------ */}
+                  <View
                     style={{
-                      borderRadius: 40,
-                      width: 80,
-                      height: 80,
-                    }}
-                  />
-                </View>
-                {/* ----- end image foto profil ------ */}
-
-                {/* ------ content profil -------  */}
-                <View
-                  style={{
-                    marginTop: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: 20,
-                  }}>
-                  <Text style={{fontSize: 18, color: colors.bg_abuabu}}>
-                    {this.state.username}
-                  </Text>
-                  <Text style={{fontSize: 14, color: colors.bg_hijaugelap}}>
-                    {this.state.email}
-                  </Text>
-                </View>
-
-                {/* ----- menu profil ---- */}
-
-                {this.state.isLogin == true ? (
-                  <View>
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Clear Cache'}
-                      bg={colors.bg_putih}
-                      onPress={() => this.setClearCache()}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Settings'}
-                      bg={colors.bg_putih}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Documents'}
-                      bg={colors.bg_putih}
-                      onPress={() => this.setClearCache()}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Privacy & Police'}
-                      bg={colors.bg_putih}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'About Us'}
-                      bg={colors.bg_putih}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Contact Us'}
-                      bg={colors.bg_putih}
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: 20,
+                    }}>
+                    <Image
+                      source={fotoProfil}
+                      style={{
+                        borderRadius: 40,
+                        width: 80,
+                        height: 80,
+                      }}
                     />
                   </View>
-                ) : (
-                  <View>
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Privacy & Police'}
-                      bg={colors.bg_putih}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'About Us'}
-                      bg={colors.bg_putih}
-                    />
-                    <MenuProfil
-                      // key={index}
-                      // img={{ uri: item.url_image }}
-                      img={require('@Asset/icons/profile.png')}
-                      menu={'Contact Us'}
-                      bg={colors.bg_putih}
-                    />{' '}
+                  {/* ----- end image foto profil ------ */}
+
+                  {/* ------ content profil -------  */}
+                  <View
+                    style={{
+                      marginTop: 10,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginBottom: 20,
+                    }}>
+                    <Text style={{fontSize: 18, color: colors.bg_abuabu}}>
+                      {this.state.username}
+                    </Text>
+                    <Text style={{fontSize: 14, color: colors.bg_hijaugelap}}>
+                      {this.state.email}
+                    </Text>
                   </View>
-                )}
 
-                {/* ----- end menu profil ---- */}
+                  {/* ----- menu profil ---- */}
 
-                {/* ------ end content profil -------  */}
+                  {this.state.isLogin == true ? (
+                    <View>
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Settings'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Privacy & Police'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'About Us'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Contact Us'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Clear Cache'}
+                        bg={colors.bg_putih}
+                        onPress={() => this.setClearCache()}
+                      />
+                    </View>
+                  ) : (
+                    <View>
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Privacy & Police'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'About Us'}
+                        bg={colors.bg_putih}
+                      />
+                      <MenuProfil
+                        // key={index}
+                        // img={{ uri: item.url_image }}
+                        img={require('@Asset/icons/profile.png')}
+                        menu={'Contact Us'}
+                        bg={colors.bg_putih}
+                      />{' '}
+                    </View>
+                  )}
 
-                {/* ------ button logout ------ */}
-                {/* <View style={{ alignItems: 'center', marginTop: 20 }}>
-                                <TouchableOpacity
-                                    style={{ backgroundColor: colors.bg_putih, borderColor: colors.bg_coklat, borderWidth: 1, padding: 10, borderRadius: 10, width: 100 }}
-                                    // onPress={() => this.btnLogout()}
-                                    // onPress={() => this.handleNavigation(
-                                    //     "screen.Login"
+                  {/* ----- end menu profil ---- */}
 
-                                    // )}
-                                    // onPress={() => nav.push(this.props.componentId, "screen.Login")}
-                                    onPress={() => this.btnLogout()}
-                                >
-                                    <Text style={{ color: colors.bg_coklat, textAlign: 'center' }}>
-                                        Sign out
-                                    </Text>
-                                </TouchableOpacity>
-                            </View> */}
-                <Button
-                  onPress={() => this.setModalVisible(true)}
-                  style={{
-                    marginTop: 20,
-                    marginHorizontal: 10,
-                    backgroundColor: colors.bg_coklat,
-                    borderRadius: 10,
-                  }}>
-                  <Text style={{fontSize: 14, color: colors.bg_putih}}>
-                    Log out
-                  </Text>
-                </Button>
+                  {/* ------ end content profil -------  */}
 
-                {/* ------ end button logout ------ */}
+                  <Button
+                    onPress={() => this.setModalVisible(true)}
+                    style={{
+                      marginTop: 20,
+                      marginHorizontal: 10,
+                      backgroundColor: colors.bg_coklat,
+                      borderRadius: 10,
+                      marginBottom: 200,
+                    }}>
+                    <Text style={{fontSize: 14, color: colors.bg_putih}}>
+                      Log out
+                    </Text>
+                  </Button>
+                </ScrollView>
               </View>
             </View>
           ) : (
@@ -583,7 +559,7 @@ class Profile extends React.Component {
               </View>
             </View>
           </Modal>
-        </SafeAreaView>
+        </View>
       </NativeBaseProvider>
     );
   }
