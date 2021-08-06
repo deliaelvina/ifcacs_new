@@ -44,7 +44,7 @@ import nbStyle from './Style';
 import MenuProfil from './menuProfil';
 
 //for clear cache
-// import AppCacheClear from 'react-native-clear-app-cache';
+
 var clearCacheModuleObj = NativeModules.ClearCacheModule;
 console.log('clear cache', clearCacheModuleObj);
 

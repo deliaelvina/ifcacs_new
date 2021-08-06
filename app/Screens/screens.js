@@ -30,6 +30,8 @@ import NewsMore from './News/NewsMore';
 //PromoDetail
 import PromoDetail from './Promo/PromoDetail';
 
+import ContohCarousel from './contohcarousel';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -77,5 +79,10 @@ export function registerScreen() {
   //PromoDetail
   Navigation.registerComponent('screen.PromoDetail', () =>
     gestureHandlerRootHOC(PromoDetail),
+  );
+
+  //contoh carrousel
+  Navigation.registerComponent('screen.ContohCarousel', () =>
+    gestureHandlerRootHOC(ContohCarousel),
   );
 }

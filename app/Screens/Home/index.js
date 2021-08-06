@@ -53,6 +53,13 @@ import SliderEntry from '@Component/SliderEntry/SliderEntry';
 import styleSlider from './styleSlider';
 import ItemsHeader from '../../components/SliderEntry/ItemsHeader';
 
+import {
+  sliderWidthAnnounce,
+  itemWidthAnnounce,
+} from '../../components/MomentumCarousel/styles/SliderEntry.style';
+import stylesAnnounce from '../../components/MomentumCarousel/styles/index.style';
+import SliderEntryAnnounce from '../../components/MomentumCarousel/components/SliderEntry';
+
 import InvoiceCard from '../../components/Home/InvoiceCard';
 import {color} from 'styled-system';
 // import ItemCarousel from '../../components/ItemCarousel/item';
@@ -121,103 +128,8 @@ class Home extends React.Component {
 
       //for carousel
       activeIndex: 0,
-      carouselItems: [
-        {
-          title: 'Item 1',
-          text: 'Text 1',
-        },
-        {
-          title: 'Item 2',
-          text: 'Text 2',
-        },
-        {
-          title: 'Item 3',
-          text: 'Text 3',
-        },
-        {
-          title: 'Item 4',
-          text: 'Text 4',
-        },
-        {
-          title: 'Item 5',
-          text: 'Text 5',
-        },
-      ],
-      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
 
-      datagambar: [
-        {
-          id: 'ini judul untuk news',
-          image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 'ini judul untuk news',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'c',
-          value: 'C',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'd',
-          value: 'D',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'e',
-          value: 'E',
-          image:
-            'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 'f',
-          value: 'F',
-          image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-      ],
-      datapromo: [
-        {
-          id: 'a',
-          judul: 'Promo Galon 15%',
-          date: '6/6/2021',
-          image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 'b',
-          judul: 'Promo Sembako 20%',
-          date: '6/6/2021',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'c',
-          judul: 'Soft Opening Laundry',
-          date: '6/6/2021',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'd',
-          judul: 'Promo Galon 15%',
-          date: '6/6/2021',
-          image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 'e',
-          judul: 'Promo Sembako 20%',
-          date: '6/6/2021',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-      ],
+      slider1ActiveSlide: SLIDER_1_FIRST_ITEM,
     };
 
     Navigation.events().bindComponent(this);
@@ -285,7 +197,7 @@ class Home extends React.Component {
     }
   }
 
-  //for carousel promo header
+  //------ for carousel promo header
   renderHeaderCarousel = ({item, index}, parallaxProps) => {
     // console.log('index render carousel', index);s
     return (
@@ -352,6 +264,38 @@ class Home extends React.Component {
           inactiveDotStyle={{backgroundColor: colors.goldUrban}}
           inactiveDotOpacity={0.4}
           delayPressInDot={500}
+        />
+      </View>
+    );
+  }
+  //----- close carousel promo header
+
+  //------ for carousel announce
+  _renderItem({item, index}) {
+    return <SliderEntryAnnounce data={item} even={(index + 1) % 2 === 0} />;
+  }
+
+  announceCarousel(number, title) {
+    return (
+      <View style={stylesAnnounce.exampleContainer}>
+        {/* <Text style={stylesAnnounce.title}>{`Example ${number}`}</Text> */}
+        {/* <Text style={stylesAnnounce.subtitle}>{title}</Text> */}
+        <Carousel
+          data={this.state.promo}
+          renderItem={this._renderItem}
+          sliderWidth={sliderWidthAnnounce}
+          itemWidth={itemWidthAnnounce}
+          inactiveSlideScale={0.95}
+          inactiveSlideOpacity={1}
+          enableMomentum={true}
+          activeSlideAlignment={'start'}
+          containerCustomStyle={stylesAnnounce.slider}
+          contentContainerCustomStyle={stylesAnnounce.sliderContentContainer}
+          activeAnimationType={'spring'}
+          activeAnimationOptions={{
+            friction: 4,
+            tension: 40,
+          }}
         />
       </View>
     );
@@ -541,6 +485,7 @@ class Home extends React.Component {
     // console.log('total invoice', this.state.totalInvoice);
 
     const headerCarousel = this.headerCarousel();
+    const announceCarousel = this.announceCarousel();
 
     return (
       <NativeBaseProvider>
@@ -548,12 +493,12 @@ class Home extends React.Component {
           style={{
             width: '100%',
             height: '100%',
-            backgroundColor: colors.bg_peach,
+            backgroundColor: colors.bg_putih,
           }}>
           {/* <OfflineNotice /> */}
           <SafeAreaView
             style={{
-              backgroundColor: colors.bg_hijautua,
+              backgroundColor: colors.bg_peachmuda,
               height: Platform.OS === 'ios' ? 130 : 100,
             }}>
             <View style={{flexDirection: 'row'}}>
@@ -565,7 +510,7 @@ class Home extends React.Component {
                     paddingTop: Platform.OS === 'ios' ? 20 : 30,
                     //fontFamifly: 'Bold',
 
-                    color: '#fff',
+                    color: colors.bg_coklat,
                   }}>
                   Welcome back,
                 </Text>
@@ -576,7 +521,7 @@ class Home extends React.Component {
                     marginBottom: 20,
                     //fontFamily: 'Bold',
 
-                    color: '#fff',
+                    color: colors.bg_coklat,
                   }}>
                   {this.state.user != null ? (
                     this.state.name
@@ -589,7 +534,7 @@ class Home extends React.Component {
                         marginBottom: 20,
                         //fontFamily: 'Bold',
 
-                        color: '#fff',
+                        color: color.bg_coklat,
                       }}>
                       Friends
                     </Text>
@@ -602,12 +547,17 @@ class Home extends React.Component {
           <ScrollView>
             {/* {example1} */}
             {headerCarousel}
+
+            {/* <Button
+              onPress={() => this.handleNavigation('screen.ContohCarousel')}>
+              <Text>carouseel</Text>
+            </Button> */}
             {user != null ? (
               <View
                 style={{
                   // flexDirection: "row",
                   backgroundColor: '#fff',
-                  marginTop: 15,
+                  marginTop: 25,
                   // paddingBottom: 5,
                   marginHorizontal: 10,
                   borderRadius: 20,
@@ -978,29 +928,19 @@ class Home extends React.Component {
             ) : (
               // {/* -------- END MENU - MENU IOS----------- */}
               // {/* -------- MENU - MENU ANDRO----------- */}
-              <View>
+              <View style={{marginTop: 20}}>
                 <Grid>
-                  <Col style={{height: 110, paddingLeft: 10, paddingRight: 10}}>
-                    <TouchableOpacity
-                      // // onPress={() => this.props.navigation.navigate('Cources')}
-                      // onPress={() => this.handleNavigation(
-                      //     "screen.Cources",
-                      //     // this.state.totalInvoiceDue
-                      // )}
+                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-
-                        paddingHorizontal: 5,
-                        marginBottom: 15,
-                        borderRadius: 20,
-                        textAlign: 'center',
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1012,59 +952,58 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/billing2.png')}
                         style={{
+                          bottom: 5,
+                          left: 3,
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/billing.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View style={{flexGrow: 1, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 16,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                          }}>
-                          Billing
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Billing
+                    </Text>
                   </Col>
                   <Col
                     style={{
-                      height: 110,
                       paddingLeft: 10,
                       paddingRight: 10,
                       // paddingBottom: 10,
                     }}>
-                    <TouchableOpacity
-                      // onPress={() => this.props.navigation.navigate('Cources')}
-                      // onPress={() => this.handleNavigation(
-                      //     "screen.Cources",
-                      //     // this.state.totalInvoiceDue
-                      // )}
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-                        borderRadius: 20,
-                        paddingHorizontal: 5,
-                        marginBottom: 10,
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1076,67 +1015,58 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/helpdesk3.png')}
                         style={{
+                          bottom: 5,
+
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/customerservice.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View
-                        style={{
-                          flexGrow: 1,
-                          flexDirection: 'row',
-                          flex: 1,
-                          flexWrap: 'wrap',
-                        }}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 15,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                            textAlign: 'center',
-                            // marginBottom: 10,
-                          }}>
-                          Customer Services
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Helpdesk
+                    </Text>
                   </Col>
-                  <Col style={{height: 110, paddingLeft: 10, paddingRight: 10}}>
-                    <TouchableOpacity
-                      // onPress={() =>
-                      //     Navigation.navigate('Amenities')
-                      // }
-                      // onPress={() =>
-                      //   user != null
-                      //     ? this.handleNavigation(
-                      //         'screen.Amenities',
-                      //         this.state.totalInvoiceDue,
-                      //       )
-                      //     : alert('please login')
-                      // }
+                  <Col
+                    style={{
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                      // paddingBottom: 10,
+                    }}>
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-                        borderRadius: 20,
-                        paddingHorizontal: 5,
-                        marginBottom: 10,
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1148,63 +1078,118 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/meterinfo.png')}
                         style={{
+                          bottom: 5,
+
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/amenities2.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View style={{flexGrow: 1, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 15,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                          }}>
-                          Meter Info
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Meter Info
+                    </Text>
+                  </Col>
+                  <Col
+                    style={{
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                      // paddingBottom: 10,
+                    }}>
+                    <View
+                      style={{
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
+                        // -- create shadow
+                        shadowColor: '#000',
+                        shadowOffset: {
+                          width: 0,
+                          height: 1,
+                        },
+                        shadowOpacity: 0.22,
+                        shadowRadius: 2.22,
+                        elevation: 3,
+                        // -- end create shadow
+                      }}>
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/news.png')}
+                        style={{
+                          bottom: 5,
+
+                          width: 40,
+                          height: 40,
+                          alignSelf: 'center',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      News
+                    </Text>
                   </Col>
                 </Grid>
                 <Grid>
-                  <Col
-                    style={{
-                      height: 110,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '33.3%',
-                    }}>
-                    <TouchableOpacity
-                      // // onPress={() => this.props.navigation.navigate('Cources')}
-                      // onPress={() => this.handleNavigation(
-                      //     "screen.Cources",
-                      //     // this.state.totalInvoiceDue
-                      // )}
+                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-
-                        paddingHorizontal: 5,
-                        marginBottom: 15,
-                        borderRadius: 20,
-                        textAlign: 'center',
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1216,61 +1201,53 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/promo.png')}
                         style={{
+                          bottom: 5,
+                          // left: 3,
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/billing.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View style={{flexGrow: 1, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 16,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                          }}>
-                          Amenities
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Promo
+                    </Text>
                   </Col>
-                  <Col
-                    style={{
-                      height: 110,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '33.3%',
-                    }}>
-                    <TouchableOpacity
-                      // // onPress={() => this.props.navigation.navigate('Cources')}
-                      // onPress={() => this.handleNavigation(
-                      //     "screen.Cources",
-                      //     // this.state.totalInvoiceDue
-                      // )}
+                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-
-                        paddingHorizontal: 5,
-                        marginBottom: 15,
-                        borderRadius: 20,
-                        textAlign: 'center',
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1282,61 +1259,53 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/announce.png')}
                         style={{
+                          bottom: 5,
+                          // left: 3,
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/billing.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View style={{flexGrow: 1, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 16,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                          }}>
-                          Regulations/Documents
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Announce
+                    </Text>
                   </Col>
-                  <Col
-                    style={{
-                      height: 110,
-                      paddingLeft: 10,
-                      paddingRight: 10,
-                      width: '33.3%',
-                    }}>
-                    <TouchableOpacity
-                      // // onPress={() => this.props.navigation.navigate('Cources')}
-                      // onPress={() => this.handleNavigation(
-                      //     "screen.Cources",
-                      //     // this.state.totalInvoiceDue
-                      // )}
+                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                    <View
                       style={{
-                        flexDirection: 'column',
-                        backgroundColor: '#fff',
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
                         alignItems: 'center',
-
-                        height: 100,
-                        width: '100%',
-                        paddingVertical: 10,
-
-                        paddingHorizontal: 5,
-                        marginBottom: 15,
-                        borderRadius: 20,
-                        textAlign: 'center',
-
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
                         // -- create shadow
                         shadowColor: '#000',
                         shadowOffset: {
@@ -1348,151 +1317,105 @@ class Home extends React.Component {
                         elevation: 3,
                         // -- end create shadow
                       }}>
-                      <View
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/regulation.png')}
                         style={{
+                          bottom: 5,
+                          // left: 3,
                           width: 40,
                           height: 40,
-                          borderRadius: 25,
-                          backgroundColor: colors.bg_peachmuda,
-                          alignItems: 'center',
                           alignSelf: 'center',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                        }}>
-                        <Image
-                          source={require('@Asset/icons/billing.png')}
-                          style={{width: 30, height: 30}}
-                        />
-                      </View>
-                      <View style={{flexGrow: 1, flexDirection: 'row'}}>
-                        <Text
-                          style={{
-                            color: colors.bg_abuabu,
-                            fontSize: 16,
-                            //fontFamily: 'Bold',
-                            paddingLeft: 5,
-                          }}>
-                          Fasilities
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Regulation
+                    </Text>
+                  </Col>
+                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                    <View
+                      style={{
+                        width: 47,
+                        height: 47,
+                        borderRadius: 25,
+                        backgroundColor: colors.bg_peachmuda,
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        justifyContent: 'center',
+                        flexDirection: 'column',
+                        // -- create shadow
+                        shadowColor: '#000',
+                        shadowOffset: {
+                          width: 0,
+                          height: 1,
+                        },
+                        shadowOpacity: 0.22,
+                        shadowRadius: 2.22,
+                        elevation: 3,
+                        // -- end create shadow
+                      }}>
+                      <Image
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/fasilitas.png')}
+                        style={{
+                          bottom: 5,
+                          // left: 3,
+                          width: 40,
+                          height: 40,
+                          alignSelf: 'center',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          // -- create shadow
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 0,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.22,
+                          shadowRadius: 2.1,
+                          elevation: 3,
+                          // -- end create shadow
+                        }}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        paddingTop: 5,
+                        color: colors.bg_abuabu,
+                        fontSize: 14,
+                        //fontFamily: 'Bold',
+                        paddingLeft: 5,
+                        textAlign: 'center',
+                      }}>
+                      Facility
+                    </Text>
                   </Col>
                 </Grid>
               </View>
 
               // {/* -------- END MENU - MENU ANDRO----------- */}
             )}
-
-            {/* --------- ANNOUNCEMENT ------- */}
-            <View style={{paddingLeft: 10, paddingTop: 15}}>
-              <Text
-                style={{
-                  color: colors.bg_abuabu,
-                  fontSize: 16,
-                  //fontFamily: 'Bold',
-                  textAlign: 'left',
-                  width: '100%',
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                }}>
-                Announcement
-              </Text>
-            </View>
-            <Grid style={{paddingTop: 10}}>
-              <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
-                <TouchableOpacity
-                  // // onPress={() => this.props.navigation.navigate('Cources')}
-                  // onPress={() => this.handleNavigation(
-                  //     "screen.Cources",
-                  //     // this.state.totalInvoiceDue
-                  // )}
-                  style={{
-                    flexDirection: 'row',
-                    backgroundColor: '#fff',
-                    alignItems: 'center',
-
-                    height: 80,
-                    width: '100%',
-                    paddingVertical: 10,
-
-                    paddingHorizontal: 10,
-                    marginBottom: 15,
-                    borderRadius: 20,
-                    // textAlign: 'center',
-
-                    // -- create shadow
-                    shadowColor: '#000',
-                    shadowOffset: {
-                      width: 0,
-                      height: 1,
-                    },
-                    shadowOpacity: 0.22,
-                    shadowRadius: 2.22,
-                    elevation: 3,
-                    // -- end create shadow
-                  }}>
-                  <View style={{flexDirection: 'column', width: '100%'}}>
-                    {this.state.announce.length != 0 ? (
-                      <View>
-                        <View>
-                          <Text
-                            style={{
-                              color: colors.bg_abuabu,
-                              fontSize: 16,
-                              //fontFamily: 'Bold',
-                              textAlign: 'center',
-                              width: '100%',
-                              fontWeight: 'bold',
-                            }}>
-                            {this.state.announce.announce_title}
-                          </Text>
-                        </View>
-                        <View>
-                          <Text
-                            style={{
-                              color: colors.bg_abuabu,
-                              fontSize: 14,
-                              //fontFamily: 'Bold',
-                              textAlign: 'center',
-                              width: '100%',
-                            }}>
-                            {this.state.announce.announce_descs}
-                          </Text>
-                        </View>
-                      </View>
-                    ) : (
-                      <View>
-                        <View>
-                          <Text
-                            style={{
-                              color: colors.bg_abuabu,
-                              fontSize: 16,
-                              //fontFamily: 'Bold',
-                              textAlign: 'center',
-                              width: '100%',
-                              fontWeight: 'bold',
-                            }}>
-                            Announcement
-                          </Text>
-                        </View>
-                        <View>
-                          <Text
-                            style={{
-                              color: colors.bg_abuabu,
-                              fontSize: 14,
-                              //fontFamily: 'Bold',
-                              textAlign: 'center',
-                              width: '100%',
-                            }}>
-                            No Announcement
-                          </Text>
-                        </View>
-                      </View>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              </Col>
-            </Grid>
-            {/* --------- END ANNOUNCEMENT ------- */}
 
             {/* -------- PROMOTIONS -------- */}
             <View style={{paddingLeft: 10, paddingTop: 15}}>
@@ -1567,105 +1490,6 @@ class Home extends React.Component {
                         indicatorStyle={{ marginTop: 0 }}
                     /> */}
             {/* -------- END PROMOTIONS -------- */}
-
-            {/* -------- NEWS -------- */}
-            <View style={{paddingLeft: 10, paddingTop: 15}}>
-              <Text
-                style={{
-                  color: colors.bg_abuabu,
-                  fontSize: 16,
-                  //fontFamily: 'Bold',
-                  textAlign: 'left',
-                  width: '100%',
-                  fontWeight: 'bold',
-                  textTransform: 'uppercase',
-                }}>
-                News
-              </Text>
-            </View>
-            {this.state.news ? (
-              this.state.news.length == 0 ? (
-                <View>
-                  <Text>No News Available</Text>
-                </View>
-              ) : (
-                <View>
-                  <ScrollView horizontal>
-                    {this.state.news.map((item, index) => (
-                      <TouchableOpacity
-                        style={{
-                          paddingTop: 10,
-                          // -- create shadow
-                          shadowColor: '#000',
-                          shadowOffset: {
-                            width: 0,
-                            height: 1,
-                          },
-                          shadowOpacity: 0.22,
-                          shadowRadius: 2.22,
-                          elevation: 3,
-                          // -- end create shadow
-                          justifyContent: 'center',
-                        }}
-                        key={index}>
-                        <Col
-                          style={{
-                            marginHorizontal: 5,
-                            marginBottom: 5,
-                          }}>
-                          <NewsList
-                            onPress={() =>
-                              this.handleNavigation('screen.NewsDetail', item)
-                            }
-                            desc={item.news_descs}
-                            bg={colors.bg_peachmuda}
-                            // bg={Style.hijaumuda}
-                            img={{uri: item.url_image}}
-                            // img={require('@Asset/images/new/news/Shelton.jpg')}
-                            title={item.news_title}
-                            numColumns={2}
-                            colorTextTitle={colors.bg_abuabu}
-                            colorTextDesc={colors.bg_abuabu}></NewsList>
-                        </Col>
-                      </TouchableOpacity>
-                    ))}
-                  </ScrollView>
-                  <TouchableOpacity
-                    style={{marginBottom: 10}}
-                    onPress={() =>
-                      this.handleNavigation('screen.NewsMore', this.state.news)
-                    }>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                        paddingRight: 10,
-                        paddingTop: 5,
-                      }}>
-                      <Text
-                        style={{color: colors.bg_abuabu, fontWeight: 'bold'}}>
-                        more news
-                      </Text>
-                      <IconFA
-                        name="chevron-right"
-                        style={{
-                          fontSize: 16,
-                          paddingTop: 5,
-                          paddingLeft: 8,
-                          color: colors.bg_abuabu,
-                        }}></IconFA>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              )
-            ) : (
-              <View>
-                <Text>no data</Text>
-              </View>
-            )}
-
-            {/* ------ END NEWS ------- */}
           </ScrollView>
         </ImageBackground>
       </NativeBaseProvider>
