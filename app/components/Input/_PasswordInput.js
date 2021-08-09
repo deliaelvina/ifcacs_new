@@ -36,7 +36,7 @@ const basicStyles = {
     width: '100%',
     backgroundColor: '#FFF',
     borderRadius: 8,
-    elevation: 10,
+    // elevation: 10,
     shadowOffset: {
       width: 5,
       height: 5,

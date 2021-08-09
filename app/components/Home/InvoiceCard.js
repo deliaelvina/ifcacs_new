@@ -19,7 +19,7 @@ export default function InvoiceCard(props) {
           shadowOffset: {width: 1, height: 1},
           shadowColor: '#37BEB7',
           shadowOpacity: 0.5,
-          elevation: 5,
+          // elevation: 5,
           paddingHorizontal: 10,
           paddingVertical: 10,
         }}>

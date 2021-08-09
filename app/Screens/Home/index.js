@@ -118,7 +118,7 @@ class Home extends React.Component {
       dataProfile: [],
       news: [],
       promo: [],
-      announce: [],
+      // announce: [],
 
       scrollY: new Animated.Value(0),
       noOfPic: 2,
@@ -180,7 +180,6 @@ class Home extends React.Component {
     this.setState(data, () => {
       this.getNews();
       this.getPromo();
-      this.getAnnouncement();
     });
   }
 
@@ -418,37 +417,6 @@ class Home extends React.Component {
       });
   };
 
-  getAnnouncement = () => {
-    fetch(
-      'http://34.87.121.155:8000/ifcaprop-api/api/announce',
-      // "https://my.api.mockaroo.com/news.json",
-      {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          // Token: this.state.token
-        },
-      },
-    )
-      .then(response => response.json())
-      .then(res => {
-        if (!res.Error) {
-          const resData = res.data[0];
-          console.log('resdata annouce', resData);
-          this.setState({announce: resData});
-        } else {
-          this.setState({isLoaded: !this.state.isLoaded}, () => {
-            alert(res.Pesan);
-          });
-        }
-        console.log('getAnnounce', res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
   onRefresh = () => {
     this.setState({refreshing: true});
     // this.loadData()
@@ -456,7 +424,6 @@ class Home extends React.Component {
 
     this.getNews();
     this.getPromo();
-    this.getAnnouncement();
   };
 
   handleNavigation = (screenName, passedProps) => {
@@ -485,7 +452,6 @@ class Home extends React.Component {
     // console.log('total invoice', this.state.totalInvoice);
 
     const headerCarousel = this.headerCarousel();
-    const announceCarousel = this.announceCarousel();
 
     return (
       <NativeBaseProvider>
@@ -599,8 +565,9 @@ class Home extends React.Component {
                         justifyContent: 'center',
                       }}>
                       <Image
-                        source={require('@Asset/icons/billing.png')}
-                        style={{width: 20, height: 20}}
+                        // source={require('@Asset/icons/billing.png')}
+                        source={require('@Asset/icons/menu_icon/invoicedue.png')}
+                        style={{width: 35, height: 35}}
                       />
                     </View>
 
@@ -612,7 +579,7 @@ class Home extends React.Component {
                           //fontFamily: 'Bold',
                           fontWeight: 'bold',
                         }}>
-                        INVOICE DUE
+                        INVOICE DUEe
                       </Text>
                       <Text
                         style={[
@@ -1180,38 +1147,18 @@ class Home extends React.Component {
                 </Grid>
                 <Grid>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
-                    <View
-                      style={{
-                        width: 47,
-                        height: 47,
-                        borderRadius: 25,
-                        backgroundColor: colors.bg_peachmuda,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        // -- create shadow
-                        shadowColor: '#000',
-                        shadowOffset: {
-                          width: 0,
-                          height: 1,
-                        },
-                        shadowOpacity: 0.22,
-                        shadowRadius: 2.22,
-                        elevation: 3,
-                        // -- end create shadow
-                      }}>
-                      <Image
-                        // source={require('@Asset/icons/billing.png')}
-                        source={require('@Asset/icons/menu_icon/promo.png')}
+                    <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.Promo')}>
+                      <View
                         style={{
-                          bottom: 5,
-                          // left: 3,
-                          width: 40,
-                          height: 40,
-                          alignSelf: 'center',
+                          width: 47,
+                          height: 47,
+                          borderRadius: 25,
+                          backgroundColor: colors.bg_peachmuda,
                           alignItems: 'center',
+                          alignSelf: 'center',
                           justifyContent: 'center',
+                          flexDirection: 'column',
                           // -- create shadow
                           shadowColor: '#000',
                           shadowOffset: {
@@ -1219,57 +1166,60 @@ class Home extends React.Component {
                             height: 1,
                           },
                           shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
+                          shadowRadius: 2.22,
                           elevation: 3,
                           // -- end create shadow
-                        }}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        paddingTop: 5,
-                        color: colors.bg_abuabu,
-                        fontSize: 14,
-                        //fontFamily: 'Bold',
-                        paddingLeft: 5,
-                        textAlign: 'center',
-                      }}>
-                      Promo
-                    </Text>
+                        }}>
+                        <Image
+                          // source={require('@Asset/icons/billing.png')}
+                          source={require('@Asset/icons/menu_icon/promo.png')}
+                          style={{
+                            bottom: 5,
+                            // left: 3,
+                            width: 40,
+                            height: 40,
+                            alignSelf: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.1,
+                            elevation: 3,
+                            // -- end create shadow
+                          }}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          paddingTop: 5,
+                          color: colors.bg_abuabu,
+                          fontSize: 14,
+                          //fontFamily: 'Bold',
+
+                          textAlign: 'center',
+                        }}>
+                        Promo
+                      </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
-                    <View
-                      style={{
-                        width: 47,
-                        height: 47,
-                        borderRadius: 25,
-                        backgroundColor: colors.bg_peachmuda,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        // -- create shadow
-                        shadowColor: '#000',
-                        shadowOffset: {
-                          width: 0,
-                          height: 1,
-                        },
-                        shadowOpacity: 0.22,
-                        shadowRadius: 2.22,
-                        elevation: 3,
-                        // -- end create shadow
-                      }}>
-                      <Image
-                        // source={require('@Asset/icons/billing.png')}
-                        source={require('@Asset/icons/menu_icon/announce.png')}
+                    <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.Announce')}>
+                      <View
                         style={{
-                          bottom: 5,
-                          // left: 3,
-                          width: 40,
-                          height: 40,
-                          alignSelf: 'center',
+                          width: 47,
+                          height: 47,
+                          borderRadius: 25,
+                          backgroundColor: colors.bg_peachmuda,
                           alignItems: 'center',
+                          alignSelf: 'center',
                           justifyContent: 'center',
+                          flexDirection: 'column',
                           // -- create shadow
                           shadowColor: '#000',
                           shadowOffset: {
@@ -1277,23 +1227,47 @@ class Home extends React.Component {
                             height: 1,
                           },
                           shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
+                          shadowRadius: 2.22,
                           elevation: 3,
                           // -- end create shadow
-                        }}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        paddingTop: 5,
-                        color: colors.bg_abuabu,
-                        fontSize: 14,
-                        //fontFamily: 'Bold',
-                        paddingLeft: 5,
-                        textAlign: 'center',
-                      }}>
-                      Announce
-                    </Text>
+                        }}>
+                        <Image
+                          // source={require('@Asset/icons/billing.png')}
+                          source={require('@Asset/icons/menu_icon/announce.png')}
+                          style={{
+                            bottom: 5,
+                            // left: 3,
+                            width: 40,
+                            height: 40,
+                            alignSelf: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.1,
+                            elevation: 3,
+                            // -- end create shadow
+                          }}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          paddingTop: 5,
+                          color: colors.bg_abuabu,
+                          fontSize: 14,
+                          //fontFamily: 'Bold',
+                          // paddingLeft: 5,
+                          width: '100%',
+                          textAlign: 'center',
+                        }}>
+                        Announce
+                      </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
                     <View

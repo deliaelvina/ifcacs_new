@@ -357,70 +357,37 @@ class Profile extends React.Component {
 
                   {/* ----- menu profil ---- */}
 
-                  {this.state.isLogin == true ? (
-                    <View>
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Settings'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Privacy & Police'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'About Us'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Contact Us'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Clear Cache'}
-                        bg={colors.bg_putih}
-                        onPress={() => this.setClearCache()}
-                      />
-                    </View>
-                  ) : (
-                    <View>
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Privacy & Police'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'About Us'}
-                        bg={colors.bg_putih}
-                      />
-                      <MenuProfil
-                        // key={index}
-                        // img={{ uri: item.url_image }}
-                        img={require('@Asset/icons/profile.png')}
-                        menu={'Contact Us'}
-                        bg={colors.bg_putih}
-                      />{' '}
-                    </View>
-                  )}
+                  <View>
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Settings'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Privacy & Policy'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'About Us'}
+                      bg={colors.bg_putih}
+                    />
+                    <MenuProfil
+                      // key={index}
+                      // img={{ uri: item.url_image }}
+                      img={require('@Asset/icons/profile.png')}
+                      menu={'Clear Cache'}
+                      bg={colors.bg_putih}
+                      onPress={() => this.setClearCache()}
+                    />
+                  </View>
 
                   {/* ----- end menu profil ---- */}
 
@@ -495,7 +462,7 @@ class Profile extends React.Component {
                     // key={index}
                     // img={{ uri: item.url_image }}
                     img={require('@Asset/icons/profile.png')}
-                    menu={'Privacy & Police'}
+                    menu={'Privacy & Policy'}
                     bg={colors.bg_putih}
                   />
                   <MenuProfil

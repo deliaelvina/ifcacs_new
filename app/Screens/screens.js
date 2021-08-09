@@ -29,8 +29,12 @@ import NewsMore from './News/NewsMore';
 
 //PromoDetail
 import PromoDetail from './Promo/PromoDetail';
+import Promo from './Promo';
 
 import ContohCarousel from './contohcarousel';
+
+//Announce
+import Announce from './Announce';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -81,8 +85,18 @@ export function registerScreen() {
     gestureHandlerRootHOC(PromoDetail),
   );
 
+  //PromoAll
+  Navigation.registerComponent('screen.Promo', () =>
+    gestureHandlerRootHOC(Promo),
+  );
+
   //contoh carrousel
   Navigation.registerComponent('screen.ContohCarousel', () =>
     gestureHandlerRootHOC(ContohCarousel),
+  );
+
+  //Announce
+  Navigation.registerComponent('screen.Announce', () =>
+    gestureHandlerRootHOC(Announce),
   );
 }

@@ -67,13 +67,17 @@ export default class PromoDetail extends React.Component {
       // user: true,
       start_date: dataPromo.start_date,
       end_date: dataPromo.end_date,
-      promo_descs: dataPromo.promo_descs,
+      promo_descs: dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
       promo_title: dataPromo.promo_title,
       tnc_descs: dataPromo.tnc_descs,
       url_image: dataPromo.url_image,
       mounted: true,
     };
     console.log('data', data);
+    console.log(
+      'replace promo desc',
+      dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+    );
     this.setState(data, () => {});
   }
 
@@ -169,7 +173,7 @@ export default class PromoDetail extends React.Component {
                 <View
                   style={{
                     marginTop: 40,
-                    paddingLeft: 15,
+                    paddingLeft: 25,
                     paddingRight: 15,
                   }}>
                   <Text style={{textAlign: 'justify', fontSize: 15}}>

@@ -98,7 +98,7 @@ export const goHome = () =>
               options: {
                 bottomTab: {
                   text: 'Emergency Call',
-                  icon: iconProfile,
+                  icon: iconStatus,
                   iconInsets: {bottom: -5},
                   iconColor: iconColor,
                   textColor: iconColor,
@@ -151,100 +151,115 @@ export const goHome = () =>
     },
   });
 
+// export const goToAuth = () =>
 export const goToAuth = () =>
-  // Navigation.setRoot({
-  //   root: {
-  //     stack: {
-  //       id: 'App',
-  //       children: [
-  //         {
-  //           component: {
-  //             // name: 'screen.Home',
-  //             name: 'tab.Home',
-  //           },
-  //         },
-  //       ],
-  //     },
-  //   },
-  // });
   Navigation.setRoot({
     root: {
-      bottomTabs: {
-        id: 'BottomTabsId',
+      stack: {
+        id: 'App',
         children: [
           {
-            stack: {
-              children: [
-                {
-                  component: {
-                    name: 'tab.Home',
-                    options: {
-                      // topBar:{
-                      //   visible:false,
-                      //   height:0
-                      // },
-
-                      animations: {
-                        push: {
-                          enabled: 'false',
-                        },
-                      },
-                    },
-                  },
-                },
-              ],
-              options: {
-                bottomTab: {
-                  text: 'Home',
-                  icon: iconHome,
-                  iconInsets: {bottom: -5},
-                  iconColor: iconColor,
-                  textColor: iconColor,
-                  selectedIconColor: selectedColor,
-                  selectedTextColor: selectedColor,
-                },
-              },
-            },
-          },
-          {
-            stack: {
-              children: [
-                {
-                  component: {
-                    name: 'tab.Profile',
-                    options: {
-                      topBar: {
-                        visible: false,
-                      },
-                    },
-                  },
-                },
-              ],
-              options: {
-                bottomTab: {
-                  text: 'Profile logout',
-                  icon: iconProfile,
-                  iconInsets: {bottom: -5},
-                  iconColor: iconColor,
-                  textColor: iconColor,
-                  selectedIconColor: selectedColor,
-                  selectedTextColor: selectedColor,
-                },
-              },
+            component: {
+              name: 'screen.Login',
             },
           },
         ],
-        options: {
-          bottomTabs: {
-            visible: true,
-            animate: false,
-            translucent: false,
-            disableIconTint: true,
-            disableSelectedIconTint: true,
-            fontSize: 10,
-            titleDisplayMode: 'alwaysShow',
-          },
-        },
       },
     },
   });
+// Navigation.setRoot({
+//   root: {
+//     stack: {
+//       id: 'App',
+//       children: [
+//         {
+//           component: {
+//             // name: 'screen.Home',
+//             name: 'tab.Home',
+//           },
+//         },
+//       ],
+//     },
+//   },
+// });
+// Navigation.setRoot({
+//   root: {
+//     bottomTabs: {
+//       id: 'BottomTabsId',
+//       children: [
+//         {
+//           stack: {
+//             children: [
+//               {
+//                 component: {
+//                   name: 'tab.Home',
+//                   options: {
+//                     // topBar:{
+//                     //   visible:false,
+//                     //   height:0
+//                     // },
+
+//                     animations: {
+//                       push: {
+//                         enabled: 'false',
+//                       },
+//                     },
+//                   },
+//                 },
+//               },
+//             ],
+//             options: {
+//               bottomTab: {
+//                 text: 'Home',
+//                 icon: iconHome,
+//                 iconInsets: {bottom: -5},
+//                 iconColor: iconColor,
+//                 textColor: iconColor,
+//                 selectedIconColor: selectedColor,
+//                 selectedTextColor: selectedColor,
+//               },
+//             },
+//           },
+//         },
+//         {
+//           stack: {
+//             children: [
+//               {
+//                 component: {
+//                   name: 'tab.Profile',
+//                   options: {
+//                     topBar: {
+//                       visible: false,
+//                     },
+//                   },
+//                 },
+//               },
+//             ],
+//             options: {
+//               bottomTab: {
+//                 text: 'Profile logout',
+//                 icon: iconProfile,
+//                 iconInsets: {bottom: -5},
+//                 iconColor: iconColor,
+//                 textColor: iconColor,
+//                 selectedIconColor: selectedColor,
+//                 selectedTextColor: selectedColor,
+//               },
+//             },
+//           },
+//         },
+//       ],
+//       options: {
+//         bottomTabs: {
+//           visible: true,
+//           animate: false,
+//           translucent: false,
+//           disableIconTint: true,
+//           disableSelectedIconTint: true,
+//           fontSize: 10,
+//           titleDisplayMode: 'alwaysShow',
+//         },
+//       },
+//     },
+//   },
+// });
