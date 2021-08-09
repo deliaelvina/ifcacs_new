@@ -579,7 +579,7 @@ class Home extends React.Component {
                           //fontFamily: 'Bold',
                           fontWeight: 'bold',
                         }}>
-                        INVOICE DUEe
+                        INVOICE DUE
                       </Text>
                       <Text
                         style={[
@@ -638,8 +638,8 @@ class Home extends React.Component {
                         justifyContent: 'center',
                       }}>
                       <Image
-                        source={require('@Asset/icons/total.png')}
-                        style={{width: 20, height: 20}}
+                        source={require('@Asset/icons/menu_icon/totalinvoice.png')}
+                        style={{width: 35, height: 35}}
                       />
                     </View>
                     <TouchableOpacity
