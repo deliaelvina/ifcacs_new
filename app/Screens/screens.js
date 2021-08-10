@@ -26,6 +26,7 @@ import Amenities from './Amenities';
 //NewsDetail
 import NewsDetail from './News/NewsDetail';
 import NewsMore from './News/NewsMore';
+import News from './News';
 
 //PromoDetail
 import PromoDetail from './Promo/PromoDetail';
@@ -78,6 +79,11 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.NewsMore', () =>
     gestureHandlerRootHOC(NewsMore),
+  );
+
+  //NewsAll
+  Navigation.registerComponent('screen.News', () =>
+    gestureHandlerRootHOC(News),
   );
 
   //PromoDetail

@@ -10,6 +10,7 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
+  Linking,
 } from 'react-native';
 import {itemWidth} from '../../components/SliderEntry/Style';
 import {Navigation} from 'react-native-navigation';
@@ -65,10 +66,10 @@ export default class NewsDetail extends React.Component {
     const dataNews = this.props.passed;
     const data = {
       // user: true,
-      news_title: dataNews.news_title,
+      news_title: dataNews.news_title.replace(/<\/?[^>]+(>|$)/g, ''),
       date_created: dataNews.date_created,
-      news_descs: dataNews.news_descs,
-      source: dataNews.source,
+      news_descs: dataNews.news_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+      source: dataNews.source.replace(/<\/?[^>]+(>|$)/g, ''),
       url_image: dataNews.url_image,
       mounted: true,
     };
@@ -151,6 +152,7 @@ export default class NewsDetail extends React.Component {
                   borderTopRightRadius: 60,
                   // top: '10%',
                   height: '100%',
+                  marginBottom: 100,
                 }}>
                 <View
                   style={{
@@ -181,8 +183,11 @@ export default class NewsDetail extends React.Component {
                 </View>
 
                 <View style={{top: 20, paddingLeft: 15, paddingRight: 15}}>
-                  <Text style={{color: colors.bg_coklat, fontSize: 14}}>
-                    Source : {this.state.source}
+                  <Text
+                    style={{color: colors.bg_coklat, fontSize: 14}}
+                    onPress={() => Linking.openURL(this.state.source)}>
+                    Source :{' '}
+                    <Text style={{color: 'blue'}}>{this.state.source}</Text>
                   </Text>
                 </View>
               </View>
