@@ -10,6 +10,7 @@ import {
   ScrollView,
   ImageBackground,
   Alert,
+  useWindowDimensions,
 } from 'react-native';
 import {itemWidth} from '../../components/SliderEntry/Style';
 import {Navigation} from 'react-native-navigation';
@@ -18,6 +19,9 @@ import {Style} from '../../Theme/';
 import colors from '../../Theme/Colors';
 import {Modalize} from 'react-native-modalize';
 import moment from 'moment';
+
+import nbStyles from './Style';
+import SegmentedControlTab from 'react-native-segmented-control-tab';
 
 import ImageView from 'react-native-image-viewing';
 
@@ -51,9 +55,13 @@ export default class PromoDetail extends React.Component {
   constructor(props) {
     super(props);
     this.myRef = React.createRef();
+
     this.state = {
       dataPromo: [],
       isImageViewVisible: false,
+      selectedIndex: 0,
+      customStyleIndex: 0,
+      //   typeTab: 'DT',
     };
   }
   async componentDidMount() {
@@ -63,13 +71,14 @@ export default class PromoDetail extends React.Component {
     // }
     console.log('item from passed prop', this.props.passed);
     const dataPromo = this.props.passed;
+
     const data = {
       // user: true,
       start_date: dataPromo.start_date,
       end_date: dataPromo.end_date,
       promo_descs: dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
       promo_title: dataPromo.promo_title,
-      tnc_descs: dataPromo.tnc_descs,
+      tnc_descs: dataPromo.tnc_descs.replace(/<\/?[^>]+(>|$)/g, ''),
       url_image: dataPromo.url_image,
       mounted: true,
     };
@@ -78,7 +87,9 @@ export default class PromoDetail extends React.Component {
       'replace promo desc',
       dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
     );
-    this.setState(data, () => {});
+    this.setState(data, () => {
+      //   this.handleIndexChange();
+    });
   }
 
   handleClose = dest => {
@@ -88,6 +99,17 @@ export default class PromoDetail extends React.Component {
     }
     //   Navigation.dismissOverlay();
   };
+  renderSK() {
+    return (
+      <View>
+        <Text>halo</Text>
+      </View>
+    );
+  }
+
+  handleCustomIndexSelect = (index: number) => {
+    this.setState(prevState => ({...prevState, customStyleIndex: index}));
+  };
 
   render() {
     const images = [
@@ -96,6 +118,10 @@ export default class PromoDetail extends React.Component {
         title: this.state.promo_title,
       },
     ];
+
+    const {customStyleIndex} = this.state;
+
+    console.log('this.index', this.state.selectedIndex);
 
     return (
       <View style={{width: '100%', height: '100%'}}>
@@ -153,6 +179,7 @@ export default class PromoDetail extends React.Component {
                   borderTopRightRadius: 60,
                   // top: '10%',
                   height: '100%',
+                  paddingBottom: '50%',
                 }}>
                 <View
                   style={{
@@ -170,24 +197,55 @@ export default class PromoDetail extends React.Component {
                     {moment(this.state.end_date).format('DD MMMM YYYY')}
                   </Text>
                 </View>
-                <View
-                  style={{
-                    marginTop: 40,
-                    paddingLeft: 25,
-                    paddingRight: 15,
-                  }}>
-                  <Text style={{textAlign: 'justify', fontSize: 15}}>
-                    {this.state.promo_descs}
-                  </Text>
+                <View style={{marginHorizontal: 20}}>
+                  <SegmentedControlTab
+                    values={['Detail', 'S&K']}
+                    selectedIndex={customStyleIndex}
+                    onTabPress={this.handleCustomIndexSelect}
+                    borderRadius={10}
+                    activeTabStyle={nbStyles.activeTabStyle}
+                    activeTabTextStyle={nbStyles.activeTabTextStyle}
+                    tabStyle={nbStyles.tabStyle}
+                    tabTextStyle={nbStyles.tabTextStyle}
+                  />
                 </View>
 
-                <View style={{left: 25, marginTop: 25}}>
-                  <Text style={{fontSize: 15, fontWeight: 'bold'}}>S&K</Text>
-                  <Text style={{fontSize: 14, color: colors.bg_abuabu}}>
-                    Promo period : {moment(this.state.start_date).format('DD')}{' '}
-                    - {moment(this.state.end_date).format('DD MMMM YYYY')}
-                  </Text>
-                </View>
+                {customStyleIndex === 0 && (
+                  <View
+                    style={{
+                      marginTop: 40,
+                      paddingLeft: 25,
+                      paddingRight: 15,
+                    }}>
+                    <Text style={{textAlign: 'justify', fontSize: 15}}>
+                      {this.state.promo_descs}
+                    </Text>
+                  </View>
+                )}
+                {customStyleIndex === 1 && (
+                  <View
+                    style={{
+                      marginTop: 40,
+                      paddingLeft: 25,
+                      paddingRight: 15,
+                      marginBottom: 15,
+                      height: '100%',
+                    }}>
+                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>S&K</Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        color: colors.bg_abuabu,
+                        textAlign: 'justify',
+                      }}>
+                      {this.state.tnc_descs}
+                      {/* Promo period : {moment(this.state.start_date).format(
+                      'DD',
+                    )}{' '}
+                    - {moment(this.state.end_date).format('DD MMMM YYYY')} */}
+                    </Text>
+                  </View>
+                )}
               </View>
             </ScrollView>
           </View>
