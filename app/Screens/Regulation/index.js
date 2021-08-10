@@ -36,12 +36,12 @@ const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
 // const modalizeRef = useRef(null);
 
-export default class News extends React.Component {
+export default class Regulation extends React.Component {
   static options(passProps) {
     return {
       topBar: {
         title: {
-          text: Platform.OS == 'ios' ? 'News' : 'News',
+          text: 'Regulation / Document',
           color: colors.bg_abuabu,
         },
         // background: {
@@ -63,7 +63,7 @@ export default class News extends React.Component {
     super(props);
 
     this.state = {
-      news: [],
+      regulation: [],
       dateNow: new Date(),
     };
   }
@@ -80,13 +80,13 @@ export default class News extends React.Component {
     };
     console.log('data', data);
     this.setState(data, () => {
-      this.getNews();
+      this.getRegulation();
     });
   }
 
-  getNews = () => {
+  getRegulation = () => {
     fetch(
-      'http://34.87.121.155:8000/ifcaprop-api/api/news',
+      'http://34.87.121.155:8000/ifcaprop-api/api/regulations/',
       // "https://my.api.mockaroo.com/news.json",
       {
         method: 'GET',
@@ -101,27 +101,14 @@ export default class News extends React.Component {
       .then(res => {
         if (!res.Error) {
           let resData = res.data;
-          //   let databanners = [];
-          //   console.log('resdata promo', resData);
-          //   resData.map(item => {
-          //     if (item.banner == 'Y') {
-          //       let banners = {
-          //         ...item,
-          //         banner: item.banner,
-          //       };
-          //       console.log('banners', banners);
-          //       databanners.push(banners);
-          //     }
-          //   });
-          //   console.log('databanner', databanners);
-          this.setState({news: resData});
-          //   this.setState({promobanner: databanners});
+
+          this.setState({regulation: resData});
         } else {
           this.setState({isLoaded: !this.state.isLoaded}, () => {
             alert(res.Pesan);
           });
         }
-        console.log('getNews', res);
+        console.log('getRegulation', res);
       })
       .catch(error => {
         console.log(error);
@@ -153,53 +140,67 @@ export default class News extends React.Component {
             paddingLeft: 10,
             paddingRight: 10,
             paddingTop: 10,
-            marginBottom: 20,
           }}>
-          {this.state.news.map((item, index) => (
+          {this.state.regulation.map((item, index) => (
             <TouchableOpacity
-              onPress={() => this.handleNavigation('screen.NewsDetail', item)}>
-              <Box
-                bg="white"
-                shadow={2}
-                rounded="lg"
-                maxWidth="100%"
-                key={index}
-                style={{paddingBottom: 10}}>
-                <Image
-                  source={{
-                    uri: item.url_image,
-                  }}
-                  alt="image base"
-                  resizeMode="cover"
-                  height={150}
-                  roundedTop="md"
-                />
+              onPress={() => this.handleNavigation('screen.showPDF', item)}
+              key={index}
+              style={{
+                flexDirection: 'row',
+                backgroundColor: colors.bg_putih,
+                paddingLeft: 10,
+                // paddingTop: 10,
+                // paddingBottom: 10,
+                marginHorizontal: 10,
+                marginVertical: 10,
+                borderRadius: 10,
+                alignItems: 'center',
+                marginTop: 10,
+                // -- create shadow
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.22,
+                shadowRadius: 2.22,
+                elevation: 3,
+                // -- end create shadows
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginLeft: 10,
+                  marginRight: 10,
+                  height: 50,
+                  alignItems: 'center',
+                }}>
                 <Text
-                  bold
-                  position="absolute"
-                  color="white"
-                  top={0}
-                  m={[4, 4, 8]}>
-                  NEWS
+                  style={{
+                    color: colors.bg_abuabu,
+                    //fontFamily: "Bold",
+                    fontSize: 14,
+                    //   paddingHorizontal: 10,
+                    width: '93%',
+                    //   justifyContent: 'space-around',
+                    // alignContent: 'center',
+                    // alignItems: 'baseline',
+                    //   fontWeight: 'bold',
+                    //   textAlign: 'justify',
+                  }}>
+                  {item.regulations_title}
                 </Text>
-                <Stack space={4} p={[4, 4, 8]}>
-                  <Text color="gray.400">
-                    {moment(item.date_created).format('DD MMM YYYY')}
-                  </Text>
-                  <Heading
-                    size={['md', 'lg', 'md']}
-                    //   noOfLines={2}
-                    textAlign="justify">
-                    {item.news_title}
-                  </Heading>
-                  <Text
-                    lineHeight={[5, 5, 7]}
-                    noOfLines={[3, 4, 2]}
-                    color="gray.700">
-                    {item.news_descs.replace(/<\/?[^>]+(>|$)/g, '')}
-                  </Text>
-                </Stack>
-              </Box>
+                <IconFA
+                  name="chevron-right"
+                  style={{
+                    fontSize: 16,
+                    paddingTop: 5,
+                    marginRight: 10,
+
+                    justifyContent: 'space-around',
+                    color: colors.bg_abuabu,
+                  }}></IconFA>
+              </View>
             </TouchableOpacity>
           ))}
         </ScrollView>

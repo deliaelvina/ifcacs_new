@@ -11,6 +11,7 @@ import {
   ImageBackground,
   Alert,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import {itemWidth} from '../../components/SliderEntry/Style';
 import {Navigation} from 'react-native-navigation';
@@ -34,7 +35,7 @@ export default class PromoDetail extends React.Component {
     return {
       topBar: {
         title: {
-          text: 'Promo',
+          text: Platform.OS == 'ios' ? '' : 'Promo',
           color: colors.bg_abuabu,
         },
         // background: {

@@ -31,7 +31,7 @@ export default class NewsDetail extends React.Component {
     return {
       topBar: {
         title: {
-          text: 'News',
+          text: Platform.OS == 'ios' ? '' : 'News',
           color: colors.bg_abuabu,
         },
         // background: {

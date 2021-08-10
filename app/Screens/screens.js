@@ -36,6 +36,9 @@ import ContohCarousel from './contohcarousel';
 
 //Announce
 import Announce from './Announce';
+import Regulation from './Regulation';
+import showPDF from './Regulation/showPDF';
+import Facility from './Facility';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -104,5 +107,18 @@ export function registerScreen() {
   //Announce
   Navigation.registerComponent('screen.Announce', () =>
     gestureHandlerRootHOC(Announce),
+  );
+
+  //Regulation
+  Navigation.registerComponent('screen.Regulation', () =>
+    gestureHandlerRootHOC(Regulation),
+  );
+  Navigation.registerComponent('screen.showPDF', () =>
+    gestureHandlerRootHOC(showPDF),
+  );
+
+  //Facility
+  Navigation.registerComponent('screen.Facility', () =>
+    gestureHandlerRootHOC(Facility),
   );
 }
