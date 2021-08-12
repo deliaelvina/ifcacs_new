@@ -40,6 +40,10 @@ import Regulation from './Regulation';
 import showPDF from './Regulation/showPDF';
 import Facility from './Facility';
 
+//about us
+import AboutUs from './AboutUs';
+import FacilityDetail from './Facility/FacilityDetail';
+
 //Registering Component Screen
 export function registerScreen() {
   Navigation.registerComponent('Initializing', () =>
@@ -120,5 +124,13 @@ export function registerScreen() {
   //Facility
   Navigation.registerComponent('screen.Facility', () =>
     gestureHandlerRootHOC(Facility),
+  );
+  Navigation.registerComponent('screen.FacilityDetail', () =>
+    gestureHandlerRootHOC(FacilityDetail),
+  );
+
+  //about us
+  Navigation.registerComponent('screen.AboutUs', () =>
+    gestureHandlerRootHOC(AboutUs),
   );
 }

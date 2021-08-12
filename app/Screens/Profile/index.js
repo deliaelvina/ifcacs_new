@@ -378,6 +378,7 @@ class Profile extends React.Component {
                       img={require('@Asset/icons/profile.png')}
                       menu={'About Us'}
                       bg={colors.bg_putih}
+                      onPress={() => this.handleNavigation('screen.AboutUs')}
                     />
                     <MenuProfil
                       // key={index}

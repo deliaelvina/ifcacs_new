@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Dimensions, View} from 'react-native';
+import {StyleSheet, Dimensions, View, Text} from 'react-native';
 
 import Pdf from 'react-native-pdf';
 
@@ -46,6 +46,7 @@ export default class showPDF extends React.Component {
     const data = {
       // user: true,
       regulations_file: dataReg.regulations_file,
+      regulations_title: dataReg.regulations_title,
 
       mounted: true,
     };
@@ -66,6 +67,9 @@ export default class showPDF extends React.Component {
 
     return (
       <View style={styles.container}>
+        <Text style={{marginVertical: 10, fontWeight: 'bold'}}>
+          {this.state.regulations_title}
+        </Text>
         <Pdf
           source={source}
           onLoadComplete={(numberOfPages, filePath) => {
@@ -93,7 +97,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: 25,
+    // marginTop: 2,
+    // marginVertical: 15,
+    backgroundColor: '#fff',
   },
   pdf: {
     flex: 1,

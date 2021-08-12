@@ -37,6 +37,7 @@ import IconIC from 'react-native-vector-icons/Ionicons';
 
 import ImageView from 'react-native-image-viewing';
 import {Col, Row, Grid} from 'react-native-easy-grid';
+import {getDetailFacility} from '../../_services';
 
 const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
@@ -70,20 +71,9 @@ export default class Facility extends React.Component {
 
     this.state = {
       facility: [],
+      detailfacility: [],
       dateNow: new Date(),
       isImageViewVisible: false,
-    };
-  }
-  async componentDidMount() {
-    // this.startHeaderHeight = 150;
-    // if (Platform.OS == 'android') {
-    //   this.startHeaderHeight = 100 + StatusBar.currentHeight;
-    // }
-
-    const data = {
-      // user: true,
-
-      mounted: true,
       datagambar: [
         {
           id: 'ini judul untuk news',
@@ -101,25 +91,19 @@ export default class Facility extends React.Component {
           image:
             'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
         },
-        {
-          id: 'd',
-          value: 'D',
-          image:
-            'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-        },
-        {
-          id: 'e',
-          value: 'E',
-          image:
-            'https://images.unsplash.com/photo-1477587458883-47145ed94245?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 'f',
-          value: 'F',
-          image:
-            'https://images.unsplash.com/photo-1568700942090-19dc36fab0c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
       ],
+    };
+  }
+  async componentDidMount() {
+    // this.startHeaderHeight = 150;
+    // if (Platform.OS == 'android') {
+    //   this.startHeaderHeight = 100 + StatusBar.currentHeight;
+    // }
+
+    const data = {
+      // user: true,
+
+      mounted: true,
     };
     console.log('data', data);
     this.setState(data, () => {
@@ -145,7 +129,26 @@ export default class Facility extends React.Component {
         if (!res.Error) {
           let resData = res.data;
 
-          this.setState({facility: resData});
+          let data = [];
+          //   console.log('resdata detail fasilitas', resData);
+          resData.map(item => {
+            if (item.rowID) {
+              let datas = {
+                ...item,
+
+                // rowid: item.rowID,
+                api: 'http://34.87.121.155:8000/ifcaprop-api/api/facility/',
+              };
+              //   console.log('rowid', rowid);
+
+              //   this.detailFacility(rowid);
+              data.push(datas);
+              console.log('data fasilitas', data);
+              this.setState({facility: data});
+            }
+          });
+          //   this.detailFacility(rows);
+          //   this.detailFacility({dataFacility: resData});
         } else {
           this.setState({isLoaded: !this.state.isLoaded}, () => {
             alert(res.Pesan);
@@ -174,24 +177,6 @@ export default class Facility extends React.Component {
       },
     });
   };
-  renderItem = ({item}) => {
-    console.log('item render', item);
-    return (
-      <TouchableOpacity
-        style={{margin: 10}}
-        onPress={() => this.setState({isImageViewVisible: true})}>
-        <Image
-          source={{uri: item.image}}
-          style={{
-            height: 100,
-            width: 100,
-            resizeMode: 'cover',
-            alignSelf: 'center',
-          }}
-        />
-      </TouchableOpacity>
-    );
-  };
 
   render() {
     // const images = [
@@ -202,8 +187,7 @@ export default class Facility extends React.Component {
     // ];
     // console.log('images', images);
 
-    const data = this.state.datagambar;
-    console.log('data', data);
+    console.log('this dettail facility', this.state.detailfacility);
 
     // const images = [
     //   {
@@ -222,71 +206,107 @@ export default class Facility extends React.Component {
             paddingLeft: 10,
             paddingRight: 10,
             paddingTop: 10,
+            backgroundColor: colors.bg_peach,
           }}>
           {this.state.facility.map((item, index) => (
-            <View key={index}>
-              <View>
-                <Text
+            <TouchableOpacity
+              key={index}
+              onPress={() =>
+                this.handleNavigation('screen.FacilityDetail', item)
+              }>
+              <View
+                style={{
+                  width: '100%',
+                  height: 130,
+                  // -- create shadow
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.22,
+                  shadowRadius: 2.22,
+                  elevation: 3,
+                  // -- end create shadows
+                  marginBottom: 10,
+                  borderRadius: 15,
+                  backgroundColor: colors.bg_putih,
+                  flexDirection: 'row',
+                }}>
+                {/* {this.state.datagambar.map((indexIcon, itemIcon) => (
+                  <View key={indexIcon}>
+                    <Image source={{uri: itemIcon.image}}></Image>
+                  </View>
+                ))} */}
+
+                <View
                   style={{
-                    color: colors.bg_abuabu,
-                    //fontFamily: "Bold",
-                    fontSize: 14,
-                    paddingHorizontal: 10,
-                    width: '100%',
-                    //   justifyContent: 'space-around',
-                    // alignContent: 'center',
-                    // alignItems: 'baseline',
-                    fontWeight: 'bold',
-                    //   textAlign: 'justify',
-                  }}>
-                  {item.facility_name}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.bg_abuabu,
-                    //fontFamily: "Bold",
-                    fontSize: 14,
-                    paddingHorizontal: 10,
-                    width: '100%',
-                    //   justifyContent: 'space-around',
-                    // alignContent: 'center',
-                    // alignItems: 'baseline',
-                    //   fontWeight: 'bold',
-                    //   textAlign: 'justify',
-                  }}>
-                  {item.facility_descs}
-                </Text>
-              </View>
-              <SafeAreaView style={{flex: 1}}>
-                <FlatList
-                  contentContainerStyle={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 45,
+                    marginLeft: 10,
+                    marginTop: 10,
+                    backgroundColor: colors.bg_peachmuda,
+                    alignItems: 'center',
                     alignSelf: 'center',
                     justifyContent: 'center',
+                    // -- create shadow
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 1,
+                    },
+                    shadowOpacity: 0.22,
+                    shadowRadius: 2.22,
+                    elevation: 3,
+                    // -- end create shadows
+                  }}>
+                  <Image
+                    // source={require('@Asset/icons/billing.png')}
+                    source={require('@Asset/icons/menu_icon/invoicedue.png')}
+                    style={{width: 55, height: 55, bottom: 10, left: 4}}
+                  />
+                </View>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: colors.bg_abuabu,
+                      //fontFamily: "Bold",
+                      fontSize: 14,
+                      paddingHorizontal: 10,
+                      width: '100%',
+                      //   justifyContent: 'space-around',
+                      // alignContent: 'center',
+                      // alignItems: 'baseline',
+                      fontWeight: 'bold',
+                      //   textAlign: 'justify',
+                    }}>
+                    {item.facility_name}
+                  </Text>
 
-                    flex: 1,
-                    marginVertical: 20,
-                    marginHorizontal: 10,
-                  }}
-                  keyExtractor={item => item.id}
-                  data={this.state.datagambar}
-                  renderItem={this.renderItem}
-                  numColumns={3}
-                />
-              </SafeAreaView>
-
-              <View>
-                {/* <ImageView
-                  images={images}
-                  imageIndex={0}
-                  animationType="fade"
-                  visible={this.state.isImageViewVisible}
-                  // renderFooter={(currentImage) => (<View><Text>My footer</Text></View>)}
-                  onRequestClose={() =>
-                    this.setState({isImageViewVisible: false})
-                  }
-                /> */}
+                  <Text
+                    style={{
+                      color: colors.bg_abuabu,
+                      //fontFamily: "Bold",
+                      fontSize: 14,
+                      paddingHorizontal: 10,
+                      width: '100%',
+                      //   justifyContent: 'space-around',
+                      // alignContent: 'center',
+                      // alignItems: 'baseline',
+                      //   fontWeight: 'bold',
+                      //   textAlign: 'justify',
+                    }}>
+                    {item.facility_descs}
+                  </Text>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </NativeBaseProvider>

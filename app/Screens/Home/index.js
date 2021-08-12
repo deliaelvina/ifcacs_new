@@ -211,7 +211,7 @@ class Home extends React.Component {
   };
 
   headerCarousel(number, title) {
-    console.log('stte promo', this.state.promo);
+    // console.log('stte promo', this.state.promo);
     // const slider1ActiveSlide = this.state;
     return this.state.promo == null ? (
       <View>
@@ -729,16 +729,6 @@ class Home extends React.Component {
                           alignSelf: 'center',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          // -- create shadow
-                          shadowColor: '#000',
-                          shadowOffset: {
-                            width: 0,
-                            height: 1,
-                          },
-                          shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
-                          elevation: 3,
-                          // -- end create shadow
                         }}
                       />
                     </View>
