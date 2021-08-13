@@ -157,13 +157,13 @@ export default class News extends React.Component {
           }}>
           {this.state.news.map((item, index) => (
             <TouchableOpacity
-              onPress={() => this.handleNavigation('screen.NewsDetail', item)}>
+              onPress={() => this.handleNavigation('screen.NewsDetail', item)}
+              key={index}>
               <Box
                 bg="white"
                 shadow={2}
                 rounded="lg"
                 maxWidth="100%"
-                key={index}
                 style={{paddingBottom: 10}}>
                 <Image
                   source={{

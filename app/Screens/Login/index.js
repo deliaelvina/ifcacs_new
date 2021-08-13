@@ -39,6 +39,7 @@ import {urlApi} from '@Config';
 import {authService, contactService, productService} from '../../_services';
 import {nav, sessions} from '../../_helpers';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import colors from '../../Theme/Colors';
 
 class Login extends Component {
   static options(passProps) {
@@ -309,11 +310,10 @@ class Login extends Component {
           <OfflineNotice />
           <SafeAreaView>
             <View style={Style.LogoLeftTopWarp}>
-              <Image
+              {/* <Image
                 style={{height: 150, width: 90}}
                 source={require('@Asset/images/logo-login/logo-login.png')}
-              />
-              {/* <Text>Logo Ifca Engineering</Text> */}
+              /> */}
             </View>
 
             <View style={nbStyles.wrap}>
@@ -358,7 +358,7 @@ class Login extends Component {
                   // type={MaterialCommunityIcons}
                   name={this.state.isHidden ? 'eye' : 'eye-slash'}
                   size={20}
-                  color="red"
+                  color={colors.bg_hijaugelap}
                 />
               </View>
               {/* <Button onPress={() => this.btnLoginClick()}>PRIMARY</Button> */}

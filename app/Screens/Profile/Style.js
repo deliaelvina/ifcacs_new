@@ -1,4 +1,5 @@
 import {Dimensions} from 'react-native';
+import colors from '../../Theme/Colors';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
@@ -126,7 +127,7 @@ export default {
   btnYes: {
     width: 100,
     borderWidth: 1,
-    borderColor: '#F9A233',
+    borderColor: colors.bg_hijaugelap,
     paddingVertical: 7,
     paddingHorizontal: 10,
     borderTopRightRadius: 5,
@@ -134,7 +135,7 @@ export default {
   },
   btnNo: {
     width: 100,
-    backgroundColor: '#F99B23',
+    backgroundColor: colors.bg_hijaugelap,
     paddingVertical: 7,
     paddingHorizontal: 10,
     borderTopLeftRadius: 5,
@@ -151,7 +152,7 @@ export default {
     textAlign: 'center',
   },
   textYes: {
-    color: '#F9A233',
+    color: colors.bg_hijaugelap,
     textAlign: 'center',
   },
   iconRemove: {

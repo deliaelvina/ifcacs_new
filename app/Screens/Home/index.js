@@ -790,7 +790,7 @@ class Home extends React.Component {
                           },
                           shadowOpacity: 0.22,
                           shadowRadius: 2.1,
-                          elevation: 3,
+                          // elevation: 3,
                           // -- end create shadow
                         }}
                       />
@@ -853,7 +853,7 @@ class Home extends React.Component {
                           },
                           shadowOpacity: 0.22,
                           shadowRadius: 2.1,
-                          elevation: 3,
+                          // elevation: 3,
                           // -- end create shadow
                         }}
                       />
@@ -918,7 +918,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -982,7 +982,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1043,7 +1043,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1107,7 +1107,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1168,7 +1168,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1234,7 +1234,7 @@ class Home extends React.Component {
                           },
                           shadowOpacity: 0.22,
                           shadowRadius: 2.1,
-                          elevation: 3,
+                          // elevation: 3,
                           // -- end create shadow
                         }}
                       />
@@ -1297,7 +1297,7 @@ class Home extends React.Component {
                           },
                           shadowOpacity: 0.22,
                           shadowRadius: 2.1,
-                          elevation: 3,
+                          // elevation: 3,
                           // -- end create shadow
                         }}
                       />
@@ -1360,7 +1360,7 @@ class Home extends React.Component {
                           },
                           shadowOpacity: 0.22,
                           shadowRadius: 2.1,
-                          elevation: 3,
+                          // elevation: 3,
                           // -- end create shadow
                         }}
                       />
@@ -1425,7 +1425,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1489,7 +1489,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1550,7 +1550,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1614,7 +1614,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />
@@ -1675,7 +1675,7 @@ class Home extends React.Component {
                             },
                             shadowOpacity: 0.22,
                             shadowRadius: 2.1,
-                            elevation: 3,
+                            // elevation: 3,
                             // -- end create shadow
                           }}
                         />

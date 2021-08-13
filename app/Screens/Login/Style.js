@@ -1,3 +1,5 @@
+import colors from '../../Theme/Colors';
+
 export default {
   content: {
     width: '100%',
@@ -54,7 +56,7 @@ export default {
     fontSize: 20,
     marginBottom: '8%',
     //fontFamily: 'Montserrat-SemiBold',,
-    color: '#191919',
+    color: colors.bg_abuabu,
   },
   subTitle: {
     textAlign: 'center',
@@ -98,7 +100,7 @@ export default {
     width: '100%',
     borderRadius: 8,
     paddingVertical: 20,
-    backgroundColor: '#41B649',
+    backgroundColor: colors.bg_coklat,
     paddingHorizontal: 5,
   },
   loginBtnText: {
