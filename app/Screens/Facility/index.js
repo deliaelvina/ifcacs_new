@@ -262,9 +262,8 @@ export default class Facility extends React.Component {
                     // -- end create shadows
                   }}>
                   <Image
-                    // source={require('@Asset/icons/billing.png')}
-                    source={require('@Asset/icons/menu_icon/invoicedue.png')}
-                    style={{width: 55, height: 55, bottom: 10, left: 4}}
+                    source={{uri: item.facility_icon}}
+                    style={{width: 55, height: 55, bottom: 10}}
                   />
                 </View>
                 <View

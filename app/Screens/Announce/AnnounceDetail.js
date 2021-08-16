@@ -28,12 +28,12 @@ const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
 // const modalizeRef = useRef(null);
 
-export default class NewsDetail extends React.Component {
+export default class AnnounceDetail extends React.Component {
   static options(passProps) {
     return {
       topBar: {
         title: {
-          text: Platform.OS == 'ios' ? '' : 'News',
+          text: Platform.OS == 'ios' ? '' : 'Announce',
           color: colors.bg_abuabu,
         },
         // background: {
@@ -55,7 +55,7 @@ export default class NewsDetail extends React.Component {
     super(props);
     this.myRef = React.createRef();
     this.state = {
-      dataNews: [],
+      dataAnnounce: [],
       isImageViewVisible: false,
     };
   }
@@ -65,14 +65,17 @@ export default class NewsDetail extends React.Component {
     //   this.startHeaderHeight = 100 + StatusBar.currentHeight;
     // }
     console.log('item from passed prop', this.props.passed);
-    const dataNews = this.props.passed;
+    const dataAnnounce = this.props.passed;
     const data = {
       // user: true,
-      news_title: dataNews.news_title.replace(/<\/?[^>]+(>|$)/g, ''),
-      date_created: dataNews.date_created,
-      news_descs: dataNews.news_descs,
-      source: dataNews.source.replace(/<\/?[^>]+(>|$)/g, ''),
-      url_image: dataNews.url_image,
+      announce_title: dataAnnounce.announce_title.replace(
+        /<\/?[^>]+(>|$)/g,
+        '',
+      ),
+      date_created: dataAnnounce.date_created,
+      announce_descs: dataAnnounce.announce_descs,
+      //   source: dataAnnounce.source.replace(/<\/?[^>]+(>|$)/g, ''),
+      url_image: dataAnnounce.announce_file,
       mounted: true,
     };
     console.log('data', data);
@@ -91,7 +94,7 @@ export default class NewsDetail extends React.Component {
     const images = [
       {
         uri: this.state.url_image,
-        title: this.state.news_title,
+        title: this.state.announce_title,
       },
     ];
 
@@ -163,7 +166,9 @@ export default class NewsDetail extends React.Component {
                     paddingRight: 25,
                     paddingBottom: 5,
                   }}>
-                  <Text style={{fontSize: 23}}>{this.state.news_title}</Text>
+                  <Text style={{fontSize: 23}}>
+                    {this.state.announce_title}
+                  </Text>
                 </View>
                 <View style={{top: 20, left: 25}}>
                   <Text style={{fontSize: 14, color: colors.bg_coklat}}>
@@ -182,20 +187,11 @@ export default class NewsDetail extends React.Component {
                   }}>
                   {/* <RenderHtml
                     contentWidth={vw}
-                    source={{html: this.state.news_descs}}
+                    source={{html: this.state.announce_descs}}
                     enableExperimentalMarginCollapsing={true}
                   /> */}
                   <Text style={{textAlign: 'justify', fontSize: 15}}>
-                    {this.state.news_descs}
-                  </Text>
-                </View>
-
-                <View style={{top: 20, paddingLeft: 15, paddingRight: 15}}>
-                  <Text
-                    style={{color: colors.bg_coklat, fontSize: 14}}
-                    onPress={() => Linking.openURL(this.state.source)}>
-                    Source :{' '}
-                    <Text style={{color: 'blue'}}>{this.state.source}</Text>
+                    {this.state.announce_descs}
                   </Text>
                 </View>
               </View>
@@ -205,66 +201,4 @@ export default class NewsDetail extends React.Component {
       </View>
     );
   }
-  //   render() {
-  //     return (
-  //       <SafeAreaView style={{backgroundColor: colors.bg_peach}}>
-  //         <View style={{top: '2%', width: '100%', padding: 0, margin: 0}}>
-  //           <Image
-  //             source={{uri: this.state.url_image}}
-  //             style={{
-  //               height: 200,
-  //               width: vw,
-  //               resizeMode: 'contain',
-  //               marginBottom: 35,
-  //             }}
-  //           />
-  //         </View>
-  //       <View
-  //           style={{
-  //             backgroundColor: colors.bg_putih,
-  //             borderTopLeftRadius: 60,
-  //             borderTopRightRadius: 60,
-  //             // top: '10%',
-  //             height: '100%',
-  //           }}>
-  //           <View
-  //             style={{
-  //               top: 25,
-  //               paddingLeft: 25,
-  //               paddingRight: 25,
-  //               paddingBottom: 5,
-  //             }}>
-  //             <Text style={{fontSize: 23}}>{this.state.news_title}</Text>
-  //           </View>
-
-  //           <View style={{top: 20, left: 25}}>
-  //             <Text style={{fontSize: 14, color: colors.bg_coklat}}>
-  //               {moment(this.state.date_created).format(
-  //                 'dddd, DD MMMM YYYY HH:mm',
-  //               )}
-  //             </Text>
-  //           </View>
-
-  //           <View
-  //             style={{
-  //               top: 20,
-  //               paddingLeft: 15,
-  //               paddingRight: 15,
-  //               marginTop: 10,
-  //             }}>
-  //             <Text style={{textAlign: 'justify', fontSize: 15}}>
-  //               {this.state.news_descs}
-  //             </Text>
-  //           </View>
-
-  //           <View style={{top: 20, paddingLeft: 15, paddingRight: 15}}>
-  //             <Text style={{color: colors.bg_coklat, fontSize: 14}}>
-  //               Source : {this.state.source}
-  //             </Text>
-  //           </View>
-  //         </View>
-
-  //       </SafeAreaView>
-  //     );
-  //   }
 }

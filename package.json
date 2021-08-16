@@ -37,6 +37,7 @@
     "react-native-modalize": "^2.0.8",
     "react-native-navigation": "^7.17.1",
     "react-native-pdf": "^6.3.0",
+    "react-native-render-html": "^6.0.5",
     "react-native-safe-area-context": "^3.2.0",
     "react-native-screens": "^3.4.0",
     "react-native-segmented-control-tab": "^3.4.1",

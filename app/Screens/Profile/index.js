@@ -370,6 +370,7 @@ class Profile extends React.Component {
                     img={require('@Asset/icons/profile.png')}
                     menu={'Privacy & Policy'}
                     bg={colors.bg_putih}
+                    onPress={() => this.handleNavigation('screen.Privacy')}
                   />
                   <MenuProfil
                     // key={index}

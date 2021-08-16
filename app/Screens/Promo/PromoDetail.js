@@ -24,6 +24,8 @@ import moment from 'moment';
 import nbStyles from './Style';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
 
+import RenderHtml from 'react-native-render-html';
+
 import ImageView from 'react-native-image-viewing';
 
 const vw = Dimensions.get('window').width;
@@ -77,9 +79,12 @@ export default class PromoDetail extends React.Component {
       // user: true,
       start_date: dataPromo.start_date,
       end_date: dataPromo.end_date,
-      promo_descs: dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+      //   promo_descs: dataPromo.promo_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+      promo_descs: dataPromo.promo_descs,
       promo_title: dataPromo.promo_title,
-      tnc_descs: dataPromo.tnc_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+      // tnc_descs: dataPromo.tnc_descs.replace(/<\/?[^>]+(>|$)/g, ''),
+      tnc_descs: dataPromo.tnc_descs,
+
       url_image: dataPromo.url_image,
       mounted: true,
     };
@@ -218,9 +223,14 @@ export default class PromoDetail extends React.Component {
                       paddingLeft: 25,
                       paddingRight: 15,
                     }}>
-                    <Text style={{textAlign: 'justify', fontSize: 15}}>
+                    <RenderHtml
+                      contentWidth={vw}
+                      source={{html: this.state.promo_descs}}
+                      enableExperimentalMarginCollapsing={true}
+                    />
+                    {/* <Text style={{textAlign: 'justify', fontSize: 15}}>
                       {this.state.promo_descs}
-                    </Text>
+                    </Text> */}
                   </View>
                 )}
                 {customStyleIndex === 1 && (
@@ -232,19 +242,24 @@ export default class PromoDetail extends React.Component {
                       marginBottom: 15,
                       height: '100%',
                     }}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>S&K</Text>
-                    <Text
+                    <RenderHtml
+                      contentWidth={vw}
+                      source={{html: this.state.tnc_descs}}
+                      enableExperimentalMarginCollapsing={true}
+                    />
+                    {/* <Text style={{fontSize: 15, fontWeight: 'bold'}}>S&K</Text> */}
+                    {/* <Text
                       style={{
                         fontSize: 14,
                         color: colors.bg_abuabu,
                         textAlign: 'justify',
                       }}>
-                      {this.state.tnc_descs}
-                      {/* Promo period : {moment(this.state.start_date).format(
+                      {this.state.tnc_descs} */}
+                    {/* Promo period : {moment(this.state.start_date).format(
                       'DD',
                     )}{' '}
                     - {moment(this.state.end_date).format('DD MMMM YYYY')} */}
-                    </Text>
+                    {/* </Text> */}
                   </View>
                 )}
               </View>

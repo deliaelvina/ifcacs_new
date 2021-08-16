@@ -219,7 +219,7 @@ class AboutUs extends React.Component {
               }}>
               <Text style={{fontSize: 13, textAlign: 'justify'}}>
                 {this.state.about.about_us}
-                Waterplace Residence adalah salah satu hasil karya PT. Pakuwon
+                {/* Waterplace Residence adalah salah satu hasil karya PT. Pakuwon
                 Dharma, Tbk. merupakan hunian prestisius yang memiliki 6 (enam)
                 tower dengan total unit 2417 unit dan berlokasi di daerah
                 Surabaya Barat. Waterplace Residence mulai dibangun sejak tahun
@@ -231,7 +231,7 @@ class AboutUs extends React.Component {
                 Club House, area parkir yang luas dan lobby di setiap tower.
                 Waterplace Residence juga pernah mendapatkan penghargaan
                 “Bangunan Hijau Kategori Apartemen” dari Pemerintah Kota
-                Surabaya pada tahun 2014.
+                Surabaya pada tahun 2014. */}
               </Text>
             </View>
 

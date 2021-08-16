@@ -123,27 +123,6 @@ export default class FacilityDetail extends React.Component {
       },
     });
   };
-  renderItem = item => {
-    console.log('item render resData', item.item);
-    console.log('item.item.facility_image', item.item.facility_image);
-
-    return (
-      //   <TouchableOpacity
-      //     style={{margin: 10}}
-      //     onPress={() => this.setState({isImageViewVisible: true})}>
-      <Image
-        source={{uri: item.item.facility_image}}
-        style={{
-          height: 200,
-          width: '100%',
-
-          resizeMode: 'contain',
-          alignSelf: 'center',
-        }}
-      />
-      //   </TouchableOpacity>
-    );
-  };
 
   render() {
     // const images = [
@@ -152,9 +131,15 @@ export default class FacilityDetail extends React.Component {
     //     //    title: this.state.news_title,
     //   },
     // ];
+    const images = [
+      {
+        uri: this.state.imagesuri,
+        // title: this.state.news_title,
+      },
+    ];
     // console.log('images', images);
 
-    console.log('this dettail facility', this.state.detailfacility);
+    // console.log('this dettail facility', this.state.detailfacility);
 
     // const images = [
     //   {
@@ -191,20 +176,38 @@ export default class FacilityDetail extends React.Component {
               }}>
               {this.state.facility_descs}
             </Text>
+
             {this.state.detailfacility.map((item, index) => (
-              <View key={index}>
-                <Image
-                  source={{uri: item.facility_image}}
-                  style={{
-                    width: '100%',
-                    height: 200,
-                    marginVertical: 5,
-                    resizeMode: 'cover',
-                    alignSelf: 'center',
-                  }}
-                />
+              <View>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.setState({
+                      isImageViewVisible: true,
+                      imagesuri: item.facility_image,
+                    })
+                  }
+                  key={index}>
+                  <Image
+                    source={{uri: item.facility_image}}
+                    style={{
+                      width: '100%',
+                      height: 200,
+                      marginVertical: 5,
+                      resizeMode: 'cover',
+                      alignSelf: 'center',
+                    }}
+                  />
+                </TouchableOpacity>
               </View>
             ))}
+            <ImageView
+              images={images}
+              imageIndex={0}
+              animationType="fade"
+              visible={this.state.isImageViewVisible}
+              // renderFooter={(currentImage) => (<View><Text>My footer</Text></View>)}
+              onRequestClose={() => this.setState({isImageViewVisible: false})}
+            />
           </View>
 
           {/* <FlatList

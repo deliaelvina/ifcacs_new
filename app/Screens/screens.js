@@ -43,6 +43,8 @@ import Facility from './Facility';
 //about us
 import AboutUs from './AboutUs';
 import FacilityDetail from './Facility/FacilityDetail';
+import Privacy from './Privacy';
+import AnnounceDetail from './Announce/AnnounceDetail';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -112,6 +114,9 @@ export function registerScreen() {
   Navigation.registerComponent('screen.Announce', () =>
     gestureHandlerRootHOC(Announce),
   );
+  Navigation.registerComponent('screen.AnnounceDetail', () =>
+    gestureHandlerRootHOC(AnnounceDetail),
+  );
 
   //Regulation
   Navigation.registerComponent('screen.Regulation', () =>
@@ -132,5 +137,10 @@ export function registerScreen() {
   //about us
   Navigation.registerComponent('screen.AboutUs', () =>
     gestureHandlerRootHOC(AboutUs),
+  );
+
+  //privacy policy
+  Navigation.registerComponent('screen.Privacy', () =>
+    gestureHandlerRootHOC(Privacy),
   );
 }

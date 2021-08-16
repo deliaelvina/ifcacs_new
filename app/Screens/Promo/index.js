@@ -151,7 +151,8 @@ export default class Promo extends React.Component {
         <ScrollView style={{paddingLeft: 10, paddingRight: 10, paddingTop: 10}}>
           {this.state.promo.map((item, index) => (
             <TouchableOpacity
-              onPress={() => this.handleNavigation('screen.PromoDetail', item)}>
+              onPress={() => this.handleNavigation('screen.PromoDetail', item)}
+              key={index}>
               <Box
                 width={'100%'}
                 //   shadow={2}
@@ -164,7 +165,6 @@ export default class Promo extends React.Component {
                 shadow={10}
                 //   bg={colors.bg_peachmuda}
                 borderRadius={10}
-                key={index}
                 style={{marginBottom: 10}}>
                 <Box>
                   <AspectRatio ratio={16 / 9}>
