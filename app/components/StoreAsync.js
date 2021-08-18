@@ -19,3 +19,20 @@ export const _getData = async name => {
     console.log('ErrorGetData', error);
   }
 };
+
+export const _clearCache = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (e) {
+    console.log('error cleaar', e);
+  }
+
+  console.log('Done.');
+  // try {
+  //   const datas = data ? data : '';
+
+  //   console.log('data clear cache', datas);
+  // } catch (error) {
+  //   console.log('error clear cache', error);
+  // }
+};
