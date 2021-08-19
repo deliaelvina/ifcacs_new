@@ -45,6 +45,8 @@ import AboutUs from './AboutUs';
 import FacilityDetail from './Facility/FacilityDetail';
 import Privacy from './Privacy';
 import AnnounceDetail from './Announce/AnnounceDetail';
+import Helpdesk from './Helpdesk';
+import SpecHelpDesk from './Helpdesk/SpecHelpDesk';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -142,5 +144,13 @@ export function registerScreen() {
   //privacy policy
   Navigation.registerComponent('screen.Privacy', () =>
     gestureHandlerRootHOC(Privacy),
+  );
+
+  //helpdesk
+  Navigation.registerComponent('screen.Helpdesk', () =>
+    gestureHandlerRootHOC(Helpdesk),
+  );
+  Navigation.registerComponent('screen.SpecHelpDesk', () =>
+    gestureHandlerRootHOC(SpecHelpDesk),
   );
 }

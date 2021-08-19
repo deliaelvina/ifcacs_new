@@ -744,44 +744,25 @@ class Home extends React.Component {
                       Billing
                     </Text>
                   </Col>
+
                   <Col
                     style={{
                       paddingLeft: 10,
                       paddingRight: 10,
                       // paddingBottom: 10,
                     }}>
-                    <View
-                      style={{
-                        width: 47,
-                        height: 47,
-                        borderRadius: 25,
-                        backgroundColor: colors.bg_peachmuda,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        // -- create shadow
-                        shadowColor: '#000',
-                        shadowOffset: {
-                          width: 0,
-                          height: 1,
-                        },
-                        shadowOpacity: 0.22,
-                        shadowRadius: 2.22,
-                        elevation: 3,
-                        // -- end create shadow
-                      }}>
-                      <Image
-                        // source={require('@Asset/icons/billing.png')}
-                        source={require('@Asset/icons/menu_icon/helpdesk3.png')}
+                    <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.Helpdesk')}>
+                      <View
                         style={{
-                          bottom: 5,
-
-                          width: 40,
-                          height: 40,
-                          alignSelf: 'center',
+                          width: 47,
+                          height: 47,
+                          borderRadius: 25,
+                          backgroundColor: colors.bg_peachmuda,
                           alignItems: 'center',
+                          alignSelf: 'center',
                           justifyContent: 'center',
+                          flexDirection: 'column',
                           // -- create shadow
                           shadowColor: '#000',
                           shadowOffset: {
@@ -789,24 +770,48 @@ class Home extends React.Component {
                             height: 1,
                           },
                           shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
-                          // elevation: 3,
+                          shadowRadius: 2.22,
+                          elevation: 3,
                           // -- end create shadow
-                        }}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        paddingTop: 5,
-                        color: colors.bg_abuabu,
-                        fontSize: 14,
-                        //fontFamily: 'Bold',
-                        paddingLeft: 5,
-                        textAlign: 'center',
-                      }}>
-                      Helpdesk
-                    </Text>
+                        }}>
+                        <Image
+                          // source={require('@Asset/icons/billing.png')}
+                          source={require('@Asset/icons/menu_icon/helpdesk3.png')}
+                          style={{
+                            bottom: 5,
+
+                            width: 40,
+                            height: 40,
+                            alignSelf: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.1,
+                            // elevation: 3,
+                            // -- end create shadow
+                          }}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          paddingTop: 5,
+                          color: colors.bg_abuabu,
+                          fontSize: 14,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                          textAlign: 'center',
+                        }}>
+                        Helpdesk
+                      </Text>
+                    </TouchableOpacity>
                   </Col>
+
                   <Col
                     style={{
                       paddingLeft: 10,
@@ -1257,38 +1262,18 @@ class Home extends React.Component {
                       paddingRight: 10,
                       // paddingBottom: 10,
                     }}>
-                    <View
-                      style={{
-                        width: 47,
-                        height: 47,
-                        borderRadius: 25,
-                        backgroundColor: colors.bg_peachmuda,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        // -- create shadow
-                        shadowColor: '#000',
-                        shadowOffset: {
-                          width: 0,
-                          height: 1,
-                        },
-                        shadowOpacity: 0.22,
-                        shadowRadius: 2.22,
-                        elevation: 3,
-                        // -- end create shadow
-                      }}>
-                      <Image
-                        // source={require('@Asset/icons/billing.png')}
-                        source={require('@Asset/icons/menu_icon/helpdesk3.png')}
+                    <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.Helpdesk')}>
+                      <View
                         style={{
-                          bottom: 5,
-
-                          width: 40,
-                          height: 40,
-                          alignSelf: 'center',
+                          width: 47,
+                          height: 47,
+                          borderRadius: 25,
+                          backgroundColor: colors.bg_peachmuda,
                           alignItems: 'center',
+                          alignSelf: 'center',
                           justifyContent: 'center',
+                          flexDirection: 'column',
                           // -- create shadow
                           shadowColor: '#000',
                           shadowOffset: {
@@ -1296,23 +1281,46 @@ class Home extends React.Component {
                             height: 1,
                           },
                           shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
-                          // elevation: 3,
+                          shadowRadius: 2.22,
+                          elevation: 3,
                           // -- end create shadow
-                        }}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        paddingTop: 5,
-                        color: colors.bg_abuabu,
-                        fontSize: 14,
-                        //fontFamily: 'Bold',
-                        paddingLeft: 5,
-                        textAlign: 'center',
-                      }}>
-                      Helpdesk
-                    </Text>
+                        }}>
+                        <Image
+                          // source={require('@Asset/icons/billing.png')}
+                          source={require('@Asset/icons/menu_icon/helpdesk3.png')}
+                          style={{
+                            bottom: 5,
+
+                            width: 40,
+                            height: 40,
+                            alignSelf: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.1,
+                            // elevation: 3,
+                            // -- end create shadow
+                          }}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          paddingTop: 5,
+                          color: colors.bg_abuabu,
+                          fontSize: 14,
+                          //fontFamily: 'Bold',
+                          paddingLeft: 5,
+                          textAlign: 'center',
+                        }}>
+                        Helpdesk
+                      </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col
                     style={{
