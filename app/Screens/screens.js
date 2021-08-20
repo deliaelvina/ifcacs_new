@@ -47,6 +47,9 @@ import Privacy from './Privacy';
 import AnnounceDetail from './Announce/AnnounceDetail';
 import Helpdesk from './Helpdesk';
 import SpecHelpDesk from './Helpdesk/SpecHelpDesk';
+import SubmitHelpDesk from './Helpdesk/Submit';
+import CategoryHelp from './Helpdesk/CategoryHelp';
+import SelectCategory from './Helpdesk/SelectCategory';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -152,5 +155,14 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.SpecHelpDesk', () =>
     gestureHandlerRootHOC(SpecHelpDesk),
+  );
+  Navigation.registerComponent('screen.SubmitHelpDesk', () =>
+    gestureHandlerRootHOC(SubmitHelpDesk),
+  );
+  Navigation.registerComponent('screen.CategoryHelp', () =>
+    gestureHandlerRootHOC(CategoryHelp),
+  );
+  Navigation.registerComponent('screen.SelectCategory', () =>
+    gestureHandlerRootHOC(SelectCategory),
   );
 }

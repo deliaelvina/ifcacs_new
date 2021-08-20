@@ -10,27 +10,37 @@ import {
 import {goToAuth, goHome} from './navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {sessions} from '../_helpers';
+import {populateDeviceInfo} from '../deviceInfo';
 
 import {USER_KEY} from './config';
 class Initializing extends Component {
+  // state = {
+  //   deviceInfoLoaded: false,
+  // };
+
   async componentDidMount() {
+    // await populateDeviceInfo();
+    // this.setState({deviceInfoLoaded: true});
     try {
       const user = await sessions.getSess('@isLogin');
+
       console.log('user: ', user);
+      alert(this.state.deviceInfoLoaded);
       if (user) {
         setTimeout(() => {
           goHome();
-        }, 1000);
+        }, 3000);
       } else {
         setTimeout(() => {
           goToAuth();
-        }, 1000);
+        }, 3000);
       }
     } catch (err) {
       console.log('error: ', err);
+
       setTimeout(() => {
         goToAuth();
-      }, 1000);
+      }, 3000);
     }
   }
 

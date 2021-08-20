@@ -169,11 +169,12 @@ class SpecHelpDesk extends React.Component {
 
   handleNavigation = () => {
     this.setState({isDisabled: true}, () => {
-      if (this.state.appType == '') {
-        this.goToScreen('screen.CategoryHelp');
-      } else {
-        this.goToScreen('screen.SubmitHelpDesk');
-      }
+      this.goToScreen('screen.CategoryHelp');
+      // if (this.state.appType == '') {
+      //   this.goToScreen('screen.CategoryHelp');
+      // } else {
+      //   this.goToScreen('screen.SubmitHelpDesk');
+      // }
     });
   };
 
@@ -225,7 +226,6 @@ class SpecHelpDesk extends React.Component {
             <SubTitle text="Specification Help Desk" />
             <View style={nbStyles.subWrap}>
               <View style={nbStyles.subWrap2}>
-                <Text>Choose Project</Text>
                 <Text style={{color: '#3f3b38', fontSize: 14}}>
                   Choose Project
                 </Text>
@@ -298,7 +298,7 @@ class SpecHelpDesk extends React.Component {
               <Button
                 block
                 style={nbStyles.buttonSubmit}
-                // onPress={() => this.handleNavigation()}
+                onPress={() => this.handleNavigation()}
                 disabled={this.state.isDisabled}>
                 <Text style={nbStyles.textButtonSubmit}>Next</Text>
               </Button>

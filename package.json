@@ -33,6 +33,7 @@
     "react-native-easy-grid": "^0.2.2",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-crop-picker": "^0.36.2",
     "react-native-image-viewing": "^0.2.0",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-loading-spinner-overlay": "^2.0.0",
