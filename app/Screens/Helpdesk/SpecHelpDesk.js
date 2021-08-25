@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, TextInput, ScrollView} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  ScrollView,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Container,
   Content,
@@ -17,7 +24,13 @@ import {Navigation} from 'react-native-navigation';
 import Title from '@Component/Title';
 import SubTitle from '@Component/SubTitle';
 import OfflineNotice from '@Component/OfflineNotice';
-import {SubmitInput, DropdownInput, NormalInput} from '../../components/Input';
+import {
+  SubmitInput,
+  DropdownInput,
+  NormalInput,
+  DropdownDebtor,
+  DropdownLot,
+} from '../../components/Input';
 import {_storeData, _getData} from '@Component/StoreAsync';
 import {urlApi} from '@Config';
 import Style from '../../Theme/Style';
@@ -68,6 +81,7 @@ class SpecHelpDesk extends React.Component {
 
       textUsername: '',
       textDebtor: '',
+      textNameDebtor: '',
       textLot: '',
       textContact: '',
       textAppType: '',
@@ -80,6 +94,7 @@ class SpecHelpDesk extends React.Component {
     };
 
     this.handleCheckChange = this.handleCheckChange.bind(this);
+
     // this.navigationEventListener = Navigation.events().bindComponent(this);
   }
 
@@ -87,7 +102,7 @@ class SpecHelpDesk extends React.Component {
     this._isMount = true;
 
     const datas = {
-      // textUsername: await _getData('@Name'),
+      textUsername: await _getData('@Name'),
       audit_user: await _getData('@Name'),
       email: await _getData('@User'),
       debtor: await _getData('@Debtor'),
@@ -95,9 +110,11 @@ class SpecHelpDesk extends React.Component {
       rowId: await _getData('@rowID'),
       dataTower: await _getData('@UserProject'),
       token: await _getData('@Token'),
+      group_cd: await _getData('@Group'),
     };
 
     this.loadData(datas);
+    console.log('datas await', datas);
   }
 
   loadData = datas => {
@@ -114,12 +131,12 @@ class SpecHelpDesk extends React.Component {
     this.setState(
       {
         checked: index,
-        // entity: data.entity_cd,
-        // project: data.project_no,
-        // db_profile: data.db_profile,
+        entity: data.entity_cd,
+        project: data.project_no,
+        db_profile: data.db_profile,
       },
       () => {
-        // this.getDebtor(data);
+        this.getDebtor(data);
         // this.getApplicationType();
         // this.getTicketNo();
         // this.getSeqNo();
@@ -127,7 +144,142 @@ class SpecHelpDesk extends React.Component {
       },
     );
 
-    console.log('daa', data);
+    console.log('data when checkbox clicked', data);
+  };
+
+  getDebtor = data => {
+    const dT = data;
+
+    const formData = {
+      entity_cd: dT.entity_cd,
+      project_no: dT.project_no,
+      email: this.state.email,
+    };
+    console.log(
+      'urlapi',
+      urlApi +
+        '/csentry-getDebtor' +
+        '?' +
+        'entity_cd=' +
+        dT.entity_cd +
+        '&' +
+        'project_no=' +
+        dT.project_no +
+        '&' +
+        'email=' +
+        this.state.email,
+    );
+    console.log('formdata debtor', formData);
+
+    const params =
+      '?' +
+      'entity_cd=' +
+      dT.entity_cd +
+      '&' +
+      'project_no=' +
+      dT.project_no +
+      '&' +
+      'email=' +
+      this.state.email;
+
+    console.log('parrams', params);
+
+    fetch(urlApi + '/csentry-getDebtor' + params, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
+      .then(response => response.json())
+      .then(res => {
+        console.log('res debtor', res);
+        if (res.Error === false) {
+          let resData = res.Data;
+          if (this._isMount) {
+            this.setState({dataDebtor: resData, spinner: false});
+          }
+        }
+        console.log('Debtor', res);
+      })
+      .catch(error => {
+        this.setState({spinner: false});
+        console.log(error);
+      });
+  };
+
+  getLot = () => {
+    const {entity, project, textDebtor, business_id, email} = this.state;
+
+    const formData = {
+      entity: entity,
+      project: project,
+      debtor: textDebtor,
+      business_id: business_id, //debtor_acct
+      email: email,
+    };
+    console.log('formdata getlot', formData);
+
+    const params =
+      '?' +
+      'debtor_acct=' +
+      business_id +
+      '&' +
+      'entity=' +
+      entity +
+      '&' +
+      'project=' +
+      project;
+
+    console.log('parrams', params);
+    // csentry-getLotno?debtor_acct=A0101&entity_cd=0001&project_no=0001
+
+    fetch(urlApi + '/csentry-getLotno' + params, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.Error === false) {
+          console.log('ResData', JSON.stringify(res.Data));
+          let resData = res.Data;
+
+          if (this._isMount) {
+            this.setState({dataLot: resData, spinner: false});
+          }
+        }
+      })
+      .catch(error => {
+        this.setState({spinner: false});
+        console.log(error);
+      });
+  };
+
+  getFloor = lot => {
+    const dT = this.state.textLot;
+    console.log('lot getfloor', lot);
+    const lotno = lot;
+
+    const formData = {
+      lotno: dT,
+    };
+
+    const params = '?lotno=' + lotno;
+    console.log('param getfloor', params);
+
+    fetch(urlApi + '/csentry-getFloor' + params, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
+      .then(response => response.json())
+      .then(res => {
+        if (res.Error === false) {
+          const resData = JSON.stringify(res.Data);
+          if (this._isMount) {
+            this.setState({textFloor: resData});
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleIndexChange = index => {
@@ -152,30 +304,44 @@ class SpecHelpDesk extends React.Component {
   };
 
   handleChangeModal = data => {
-    // console.log('dataDeb', data);
-    alert('datadb', data);
+    // alert('change modal');
+    console.log('dataDeb', data);
     this.setState(
       {
-        textInputValue: data.label,
-        // debtor: data.debtor_acct,
-        // textDebtor: data.name,
+        debtor: data.debtor_acct,
+        textDebtor: data.debtor_acct + ' - ' + data.name,
+        textNameDebtor: data.name,
         spinner: true,
       },
       () => {
-        // this.getLot(data.debtor_acct);
+        this.getLot(data.debtor_acct);
       },
     );
   };
 
+  handleLotChange = lot => {
+    console.log('lot', lot);
+    this.setState({textLot: lot});
+    this.getFloor(lot);
+  };
+
   handleNavigation = () => {
     this.setState({isDisabled: true}, () => {
+      if (!this.state.textContact.trim()) {
+        this.setState({requiredText: true});
+        alert('Please Enter Name');
+        return;
+      }
       this.goToScreen('screen.CategoryHelp');
-      // if (this.state.appType == '') {
-      //   this.goToScreen('screen.CategoryHelp');
-      // } else {
-      //   this.goToScreen('screen.SubmitHelpDesk');
-      // }
     });
+    // this.setState({isDisabled: true}, () => {
+    //   this.goToScreen('screen.CategoryHelp');
+    //   // if (this.state.appType == '') {
+    //   //   this.goToScreen('screen.CategoryHelp');
+    //   // } else {
+    //   //   this.goToScreen('screen.SubmitHelpDesk');
+    //   // }
+    // });
   };
 
   goToScreen = screenName => {
@@ -213,6 +379,7 @@ class SpecHelpDesk extends React.Component {
         name: 'Fruits',
       },
     ];
+    this.state.dataDebtor.map((data, key) => (data = data));
     return (
       <NativeBaseProvider>
         <OfflineNotice />
@@ -229,43 +396,44 @@ class SpecHelpDesk extends React.Component {
                 <Text style={{color: '#3f3b38', fontSize: 14}}>
                   Choose Project
                 </Text>
-                <CheckBox
-                  key={0}
-                  checkedIcon="dot-circle-o"
-                  uncheckedIcon="circle-o"
-                  title={'nama projek checkbox'}
-                  checked={0}
-                  // onPress={() => this.handleCheckChange(key, data)}
-                />
+
+                {this.state.dataTower.map((data, key) => (
+                  <CheckBox
+                    key={key}
+                    checkedIcon="dot-circle-o"
+                    uncheckedIcon="circle-o"
+                    title={data.project_descs}
+                    checked={this.state.checked === key}
+                    onPress={() => this.handleCheckChange(key, data)}
+                  />
+                ))}
               </View>
               {/* SELECT TAB OPTION IN HERE */}
 
               {/* SELECTED TAB COMPLAIN */}
 
               <View style={nbStyles.subWrap}>
-                <DropdownInput
+                <DropdownDebtor
                   label="Debtor"
-                  data={datadummy}
+                  data={this.state.dataDebtor}
                   onChange={this.handleChangeModal}
-                  //   onChange={option => {
-                  //     this.setState({textInputValue: option.label});
-                  //   }}
-                  value={this.state.textInputValue}
+                  value={this.state.textDebtor}
                 />
 
                 <NormalInput
                   label="Username"
-                  value={this.state.textUsername} //dari nama debtor
+                  editable={false} //wajib true kalo mau di klik-klik / di isi manual
+                  value={this.state.textNameDebtor} //dari nama debtor
                   onChangeText={text =>
                     this.setState({
-                      textUsername: text,
+                      textNameDebtor: text,
                     })
                   }
                 />
-                <DropdownInput
+                <DropdownLot
                   label="Lot No"
-                  data={datadummy}
-                  // onChange={option => this.handleLotChange(option.lot_no)}
+                  data={this.state.dataLot}
+                  onChange={option => this.handleLotChange(option.lot_no)}
                   value={this.state.textLot}
                 />
                 <NormalInput
@@ -284,8 +452,10 @@ class SpecHelpDesk extends React.Component {
                   onChangeText={text =>
                     this.setState({
                       textContact: text,
+                      requiredText: false,
                     })
                   }
+                  required={this.state.requiredText}
                 />
               </View>
 
@@ -295,13 +465,25 @@ class SpecHelpDesk extends React.Component {
             </View>
 
             <View style={nbStyles.subWrap}>
-              <Button
-                block
-                style={nbStyles.buttonSubmit}
+              <TouchableOpacity
                 onPress={() => this.handleNavigation()}
-                disabled={this.state.isDisabled}>
-                <Text style={nbStyles.textButtonSubmit}>Next</Text>
-              </Button>
+                // disabled={this.state.isDisabled}
+              >
+                <View
+                  style={[
+                    nbStyles.buttonSubmit,
+                    {
+                      width: '100%',
+                      borderRadius: 10,
+                      alignItems: 'center',
+                      height: 40,
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                    },
+                  ]}>
+                  <Text style={nbStyles.textButtonSubmit}>Next</Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </ScrollView>

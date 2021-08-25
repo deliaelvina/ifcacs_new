@@ -36,6 +36,9 @@ import moment from 'moment';
 import OfflineNotice from '@Component/OfflineNotice';
 import {urlApi} from '@Config';
 import colors from '../../Theme/Colors';
+import IconFA from 'react-native-vector-icons/FontAwesome';
+
+import {ticketSubmit} from '../../_services';
 
 class SubmitHelpDesk extends Component {
   _isMount = false;
@@ -69,12 +72,13 @@ class SubmitHelpDesk extends Component {
     };
 
     console.log('props', props);
-    // this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
+
     Navigation.events().bindComponent(this);
   }
   componentDidMount() {
     this._isMount = true;
     const prevProps = this.props.prevProps;
+
     let titles = '';
     if (prevProps.typeTicket == 'C') {
       titles = 'Complain';
@@ -83,7 +87,11 @@ class SubmitHelpDesk extends Component {
     } else {
       titles = 'Application';
     }
-    this.setState({title: titles});
+    const group_cd = this.props.prevProps.group_cd;
+    console.log('group_cd', group_cd);
+    const reportdate = moment(new Date()).format('DD MMMM YYYY, h:mm:ss');
+    console.log('reportdate', reportdate);
+    this.setState({title: titles, group_cd: group_cd, reportdate: reportdate});
   }
 
   componentWillUnmount() {
@@ -163,56 +171,151 @@ class SubmitHelpDesk extends Component {
     this.setState({image: imageArray});
   };
 
-  onSubmit = () => {
+  async onSubmit() {
     this.setState({isLoading: true, loadingText: 'Saving data ...'});
 
     const prevProps = this.props.prevProps;
+    console.log('prevprops submit', prevProps);
     const formData = {
+      entity: prevProps.entity, //-entity_cd
+      project: prevProps.project, //-project_no
       rowID: prevProps.rowId,
-      cons: 'IFCAPB',
-      audit_user: prevProps.audit_user,
-      Rtype: prevProps.typeTicket,
-      entity: prevProps.entity,
-      project: prevProps.project,
-      debtor: prevProps.debtor,
-      request_by: prevProps.textUsername,
-      contact_no: prevProps.textContact,
-      lot_no: prevProps.textLot,
-      floorr: prevProps.textFloor,
-      ticket_no: prevProps.ticketNo,
+      email: prevProps.email, //-email
+      debtor: prevProps.debtor, //-debtoracct
+      lot_no: prevProps.textLot, //-lotno
+      // ticket_no: prevProps.ticketNo,
       categoryy:
-        prevProps.appType == '' ? this.props.category_cd : prevProps.appType,
-      descript: this.state.txtDesc,
-      location: this.state.txtLocation,
-      email: prevProps.email,
-      cmpsource: prevProps.comSource,
-      seqnotick: prevProps.seqNo,
+        prevProps.appType == '' ? this.props.category_cd : prevProps.appType, //-category
+      floorr: prevProps.textFloor, //-level_no / floor
+      request_by: prevProps.textUsername, //-username
+      contact_no: prevProps.textContact, //-contact_no
+      reported_by: prevProps.textreportedBy, //reported_by
+      // audit_user: prevProps.audit_user, //-
+      audit_user: prevProps.group_cd, //-
+      workRequested: this.state.txtDesc,
+      reportdate: this.state.reportdate,
     };
 
     console.log('fromData', formData);
 
-    fetch(urlApi + 'c_ticket_entry/saveticket/', {
+    if (this._isMount) {
+      this.setState({isLoading: false});
+      await ticketSubmit.submitTicket(formData).then(res => {
+        console.log('res di lgin', res);
+        if (res.status === 'OK') {
+          console.log('errorr false');
+          // this.uploadPhoto();
+        } else {
+          console.log('error true');
+          this.setState({isLoading: false});
+          alert(res.Pesan);
+        }
+      });
+      //pake images
+      // if (this.state.image.length !== 0) {
+      //   alert('ssave foto belom');
+      //   await ticketSubmit.submitTicket(formData).then(res => {
+      //     console.log('res di lgin', res);
+      //     if (res.Error === false || !res.Error) {
+      //       console.log('errorr false');
+      //       // this.uploadPhoto();
+      //     } else {
+      //       console.log('error true');
+      //       this.setState({isLoading: false});
+      //       alert(res.Pesan);
+      //     }
+      //   });
+      // } else {
+      //   this.setState({isLoading: false}, () =>
+      //     this.showAlert('Data saved successfuly'),
+      //   );
+      // }
+    }
+  }
+  onSubmit_backup = () => {
+    this.setState({isLoading: true, loadingText: 'Saving data ...'});
+
+    const prevProps = this.props.prevProps;
+    console.log('prevprops submit', prevProps);
+    const formData = {
+      entity: prevProps.entity, //-entity_cd
+      project: prevProps.project, //-project_no
+      rowID: prevProps.rowId,
+      email: prevProps.email, //-email
+      debtor: prevProps.debtor, //-debtoracct
+      lot_no: prevProps.textLot, //-lotno
+      // ticket_no: prevProps.ticketNo,
+      categoryy:
+        prevProps.appType == '' ? this.props.category_cd : prevProps.appType, //-category
+      // floorr: prevProps.textFloor, //-level_no / floor
+      request_by: prevProps.textUsername, //-username
+      contact_no: prevProps.textContact, //-contact_no
+      reported_by: prevProps.textreportedBy, //reported_by
+      audit_user: prevProps.audit_user, //-
+      workRequested: this.state.txtDesc,
+
+      // Rtype: prevProps.typeTicket,
+
+      // location: this.state.txtLocation,
+
+      // cmpsource: prevProps.comSource,
+      // seqnotick: prevProps.seqNo,
+      //report date?
+      //work request?
+      //userfile?
+    };
+
+    console.log('fromData', formData);
+    // if (this._isMount) {
+    //   this.setState({isLoading: false});
+    //   if (this.state.image.length !== 0) {
+    //     this.uploadPhoto(formData);
+    //   } else {
+    //     this.setState(
+    //       {isLoading: false},
+    //       () => console.log('sukses'),
+    //       // this.showAlert('Data saved successfuly')
+    //     );
+    //   }
+    // }
+    // entity_cd,project_no,email,reportdate,debtoracct,lotno,category,floor,workRequested,reported_by,contactno,audit_user,userfile[0],[userfile[1]
+    const params =
+      '?' +
+      'entity_cd=' +
+      formData.entity +
+      '&' +
+      'project_no=' +
+      formData.project;
+
+    console.log(urlApi + '/csentry-saveTicket' + params);
+    fetch(urlApi + '/csentry-saveTicket' + params, {
       method: 'POST',
       body: JSON.stringify(formData),
+      // headers: {
+      //   Accept: 'application/json',
+      //   'Content-Type': 'application/json',
+      //   // Token: this.state.token
+      // },
     })
       .then(response => response.json())
       .then(res => {
         console.log('response', res);
 
-        if (res.Error === false) {
-          if (this._isMount) {
-            this.setState({isLoading: false});
-            if (this.state.image.length !== 0) {
-              this.uploadPhoto();
-            } else {
-              this.setState({isLoading: false}, () =>
-                this.showAlert('Data saved successfuly'),
-              );
-            }
-          }
-        } else {
-          this.setState({isLoading: false}, () => alert('Saving data Failed'));
-        }
+        // if (res.Error === false) {
+        //   if (this._isMount) {
+        //     this.setState({isLoading: false});
+        //     if (this.state.image.length !== 0) {
+        //       alert('ssave foto belom');
+        //       // this.uploadPhoto();
+        //     } else {
+        //       this.setState({isLoading: false}, () =>
+        //         this.showAlert('Data saved successfuly'),
+        //       );
+        //     }
+        //   }
+        // } else {
+        //   this.setState({isLoading: false}, () => alert('Saving data Failed'));
+        // }
       })
       .catch(error => {
         this.setState({isLoading: false});
@@ -220,7 +323,7 @@ class SubmitHelpDesk extends Component {
       });
   };
 
-  uploadPhoto = () => {
+  async uploadPhoto() {
     this.setState({isLoading: true, loadingText: 'Uploading image ...'});
 
     const x = this.props.prevProps;
@@ -232,7 +335,7 @@ class SubmitHelpDesk extends Component {
       request_by: x.textUsername,
       seqNo: x.seqNo,
     };
-
+    let dataSaveAll = [];
     this.state.image.map((images, index) => {
       let fileName =
         x.textUsername +
@@ -243,20 +346,25 @@ class SubmitHelpDesk extends Component {
         '.jpg';
       let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
 
-      const frmData = {
+      const formData_pict = {
         data: data,
         seq_no_pict: index,
+        // filename: fileName,
+        // userfile: fileImg,
       };
+
+      console.log('dataSaveAll', formData_pict);
+      // dataSaveAll.push(formData_pict);
 
       RNFetchBlob.fetch(
         'POST',
-        urlApi + 'c_ticket_entry/upload/IFCAPB',
+        urlApi + '/csentry-saveTicket',
         {
           'Content-Type': 'multipart/form-data',
         },
         [
           {name: 'photo', filename: fileName, data: fileImg},
-          {name: 'data', data: JSON.stringify(frmData)},
+          {name: 'data', data: JSON.stringify(formData_pict)},
         ],
       ).then(resp => {
         console.log('resp', resp);
@@ -269,39 +377,7 @@ class SubmitHelpDesk extends Component {
         }
       });
     });
-  };
-
-  // getCategoryDetail = () => {
-  //   const dT = this.props.prevProps.dataTower[0]
-
-  //   const formData = {
-  //       entity : dT.entity_cd,
-  //       project : dT.project_no,
-  //       category_group : this.state.category_code
-  //   }
-
-  //   fetch(urlApi+'c_ticket_entry/getCategoryDetail/IFCAPB',{
-  //       method : "POST",
-  //       body :JSON.stringify(formData)
-  //   })
-  //   .then((response) => response.json())
-  //   .then((res)=>{
-  //       if(res.Error === false){
-  //           let resData = res.Data
-  //           // console.log('response', resData)
-  //           if(this._isMount){
-  //             this.setState(
-  //                 {
-  //                   dataCategoryDetail : resData,
-  //                   titleCategory : resData[0].descs_category_group
-  //                 }
-  //             )
-  //           }
-  //       }
-  //   }).catch((error) => {
-  //       console.log(error);
-  //   });
-  // }
+  }
 
   handleIndexChange = index => {
     this.setState({
@@ -344,9 +420,8 @@ class SubmitHelpDesk extends Component {
         <View
           style={nbStyles.wrap}
           pointerEvents={this.state.isLoading ? 'none' : 'auto'}>
-          <Title text={'halo'} />
           {/* <Title text={this.state.title} /> */}
-          <TextInput
+          {/* <TextInput
             style={Style.input}
             placeholder={this.state.title + ' Location'}
             placeholderTextColor="#a9a9a9"
@@ -356,10 +431,11 @@ class SubmitHelpDesk extends Component {
             value={this.state.textContact}
             onChangeText={text => this.setState({txtLocation: text})}
             onSubmitEditing={() => this.handleNext('txtDescs')}
-          />
+          /> */}
+          <SubTitle text="Work Request" />
           <Stack space={5} w="100%">
             <TextArea
-              h={20}
+              h={40}
               ref="txtDescs"
               placeholderTextColor="#a9a9a9"
               blurOnSubmit
@@ -367,8 +443,52 @@ class SubmitHelpDesk extends Component {
               style={nbStyles.textArea}
               bordered
               borderColor={colors.bg_coklat}
+              onChangeText={text => this.setState({txtDesc: text})}
             />
           </Stack>
+
+          <View style={nbStyles.pickerWrap}>
+            <Text>Attachment</Text>
+            {this.state.image.length === 0 ? (
+              <TouchableOpacity
+                style={[nbStyles.sel, {marginBottom: 20}]}
+                onPress={() => this.handlePhotoPick()}>
+                <View>
+                  <Text>Select a Photo</Text>
+                  {/* <Icon name="times" size={25} /> */}
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <View>
+                {this.state.image.map((data, key) => (
+                  <TouchableOpacity
+                    key={key}
+                    style={nbStyles.avatarContainer}
+                    onPress={() => console.log('Photo Tapped')}>
+                    <View>
+                      <Image
+                        style={nbStyles.avatar}
+                        source={this.state.image[key]}
+                      />
+                      <IconFA
+                        color="#5A110D"
+                        name="remove"
+                        style={nbStyles.iconRemove}
+                        onPress={() => this.removePhoto(key)}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                ))}
+                {/* <TouchableOpacity
+                  style={[nbStyles.sel, {marginBottom: 20}]}
+                  onPress={() => this.handlePhotoPick()}>
+                  <View>
+                    <Text>Select a Photo</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            )}
+          </View>
 
           <View style={nbStyles.subWrap}>
             <Button
