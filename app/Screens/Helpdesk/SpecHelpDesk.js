@@ -85,7 +85,7 @@ class SpecHelpDesk extends React.Component {
       textLot: '',
       textContact: '',
       textAppType: '',
-      textFloor: '',
+      // textFloor: '',s
       token: '',
       textreportedBy: '',
 
@@ -271,7 +271,8 @@ class SpecHelpDesk extends React.Component {
       .then(response => response.json())
       .then(res => {
         if (res.Error === false) {
-          const resData = JSON.stringify(res.Data);
+          // const resData = JSON.stringify(res.Data);
+          const resData = res.Data;
           if (this._isMount) {
             this.setState({textFloor: resData});
           }
@@ -326,6 +327,7 @@ class SpecHelpDesk extends React.Component {
   };
 
   handleNavigation = () => {
+    console.log('textfloor spec help', this.state.textFloor);
     this.setState({isDisabled: true}, () => {
       if (!this.state.textContact.trim()) {
         this.setState({requiredText: true});

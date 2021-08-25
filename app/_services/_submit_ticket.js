@@ -50,12 +50,26 @@ async function submitTicket(param) {
   };
   console.log('data saveee', data);
 
+  //   return await axios
+  //     .post(`${api}`, data, {
+  //       headers,
+  //     })
+  //     .then(res => {
+  //       console.log('res daari acios', res);
+  //       return res.data;
+  //     });
+
+  // console.log('urlapi login', urlApi);
   return await axios
-    .post(`${api}`, data, {
-      headers,
-    })
+    .post(`${api}`, data, {headers})
     .then(res => {
-      console.log('res daari acios', res);
+      console.log('res urlapi', res);
+      // console.log('res urlapi', result.response.data);
+      // return result.response.data;
       return res.data;
+    })
+    .catch(error => {
+      console.log('err', error.response.data);
+      alert('error nih');
     });
 }

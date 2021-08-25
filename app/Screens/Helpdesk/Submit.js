@@ -89,7 +89,9 @@ class SubmitHelpDesk extends Component {
     }
     const group_cd = this.props.prevProps.group_cd;
     console.log('group_cd', group_cd);
-    const reportdate = moment(new Date()).format('DD MMMM YYYY, h:mm:ss');
+    const reportdate = moment(new Date()).format('DD MMMM YYYY h:mm');
+    // const reportdate = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
+    // const reportdate = '24 August 2021 15:30';
     console.log('reportdate', reportdate);
     this.setState({title: titles, group_cd: group_cd, reportdate: reportdate});
   }
@@ -202,9 +204,10 @@ class SubmitHelpDesk extends Component {
       this.setState({isLoading: false});
       await ticketSubmit.submitTicket(formData).then(res => {
         console.log('res di lgin', res);
-        if (res.status === 'OK') {
+        if (res.status === 'OK' || res.Error === false || !res.Error) {
           console.log('errorr false');
-          // this.uploadPhoto();
+          // alert(res.Pesan);
+          this.uploadPhoto();
         } else {
           console.log('error true');
           this.setState({isLoading: false});
@@ -349,33 +352,33 @@ class SubmitHelpDesk extends Component {
       const formData_pict = {
         data: data,
         seq_no_pict: index,
-        // filename: fileName,
-        // userfile: fileImg,
+        filename: fileName,
+        userfile: fileImg,
       };
 
       console.log('dataSaveAll', formData_pict);
       // dataSaveAll.push(formData_pict);
 
-      RNFetchBlob.fetch(
-        'POST',
-        urlApi + '/csentry-saveTicket',
-        {
-          'Content-Type': 'multipart/form-data',
-        },
-        [
-          {name: 'photo', filename: fileName, data: fileImg},
-          {name: 'data', data: JSON.stringify(formData_pict)},
-        ],
-      ).then(resp => {
-        console.log('resp', resp);
-        if (index + 1 === this.state.image.length) {
-          if (this._isMount) {
-            this.setState({isLoading: false}, () =>
-              this.showAlert('Data saved successfuly'),
-            );
-          }
-        }
-      });
+      // RNFetchBlob.fetch(
+      //   'POST',
+      //   urlApi + '/csentry-saveTicket',
+      //   {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   [
+      //     {name: 'photo', filename: fileName, data: fileImg},
+      //     {name: 'data', data: JSON.stringify(formData_pict)},
+      //   ],
+      // ).then(resp => {
+      //   console.log('resp', resp);
+      //   if (index + 1 === this.state.image.length) {
+      //     if (this._isMount) {
+      //       this.setState({isLoading: false}, () =>
+      //         this.showAlert('Data saved successfuly'),
+      //       );
+      //     }
+      //   }
+      // });
     });
   }
 
