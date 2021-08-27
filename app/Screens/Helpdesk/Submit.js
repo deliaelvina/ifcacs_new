@@ -38,7 +38,7 @@ import {urlApi} from '@Config';
 import colors from '../../Theme/Colors';
 import IconFA from 'react-native-vector-icons/FontAwesome';
 
-import {ticketSubmit} from '../../_services';
+import {ticketSubmit, uploadPhoto} from '../../_services';
 
 class SubmitHelpDesk extends Component {
   _isMount = false;
@@ -178,6 +178,34 @@ class SubmitHelpDesk extends Component {
 
     const prevProps = this.props.prevProps;
     console.log('prevprops submit', prevProps);
+
+    let savePhoto = [];
+    // const x = this.props.prevProps;
+    this.state.image.map((images, index) => {
+      let fileName =
+        prevProps.textUsername +
+        '_' +
+        moment(new Date()).format('MMDDYYYY') +
+        '_ticket_' +
+        (index + 1) +
+        '.jpg';
+      // let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
+      let fileImg = images.uri.replace('file://', '');
+
+      const formData_pict = {
+        // data: data,
+        seq_no_pict: index,
+        filename: fileName,
+        userfile: fileImg,
+      };
+
+      console.log('dataSaveAll', formData_pict);
+      savePhoto.push(formData_pict);
+    });
+
+    console.log('ssavefoto', savePhoto);
+
+    //form data biasa
     const formData = {
       entity: prevProps.entity, //-entity_cd
       project: prevProps.project, //-project_no
@@ -196,6 +224,9 @@ class SubmitHelpDesk extends Component {
       audit_user: prevProps.group_cd, //-
       workRequested: this.state.txtDesc,
       reportdate: this.state.reportdate,
+      // savePhoto: savePhoto,
+      userfile: savePhoto[0].userfile,
+      filename: savePhoto[0].filename,
     };
 
     console.log('fromData', formData);
@@ -206,125 +237,23 @@ class SubmitHelpDesk extends Component {
         console.log('res di lgin', res);
         if (res.status === 'OK' || res.Error === false || !res.Error) {
           console.log('errorr false');
-          // alert(res.Pesan);
-          this.uploadPhoto();
+          alert(res.Pesan);
+          // if (index + 1 === this.state.image.length) {
+          //   if (this._isMount) {
+          //     this.setState({isLoading: false}, () =>
+          //       this.showAlert('Data saved successfuly'),
+          //     );
+          //   }
+          // }
+          // this.uploadPhoto();
         } else {
           console.log('error true');
           this.setState({isLoading: false});
           alert(res.Pesan);
         }
       });
-      //pake images
-      // if (this.state.image.length !== 0) {
-      //   alert('ssave foto belom');
-      //   await ticketSubmit.submitTicket(formData).then(res => {
-      //     console.log('res di lgin', res);
-      //     if (res.Error === false || !res.Error) {
-      //       console.log('errorr false');
-      //       // this.uploadPhoto();
-      //     } else {
-      //       console.log('error true');
-      //       this.setState({isLoading: false});
-      //       alert(res.Pesan);
-      //     }
-      //   });
-      // } else {
-      //   this.setState({isLoading: false}, () =>
-      //     this.showAlert('Data saved successfuly'),
-      //   );
-      // }
     }
   }
-  onSubmit_backup = () => {
-    this.setState({isLoading: true, loadingText: 'Saving data ...'});
-
-    const prevProps = this.props.prevProps;
-    console.log('prevprops submit', prevProps);
-    const formData = {
-      entity: prevProps.entity, //-entity_cd
-      project: prevProps.project, //-project_no
-      rowID: prevProps.rowId,
-      email: prevProps.email, //-email
-      debtor: prevProps.debtor, //-debtoracct
-      lot_no: prevProps.textLot, //-lotno
-      // ticket_no: prevProps.ticketNo,
-      categoryy:
-        prevProps.appType == '' ? this.props.category_cd : prevProps.appType, //-category
-      // floorr: prevProps.textFloor, //-level_no / floor
-      request_by: prevProps.textUsername, //-username
-      contact_no: prevProps.textContact, //-contact_no
-      reported_by: prevProps.textreportedBy, //reported_by
-      audit_user: prevProps.audit_user, //-
-      workRequested: this.state.txtDesc,
-
-      // Rtype: prevProps.typeTicket,
-
-      // location: this.state.txtLocation,
-
-      // cmpsource: prevProps.comSource,
-      // seqnotick: prevProps.seqNo,
-      //report date?
-      //work request?
-      //userfile?
-    };
-
-    console.log('fromData', formData);
-    // if (this._isMount) {
-    //   this.setState({isLoading: false});
-    //   if (this.state.image.length !== 0) {
-    //     this.uploadPhoto(formData);
-    //   } else {
-    //     this.setState(
-    //       {isLoading: false},
-    //       () => console.log('sukses'),
-    //       // this.showAlert('Data saved successfuly')
-    //     );
-    //   }
-    // }
-    // entity_cd,project_no,email,reportdate,debtoracct,lotno,category,floor,workRequested,reported_by,contactno,audit_user,userfile[0],[userfile[1]
-    const params =
-      '?' +
-      'entity_cd=' +
-      formData.entity +
-      '&' +
-      'project_no=' +
-      formData.project;
-
-    console.log(urlApi + '/csentry-saveTicket' + params);
-    fetch(urlApi + '/csentry-saveTicket' + params, {
-      method: 'POST',
-      body: JSON.stringify(formData),
-      // headers: {
-      //   Accept: 'application/json',
-      //   'Content-Type': 'application/json',
-      //   // Token: this.state.token
-      // },
-    })
-      .then(response => response.json())
-      .then(res => {
-        console.log('response', res);
-
-        // if (res.Error === false) {
-        //   if (this._isMount) {
-        //     this.setState({isLoading: false});
-        //     if (this.state.image.length !== 0) {
-        //       alert('ssave foto belom');
-        //       // this.uploadPhoto();
-        //     } else {
-        //       this.setState({isLoading: false}, () =>
-        //         this.showAlert('Data saved successfuly'),
-        //       );
-        //     }
-        //   }
-        // } else {
-        //   this.setState({isLoading: false}, () => alert('Saving data Failed'));
-        // }
-      })
-      .catch(error => {
-        this.setState({isLoading: false});
-        console.log(error);
-      });
-  };
 
   async uploadPhoto() {
     this.setState({isLoading: true, loadingText: 'Uploading image ...'});
@@ -349,12 +278,21 @@ class SubmitHelpDesk extends Component {
         '.jpg';
       let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
 
+      const file = {
+        uri: fileImg,
+        //  type: fileData.type,
+        name: fileName,
+      };
+
       const formData_pict = {
         data: data,
         seq_no_pict: index,
         filename: fileName,
         userfile: fileImg,
       };
+
+      let formData = new FormData();
+      formData.append('document', file);
 
       console.log('dataSaveAll', formData_pict);
       // dataSaveAll.push(formData_pict);

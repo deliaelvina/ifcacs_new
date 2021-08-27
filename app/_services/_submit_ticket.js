@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {configConstants} from '../_constants';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export const ticketSubmit = {
   submitTicket,
@@ -31,6 +32,15 @@ async function submitTicket(param) {
   //     filename: param[0].filename,
   //   };
 
+  //   formData.append('file', param.savePhoto[0].userfile);
+  //   formData.append('file_name', param.savePhoto[0].filename);
+
+  const formData = new FormData();
+  formData.append('name', param.filename);
+  formData.append('userfile', param.userfile);
+
+  console.log('form apend', formData);
+
   const data = {
     // rowID: param.rowID,
     email: param.email,
@@ -45,23 +55,68 @@ async function submitTicket(param) {
     workRequested: param.workRequested,
     reported_by: param.reported_by,
     contact_no: param.contact_no,
-    //   userfile: param[0].userfile,
-    //   filename: param[0].filename,
+
+    // userfile: formData._parts,
   };
   console.log('data saveee', data);
 
-  //   return await axios
-  //     .post(`${api}`, data, {
-  //       headers,
-  //     })
-  //     .then(res => {
-  //       console.log('res daari acios', res);
-  //       return res.data;
-  //     });
+  // let config = {
+  //   headers: {
+  //     Accept: 'application/json',
+  //     'Content-Type': 'multipart/form-data,octet-stream',
+  //   },
+  // };
 
-  // console.log('urlapi login', urlApi);
+  console.log('urlapi login', urlApi);
+
+  //coba ya 1 set ini
+  //   var headers = await defaultHeaders();
+  // headers['Content-Type'] = 'multipart/form-data';
+
+  // const realPath =
+  //   Platform.OS === 'ios' ? decodeURIComponent(param.userfile) : param.userfile;
+
+  // const multipartParams = [
+  //   {
+  //     name: 'userfile',
+  //     filename: param.filename,
+  //     type: 'image/jpeg',
+  //     data: RNFetchBlob.wrap(realPath),
+  //   },
+  //   {
+  //     name: 'data',
+  //     data: JSON.stringify(data),
+  //   },
+  // ];
+
+  // await RNFetchBlob.fetch(
+  //   'POST',
+  //   `${api}`,
+  //   {
+  //     'Content-Type': 'multipart/form-data',
+  //   },
+  //   [
+  //     {
+  //       name: 'userfile',
+  //       filename: param.filename,
+  //       type: 'image/jpeg',
+  //       data: RNFetchBlob.wrap(realPath),
+  //     },
+  //     {
+  //       name: 'data',
+  //       data: JSON.stringify(data),
+  //     },
+  //   ],
+  // )
+  //   .then(resp => {
+  //     console.log('rrespon data', resp);
+  //   })
+  //   .catch(err => {
+  //     Alert.alert('An error occurred!', err.message, [{text: 'Okay'}]);
+  //   });
+
   return await axios
-    .post(`${api}`, data, {headers})
+    .post(`${api}`, formData, {config})
     .then(res => {
       console.log('res urlapi', res);
       // console.log('res urlapi', result.response.data);
