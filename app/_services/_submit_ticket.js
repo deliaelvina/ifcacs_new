@@ -4,6 +4,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 export const ticketSubmit = {
   submitTicket,
+  uploadFoto,
 };
 
 const {urlApi, headers} = configConstants;
@@ -36,8 +37,8 @@ async function submitTicket(param) {
   //   formData.append('file_name', param.savePhoto[0].filename);
 
   const formData = new FormData();
-  formData.append('name', param.filename);
-  formData.append('userfile', param.userfile);
+  formData.append('name', param.filename); //ini adalah nama foto
+  formData.append('userfile', param.userfile); //ini adalah foto
 
   console.log('form apend', formData);
 
@@ -60,66 +61,49 @@ async function submitTicket(param) {
   };
   console.log('data saveee', data);
 
-  // let config = {
-  //   headers: {
-  //     Accept: 'application/json',
-  //     'Content-Type': 'multipart/form-data,octet-stream',
-  //   },
-  // };
+  let config = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+    },
+  };
 
   console.log('urlapi login', urlApi);
 
-  //coba ya 1 set ini
-  //   var headers = await defaultHeaders();
-  // headers['Content-Type'] = 'multipart/form-data';
-
-  // const realPath =
-  //   Platform.OS === 'ios' ? decodeURIComponent(param.userfile) : param.userfile;
-
-  // const multipartParams = [
-  //   {
-  //     name: 'userfile',
-  //     filename: param.filename,
-  //     type: 'image/jpeg',
-  //     data: RNFetchBlob.wrap(realPath),
-  //   },
-  //   {
-  //     name: 'data',
-  //     data: JSON.stringify(data),
-  //   },
-  // ];
-
-  // await RNFetchBlob.fetch(
-  //   'POST',
-  //   `${api}`,
-  //   {
-  //     'Content-Type': 'multipart/form-data',
-  //   },
-  //   [
-  //     {
-  //       name: 'userfile',
-  //       filename: param.filename,
-  //       type: 'image/jpeg',
-  //       data: RNFetchBlob.wrap(realPath),
-  //     },
-  //     {
-  //       name: 'data',
-  //       data: JSON.stringify(data),
-  //     },
-  //   ],
-  // )
-  //   .then(resp => {
-  //     console.log('rrespon data', resp);
-  //   })
-  //   .catch(err => {
-  //     Alert.alert('An error occurred!', err.message, [{text: 'Okay'}]);
-  //   });
-
   return await axios
-    .post(`${api}`, formData, {config})
+    .post(`${api}`, data, {config}) //kalo untuk save form input pake nya 'data'
     .then(res => {
       console.log('res urlapi', res);
-      // console.log('res urlapi', result.response.data);
+      console.log('res urlapi', res.data.Pesan);
+      // return result.response.data;
+      return res.data;
+    })
+    .catch(error => {
+      console.log('err', error.response.data);
+      alert('error nih');
+    });
+}
+
+async function uploadFoto(param) {
+  console.log('params report no', param);
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  // formData.append('allfiles', param);
+
+  return await axios
+    .post(
+      `http://34.87.121.155:8181/apiwebifca/api/csentry-uploadImgTicket`,
+      {'Content-Type': 'multipart/form-data'},
+      param,
+    ) //kalo untuk save form input pake nya 'data'
+    .then(res => {
+      console.log('res upload foto', res);
+      // console.log('res upload', res.data.Pesan);///
       // return result.response.data;
       return res.data;
     })

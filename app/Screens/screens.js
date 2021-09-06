@@ -50,6 +50,9 @@ import SpecHelpDesk from './Helpdesk/SpecHelpDesk';
 import SubmitHelpDesk from './Helpdesk/Submit';
 import CategoryHelp from './Helpdesk/CategoryHelp';
 import SelectCategory from './Helpdesk/SelectCategory';
+import StatusHelp from './Helpdesk/StatusHelp';
+import ViewHistory from './Helpdesk/ViewHistoryStatus';
+import ViewHistoryDetail from './Helpdesk/ViewHistoryDetail';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -164,5 +167,14 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.SelectCategory', () =>
     gestureHandlerRootHOC(SelectCategory),
+  );
+  Navigation.registerComponent('screen.StatusHelp', () =>
+    gestureHandlerRootHOC(StatusHelp),
+  );
+  Navigation.registerComponent('screen.ViewHistoryStatus', () =>
+    gestureHandlerRootHOC(ViewHistory),
+  );
+  Navigation.registerComponent('screen.ViewHistoryDetail', () =>
+    gestureHandlerRootHOC(ViewHistoryDetail),
   );
 }

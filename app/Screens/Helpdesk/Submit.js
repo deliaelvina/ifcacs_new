@@ -225,8 +225,8 @@ class SubmitHelpDesk extends Component {
       workRequested: this.state.txtDesc,
       reportdate: this.state.reportdate,
       // savePhoto: savePhoto,
-      userfile: savePhoto[0].userfile,
-      filename: savePhoto[0].filename,
+      // userfile: savePhoto[0].userfile,
+      // filename: savePhoto[0].filename,
     };
 
     console.log('fromData', formData);
@@ -235,8 +235,73 @@ class SubmitHelpDesk extends Component {
       this.setState({isLoading: false});
       await ticketSubmit.submitTicket(formData).then(res => {
         console.log('res di lgin', res);
+        console.log('res di eeror', res.Error);
         if (res.status === 'OK' || res.Error === false || !res.Error) {
           console.log('errorr false');
+          console.log('res pesan', res.Pesan);
+          console.log('report no', res.Report_no);
+          // alert(res.Pesan);
+          // if (index + 1 === this.state.image.length) {
+          //   if (this._isMount) {
+          //     this.setState({isLoading: false}, () =>
+          //       this.showAlert('Data saved successfuly'),
+          //     );
+          //   }
+          // }
+          this.uploadPhoto(res.Report_no);
+        } else {
+          console.log('error true');
+          this.setState({isLoading: false});
+          alert(res.Pesan);
+        }
+      });
+    }
+  }
+
+  async uploadPhoto(dataReportno) {
+    console.log('data report no from submit', dataReportno);
+    this.setState({isLoading: true, loadingText: 'Uploading image ...'});
+
+    const x = this.props.prevProps;
+
+    const data = {
+      // cons: 'IFCAPB',
+      entity: x.entity,
+      project: x.project,
+      request_by: x.textUsername,
+      seqNo: x.seqNo,
+      report_no: dataReportno,
+    };
+    let dataSaveAll = [];
+    this.state.image.map(async (images, index) => {
+      let fileName =
+        x.textUsername +
+        '_' +
+        moment(new Date()).format('MMDDYYYY') +
+        '_ticket_' +
+        (index + 1) +
+        '.jpg';
+      // let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
+      let fileImg = images.uri.replace('file://', '');
+
+      const formData_pict = {
+        name: 'userfile',
+        data: data,
+        seq_no_pict: index,
+        filename: fileName,
+        userfile: fileImg,
+      };
+
+      console.log('dataSaveAll', formData_pict);
+
+      // dataSaveAll.push(formData_pict);
+      await ticketSubmit.uploadFoto(formData_pict).then(res => {
+        //hit api ke submit ticket dengan formdata = report no
+        console.log('res di lgin', res);
+        console.log('res di eeror', res.Error);
+        if (res.status === 'OK' || res.Error === false || !res.Error) {
+          console.log('errorr false');
+          console.log('res pesan', res.Pesan);
           alert(res.Pesan);
           // if (index + 1 === this.state.image.length) {
           //   if (this._isMount) {
@@ -252,50 +317,6 @@ class SubmitHelpDesk extends Component {
           alert(res.Pesan);
         }
       });
-    }
-  }
-
-  async uploadPhoto() {
-    this.setState({isLoading: true, loadingText: 'Uploading image ...'});
-
-    const x = this.props.prevProps;
-
-    const data = {
-      cons: 'IFCAPB',
-      entity: x.entity,
-      project: x.project,
-      request_by: x.textUsername,
-      seqNo: x.seqNo,
-    };
-    let dataSaveAll = [];
-    this.state.image.map((images, index) => {
-      let fileName =
-        x.textUsername +
-        '_' +
-        moment(new Date()).format('MMDDYYYY') +
-        '_ticket_' +
-        (index + 1) +
-        '.jpg';
-      let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
-
-      const file = {
-        uri: fileImg,
-        //  type: fileData.type,
-        name: fileName,
-      };
-
-      const formData_pict = {
-        data: data,
-        seq_no_pict: index,
-        filename: fileName,
-        userfile: fileImg,
-      };
-
-      let formData = new FormData();
-      formData.append('document', file);
-
-      console.log('dataSaveAll', formData_pict);
-      // dataSaveAll.push(formData_pict);
 
       // RNFetchBlob.fetch(
       //   'POST',
@@ -318,6 +339,36 @@ class SubmitHelpDesk extends Component {
       //   }
       // });
     });
+    // Object.assign({}, dataSaveAll); // {0:"a", 1:"b", 2:"c"}
+    // const formdata = Object.assign({}, dataSaveAll);
+
+    // const obj = Object.fromEntries(dataSaveAll.map(data => [data]));
+
+    // console.log(formData_pict);/
+    // console.log('tes', tes);
+
+    // await ticketSubmit.uploadFoto(formdata).then(res => {
+    //   //hit api ke submit ticket dengan formdata = report no
+    //   console.log('res di lgin', res);
+    //   console.log('res di eeror', res.Error);
+    //   if (res.status === 'OK' || res.Error === false || !res.Error) {
+    //     console.log('errorr false');
+    //     console.log('res pesan', res.Pesan);
+    //     alert(res.Pesan);
+    //     // if (index + 1 === this.state.image.length) {
+    //     //   if (this._isMount) {
+    //     //     this.setState({isLoading: false}, () =>
+    //     //       this.showAlert('Data saved successfuly'),
+    //     //     );
+    //     //   }
+    //     // }
+    //     // this.uploadPhoto();
+    //   } else {
+    //     console.log('error true');
+    //     this.setState({isLoading: false});
+    //     alert(res.Pesan);
+    //   }
+    // });
   }
 
   handleIndexChange = index => {
