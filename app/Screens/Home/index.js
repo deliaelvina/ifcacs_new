@@ -1642,7 +1642,7 @@ class Home extends React.Component {
                   </Col>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
                     <TouchableOpacity
-                      onPress={() => this.handleNavigation('screen.Facility')}>
+                      onPress={() => this.handleNavigation('screen.moreMenu')}>
                       <View
                         style={{
                           width: 47,
@@ -1697,7 +1697,8 @@ class Home extends React.Component {
                           paddingLeft: 5,
                           textAlign: 'center',
                         }}>
-                        Facility
+                        {/* Facility */}
+                        More
                       </Text>
                     </TouchableOpacity>
                   </Col>

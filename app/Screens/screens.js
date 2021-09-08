@@ -14,6 +14,9 @@ import Profile from './Profile';
 //Home
 import Home from './Home';
 
+// More Menu
+import moreMenu from './Home/moreMenu';
+
 //Billing
 import Billing from './Billing';
 
@@ -53,6 +56,9 @@ import SelectCategory from './Helpdesk/SelectCategory';
 import StatusHelp from './Helpdesk/StatusHelp';
 import ViewHistory from './Helpdesk/ViewHistoryStatus';
 import ViewHistoryDetail from './Helpdesk/ViewHistoryDetail';
+
+//rent sale
+import RentSale from './RentSale';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -176,5 +182,15 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.ViewHistoryDetail', () =>
     gestureHandlerRootHOC(ViewHistoryDetail),
+  );
+
+  //more menu
+  Navigation.registerComponent('screen.moreMenu', () =>
+    gestureHandlerRootHOC(moreMenu),
+  );
+
+  //rent sale
+  Navigation.registerComponent('screen.RentSale', () =>
+    gestureHandlerRootHOC(RentSale),
   );
 }
