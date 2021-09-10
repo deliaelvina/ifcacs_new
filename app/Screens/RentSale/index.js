@@ -26,9 +26,11 @@ import {
   HStack,
   Button,
   Pressable,
+  Avatar,
+  Modal,
 } from 'native-base';
 import colors from '../../Theme/Colors';
-import {color} from 'styled-system';
+import {color, fontSize} from 'styled-system';
 import moment from 'moment';
 import {Navigation} from 'react-native-navigation';
 
@@ -36,6 +38,7 @@ import IconFA from 'react-native-vector-icons/FontAwesome';
 import IconFA5 from 'react-native-vector-icons/FontAwesome5';
 import IconIC from 'react-native-vector-icons/Ionicons';
 import IconMI from 'react-native-vector-icons/MaterialIcons';
+import IconMCI from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const vw = Dimensions.get('window').width;
 const vh = Dimensions.get('window').height;
@@ -99,6 +102,9 @@ export default class RentSale extends React.Component {
         },
       ],
       activeIndex: 0,
+
+      //modal contact
+      modalVisible: false,
     };
   }
   async componentDidMount() {
@@ -206,12 +212,21 @@ export default class RentSale extends React.Component {
   //     );
   //   }
 
+  handleModalClick() {
+    this.setState({modalVisible: !this.state.modalVisible});
+  }
+
   render() {
     return (
       <NativeBaseProvider>
         <ScrollView>
-          <Stack space={3} alignItems="center">
-            <HStack space={8} alignItems="center" marginTop={2}>
+          {/* ------- button rent sale */}
+          <Stack space={3} alignItems="center" marginVertical={25}>
+            <HStack
+              space={8} //untuk jarak antar button
+              alignItems="center"
+              //   marginTop={2}
+            >
               <TouchableOpacity shadow={4}>
                 <Center
                   // size={20}
@@ -222,7 +237,7 @@ export default class RentSale extends React.Component {
                   borderColor={colors.rs_grey}
                   borderWidth={2}
                   rounded={10}>
-                  <Text style={{color: colors.rs_grey, fontWeight: 'bold'}}>
+                  <Text style={{color: colors.rs_grey, fontWeight: '700'}}>
                     Rent
                   </Text>
                 </Center>
@@ -238,25 +253,30 @@ export default class RentSale extends React.Component {
                   borderColor={colors.rs_grey}
                   borderWidth={2}
                   rounded={10}>
-                  <Text style={{color: colors.rs_grey, fontWeight: '400'}}>
+                  <Text style={{color: colors.rs_grey, fontWeight: '700'}}>
                     Sale
                   </Text>
                 </Center>
               </TouchableOpacity>
             </HStack>
           </Stack>
+          {/* ------- end button rent sale */}
 
-          <Center flex={1} top={2}>
+          {/* ------- content rent sale  */}
+          <Center flex={1}>
             <Box
               width={'93%'}
               shadow={1}
               borderRadius={20}
+              marginBottom={3}
+              paddingBottom={3}
               _light={{
                 backgroundColor: 'gray.50',
               }}
               _dark={{
                 backgroundColor: 'gray.700',
               }}>
+              {/* ------ image rent sale */}
               <Box>
                 <AspectRatio ratio={11 / 5}>
                   <Image
@@ -266,25 +286,13 @@ export default class RentSale extends React.Component {
                     alt="image base"
                     resizeMode="cover"
                     height={200}
-                    roundedTop="lg"
-                    borderTopRadius={20}
-                    style={{
-                      // -- create shadow
-                      shadowColor: '#000',
-                      shadowOffset: {
-                        width: 0,
-                        height: 1,
-                      },
-                      shadowOpacity: 0.22,
-                      shadowRadius: 2.1,
-                      elevation: 3,
-                      // -- end create shadow
-                    }}
+                    // roundedTop="lg"
+                    borderRadius={20}
                   />
                 </AspectRatio>
                 {/* //---------label rent / sale, bisa ganti warna dan ganti text */}
                 <Center
-                  bg={colors.yellow}
+                  bg={colors.rs_grey}
                   _text={{
                     color: colors.bg_putih,
                     fontWeight: '700',
@@ -300,6 +308,7 @@ export default class RentSale extends React.Component {
                 </Center>
                 {/* //---------end label rent / sale, bisa ganti warna dan ganti text */}
               </Box>
+              {/* ------ end image rent sale */}
               <Stack space={1} py={4} px={4}>
                 <Heading
                   size="md"
@@ -313,126 +322,365 @@ export default class RentSale extends React.Component {
                 <Heading
                   size="sm"
                   color={colors.bg_abuabu}
-                  textTransform={'capitalize'}>
-                  rumah murah full furnished di jelambar
-                </Heading>
-              </Stack>
-              <Stack px={4}>
-                <Heading size={'sm'} textTransform={'uppercase'}>
+                  textTransform={'capitalize'}
+                  noOfLines={1} //line buntut titk-titik
+                >
                   rumah murah full furnished di jelambar
                 </Heading>
                 <Text style={{color: colors.greyUrban, fontSize: 14}}>
                   Jelambar, Jakarta Barat, Jakarta
                 </Text>
               </Stack>
-            </Box>
-          </Center>
+              <HStack px={3}>
+                <VStack
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 10,
+                  }}>
+                  <IconIC
+                    name={Platform.OS == 'ios' ? 'ios-bed' : 'bed'}
+                    style={{
+                      fontSize: 18,
+                      paddingTop: 2,
+                      // paddingLeft: 8,
+                      color: colors.rs_navy,
+                    }}></IconIC>
 
-          <Box
-            width={'100%'}
-            shadow={1}
-            _light={{
-              backgroundColor: 'gray.50',
-            }}
-            marginRigh={10}
-            marginLeft={10}
-            _dark={{
-              backgroundColor: 'gray.700',
-            }}>
-            <Box>
-              <AspectRatio ratio={11 / 5}>
-                <Image
-                  roundedTop="lg"
-                  width={'100%'}
-                  height={200}
-                  source={{
-                    uri: 'http://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg',
-                  }}
-                  alt="image"
-                />
-              </AspectRatio>
-              <Center
-                bg="red.500"
-                _text={{
-                  color: 'white',
-                  fontWeight: '700',
-                  fontSize: 'xs',
-                }}
-                position="absolute"
-                bottom={0}
-                px={2}
-                py={1}>
-                PHOTOS
-              </Center>
-              <Center
-                p={1}
-                rounded="full"
-                bg="red.500"
-                boxSize={10}
-                position="absolute"
-                right={0}
-                m={2}
-                _text={{
-                  color: 'white',
-                  textAlign: 'center',
-                  fontWeight: '700',
-                  fontSize: 'xs',
-                }}>
-                27 MAR
-              </Center>
-            </Box>
-            <Stack p={4} space={2}>
-              <Stack space={2}>
-                <Heading size="md" ml={-1}>
-                  The Garden City
-                </Heading>
-                <Heading
-                  size="xs"
-                  _light={{
-                    color: 'red.500',
-                  }}
-                  _dark={{
-                    color: 'red.300',
-                  }}
-                  fontWeight="500"
-                  ml={-0.5}
-                  mt={-1}>
-                  The Silicon Valley of India.
-                </Heading>
-              </Stack>
-              <Text lineHeight={6} fontWeight={400}>
-                Bengaluru (also called Bangalore) is the center of India's
-                high-tech industry. The city is also known for its parks and
-                nightlife.
-              </Text>
-              <HStack
-                alignItems="center"
-                space={4}
-                justifyContent="space-between">
-                <HStack alignItems="center">
-                  {/* <Icon
-                    as={<MaterialIcons name="access-time" />}
-                    color="gray.500"
-                    size="sm"
-                  /> */}
-                  <Text ml={1} color="gray.500" fontWeight="500">
-                    6 mins ago
+                  <Text
+                    ml={1}
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    2 beds
                   </Text>
-                </HStack>
-                <HStack alignItems="center">
-                  {/* <Icon
-                    as={<Ionicons name="ios-chatbubbles" />}
-                    color="gray.500"
-                    size="sm"
-                  /> */}
+                </VStack>
+                <VStack
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 10,
+                  }}>
+                  <IconFA
+                    name={'bathtub'}
+                    style={{
+                      fontSize: 16,
+                      paddingTop: 2,
+                      // paddingLeft: 8,
+                      color: colors.rs_navy,
+                    }}></IconFA>
 
-                  <Text ml={1} color="gray.500" fontWeight="500">
-                    39 comments
+                  <Text
+                    ml={1}
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    2 baths
+                  </Text>
+                </VStack>
+                <VStack
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 10,
+                  }}>
+                  <IconFA5
+                    name={'ruler-combined'}
+                    style={{
+                      fontSize: 14,
+                      paddingTop: 2,
+                      // paddingLeft: 8,
+                      color: colors.rs_navy,
+                    }}></IconFA5>
+
+                  <Text
+                    ml={1}
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    100
+                  </Text>
+                  <Text
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    m
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      lineHeight: 15,
+                      color: colors.bg_abuabu,
+                    }}>
+                    2
+                  </Text>
+                </VStack>
+                <VStack
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 10,
+                  }}>
+                  <IconMCI
+                    name={'home-city'}
+                    style={{
+                      fontSize: 14,
+                      paddingTop: 2,
+                      // paddingLeft: 8,
+                      color: colors.rs_navy,
+                    }}></IconMCI>
+
+                  <Text
+                    ml={1}
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    90
+                  </Text>
+                  <Text
+                    color={colors.bg_abuabu}
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    m
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      lineHeight: 15,
+                      color: colors.bg_abuabu,
+                    }}>
+                    2
+                  </Text>
+                </VStack>
+              </HStack>
+
+              <Stack px={4} py={6}>
+                <HStack>
+                  <Avatar
+                    size="lg"
+                    source={{
+                      uri: 'https://pbs.twimg.com/profile_images/1177303899243343872/B0sUJIH0_400x400.jpg',
+                    }}>
+                    GG
+                  </Avatar>
+
+                  <VStack
+                    style={{
+                      alignSelf: 'center',
+
+                      alignContent: 'center',
+                      paddingLeft: 5,
+                    }}>
+                    <HStack>
+                      <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                        Ridhwan Noerdin
+                      </Text>
+                    </HStack>
+                    <HStack>
+                      <Text style={{fontSize: 14}}>Agent Independent</Text>
+                    </HStack>
+                  </VStack>
+                  <Center
+                    // bg={colors.rs_grey}
+                    position="absolute"
+                    px={0}
+                    py={3}
+                    top={0}
+                    right={0}
+                    borderBottomLeftRadius={8}>
+                    <Button
+                      width={120}
+                      height={41}
+                      borderRadius={20}
+                      bg={colors.rs_navy}
+                      onPress={() => this.handleModalClick()}>
+                      <Center
+                        _text={{
+                          color: colors.bg_putih,
+                          fontWeight: '700',
+                          fontSize: 'md',
+                          bottom: 1,
+                          height: 21,
+                        }}>
+                        Contact Us
+                      </Center>
+                    </Button>
+                  </Center>
+                </HStack>
+              </Stack>
+              <HStack alignSelf="flex-end" space={4}>
+                <HStack alignItems="center" style={{paddingRight: 5}}>
+                  <IconIC
+                    name={Platform.OS == 'ios' ? 'ios-time' : 'time-outline'}
+                    style={{
+                      fontSize: 16,
+                      paddingTop: 5,
+                      // paddingLeft: 8,
+                      color: colors.bg_abuabu,
+                    }}></IconIC>
+
+                  <Text
+                    ml={1}
+                    color="gray.500"
+                    fontWeight="500"
+                    style={{fontSize: 14}}>
+                    6 hours ago
+                    {/* {moment(new Date()).fromNow()} */}
                   </Text>
                 </HStack>
               </HStack>
-            </Stack>
-          </Box>
+            </Box>
+          </Center>
+          {/* ------- content rent sale  */}
+
+          <Modal
+            isOpen={this.state.modalVisible}
+            onClose={() => this.setState({modalVisible: false})}
+            closeOnOverlayClick={true} //jika close modal di sembarang layar
+            size={'lg'}>
+            <Modal.Content pl={4} pt={5} bg={colors.bg_putih}>
+              {/* <Modal.CloseButton /> //jika mau pakai button x di modal */}
+              <Modal.Header _text={{alignSelf: 'center'}}>
+                Contact Agent
+              </Modal.Header>
+              <Modal.Body pr={4}>
+                <Center
+                  style={{
+                    alignSelf: 'center',
+                    alignItems: 'center',
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <HStack pb={5}>
+                    <Avatar
+                      size="lg"
+                      source={{
+                        uri: 'https://pbs.twimg.com/profile_images/1177303899243343872/B0sUJIH0_400x400.jpg',
+                      }}>
+                      GG
+                    </Avatar>
+                    <VStack
+                      style={{
+                        alignSelf: 'center',
+
+                        alignContent: 'center',
+                        paddingLeft: 5,
+                      }}>
+                      <HStack>
+                        <Text style={{fontWeight: 'bold', fontSize: 16}}>
+                          Ridhwan Noerdin
+                        </Text>
+                      </HStack>
+                      <HStack>
+                        <Text style={{fontSize: 14}}>Agent Independent</Text>
+                      </HStack>
+                    </VStack>
+                  </HStack>
+                  <HStack>
+                    <Button
+                      width={110}
+                      height={41}
+                      borderRadius={20}
+                      marginHorizontal={5}
+                      bg={colors.rs_navy}
+                      onPress={() => this.handleModalClick()}>
+                      <Center>
+                        <HStack>
+                          <IconFA
+                            name={'phone'}
+                            color={colors.bg_putih}
+                            style={{
+                              fontSize: 14,
+                              marginRight: 5,
+                              top: 2,
+                            }}></IconFA>
+
+                          <Text
+                            style={{
+                              color: colors.bg_putih,
+                              fontWeight: '700',
+                              fontSize: 14,
+                              bottom: 1,
+                            }}>
+                            Call
+                          </Text>
+                        </HStack>
+                      </Center>
+                    </Button>
+                    <Button
+                      width={110}
+                      height={41}
+                      borderRadius={20}
+                      marginHorizontal={5}
+                      bg={colors.rs_navy}
+                      onPress={() => this.handleModalClick()}>
+                      <Center>
+                        <HStack>
+                          <IconFA
+                            name={'whatsapp'}
+                            color={colors.bg_putih}
+                            style={{
+                              fontSize: 16,
+                              marginRight: 5,
+                              //   top: 2,
+                            }}></IconFA>
+
+                          <Text
+                            style={{
+                              color: colors.bg_putih,
+                              fontWeight: '700',
+                              fontSize: 14,
+                              bottom: 1,
+                            }}>
+                            Whatsapp
+                          </Text>
+                        </HStack>
+                      </Center>
+                    </Button>
+                    <Button
+                      width={110}
+                      height={41}
+                      marginHorizontal={5}
+                      borderRadius={20}
+                      bg={colors.rs_navy}
+                      onPress={() => this.handleModalClick()}>
+                      <Center>
+                        <HStack>
+                          <IconFA
+                            name={'envelope-o'}
+                            color={colors.bg_putih}
+                            style={{
+                              fontSize: 14,
+                              marginRight: 5,
+                              top: 2,
+                            }}></IconFA>
+
+                          <Text
+                            style={{
+                              color: colors.bg_putih,
+                              fontWeight: '700',
+                              fontSize: 14,
+                              bottom: 1,
+                            }}>
+                            Email
+                          </Text>
+                        </HStack>
+                      </Center>
+                    </Button>
+                  </HStack>
+                </Center>
+              </Modal.Body>
+              {/* 
+              <Modal.Footer>
+                <Button.Group variant="ghost" space={2}>
+                  <Button>SAVE</Button>
+                  <Button
+                    onPress={() => {
+                      this.setState({modalVisible: !this.state.modalVisible});
+                    }}
+                    colorScheme="muted">
+                    CLOSE
+                  </Button>
+                </Button.Group>
+              </Modal.Footer> */}
+            </Modal.Content>
+          </Modal>
         </ScrollView>
       </NativeBaseProvider>
     );
