@@ -76,6 +76,12 @@ const colors = {
   bg_abuabu: '#3d3d3d',
   bg_iconbawah: '#99a186',
   bg_putih: '#ffffff',
+
+  // background color theme in rent & sale
+  rs_navy: '#11324D',
+  rs_grey: '#6B7AA1',
+  rs_mintgreen: '#C1CFC0',
+  rs_softbrown: '#E7E0C9',
 };
 
 export default colors;
