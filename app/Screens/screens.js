@@ -59,7 +59,7 @@ import ViewHistoryDetail from './Helpdesk/ViewHistoryDetail';
 
 //rent sale
 import RentSale from './RentSale';
-import rentsaleDetail from './RentSale/rentsaleDetail';
+import RentSaleDetail from './RentSale/rentsaleDetail';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -194,7 +194,7 @@ export function registerScreen() {
   Navigation.registerComponent('screen.RentSale', () =>
     gestureHandlerRootHOC(RentSale),
   );
-  Navigation.registerComponent('screen.rentsaleDetail', () =>
-    gestureHandlerRootHOC(rentsaleDetail),
+  Navigation.registerComponent('screen.RentSaleDetail', () =>
+    gestureHandlerRootHOC(RentSaleDetail),
   );
 }
