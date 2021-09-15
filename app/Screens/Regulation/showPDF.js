@@ -71,6 +71,9 @@ export default class showPDF extends React.Component {
           {this.state.regulations_title}
         </Text>
         <Pdf
+          ref={pdf => {
+            this.pdf = pdf;
+          }}
           source={source}
           onLoadComplete={(numberOfPages, filePath) => {
             console.log(`number of pages: ${numberOfPages}`);
