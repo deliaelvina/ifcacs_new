@@ -144,7 +144,8 @@ export default class Regulation extends React.Component {
           {this.state.regulation.map((item, index) => (
             <TouchableOpacity
               // onPress={() => this.handleNavigation('screen.showPDF', item)}
-              onPress={() => this.handleNavigation('screen.flipPDF', item)}
+              // onPress={() => this.handleNavigation('screen.flipPDF', item)}
+              onPress={() => this.handleNavigation('screen.flipPDF2', item)}
               key={index}
               style={{
                 flexDirection: 'row',

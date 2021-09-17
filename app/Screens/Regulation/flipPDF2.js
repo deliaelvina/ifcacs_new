@@ -5,7 +5,7 @@ import colors from '../../Theme/Colors';
 import FlipPage, {FlipPagePage} from 'react-native-flip-page';
 import Pdf from 'react-native-pdf';
 
-export default class flipPDF extends React.Component {
+export default class flipPDF2 extends React.Component {
   static options(passProps) {
     return {
       topBar: {
@@ -83,10 +83,7 @@ export default class flipPDF extends React.Component {
 
     return (
       <NativeBaseProvider>
-        <FlipPage
-          orientation={'horizontal'}
-          loopForever={false}
-          onFinish="null">
+        <FlipPage orientation={'horizontal'} loopForever={false}>
           {this.state.gambarPdf.map((data, index) => (
             <FlipPagePage key={index}>
               <Image

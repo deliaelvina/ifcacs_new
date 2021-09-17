@@ -61,6 +61,7 @@ import ViewHistoryDetail from './Helpdesk/ViewHistoryDetail';
 import RentSale from './RentSale';
 import RentSaleDetail from './RentSale/rentsaleDetail';
 import flipPDF from './Regulation/flipPDF';
+import flipPDF2 from './Regulation/flipPDF2';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -143,6 +144,9 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.flipPDF', () =>
     gestureHandlerRootHOC(flipPDF),
+  );
+  Navigation.registerComponent('screen.flipPDF2', () =>
+    gestureHandlerRootHOC(flipPDF2),
   );
 
   //Facility
