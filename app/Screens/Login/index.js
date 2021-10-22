@@ -191,6 +191,7 @@ class Login extends Component {
       sessions.setSess('@rowID', res.rowID);
       sessions.setSess('@RefreshProfile', false);
       sessions.setSess('@UserProject', res.UserProject);
+      sessions.setSess('@DashMenu', res.DashMenu);
 
       goHome();
     } catch (err) {

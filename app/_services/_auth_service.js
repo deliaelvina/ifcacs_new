@@ -29,7 +29,7 @@ console.log('apo', api);
 async function login(datas) {
   const data = datas;
   console.log('data', data);
-  // console.log('urlapi login', urlApi);
+  console.log('urlapi login', api);
   return await axios
     .post(`${api}`, data, {headers})
     .then(res => {

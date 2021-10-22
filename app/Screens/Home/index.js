@@ -118,6 +118,8 @@ class Home extends React.Component {
       dataProfile: [],
       news: [],
       promo: [],
+      dashmenu: [],
+      dashmenuLoop: [],
       // announce: [],
 
       scrollY: new Animated.Value(0),
@@ -162,7 +164,7 @@ class Home extends React.Component {
     if (Platform.OS == 'android') {
       this.startHeaderHeight = 100 + StatusBar.currentHeight;
     }
-
+    const dashmenu = await sessions.getSess('@DashMenu');
     const data = {
       email: await sessions.getSess('@User'),
       name: await sessions.getSess('@Name'),
@@ -170,6 +172,7 @@ class Home extends React.Component {
       userId: await sessions.getSess('@UserId'),
       dataTower: await sessions.getSess('@UserProject'),
       user: await sessions.getSess('@isLogin'),
+      dashmenu: await sessions.getSess('@DashMenu'),
       // user: true,
 
       mounted: true,
@@ -180,6 +183,7 @@ class Home extends React.Component {
     this.setState(data, () => {
       this.getNews();
       this.getPromo();
+      this.loopDashMenu(dashmenu);
     });
   }
 
@@ -325,21 +329,21 @@ class Home extends React.Component {
   //   });
   // };
 
-  getProfile = () => {
-    const data = {
-      email: this.state.email,
-      userId: this.state.userId,
-    };
+  // getProfile = () => {
+  //   const data = {
+  //     email: this.state.email,
+  //     userId: this.state.userId,
+  //   };
 
-    profilService.getData(data).then(res => {
-      console.log('res prof', res);
-      const resData = res.Data[0];
-      // ? Agar Gambar Tidak ter cache
-      this.setState({
-        dataProfile: resData,
-      });
-    });
-  };
+  //   profilService.getData(data).then(res => {
+  //     console.log('res prof', res);
+  //     const resData = res.Data[0];
+  //     // ? Agar Gambar Tidak ter cache
+  //     this.setState({
+  //       dataProfile: resData,
+  //     });
+  //   });
+  // };
 
   getNews = () => {
     fetch(
@@ -356,17 +360,17 @@ class Home extends React.Component {
     )
       .then(response => response.json())
       .then(res => {
-        console.log('res news', res);
+        // console.log('res news', res);
         if (!res.Error) {
           const resData = res.data;
-          console.log('res data news', resData);
+          // console.log('res data news', resData);
           this.setState({news: resData});
         } else {
           this.setState({isLoaded: !this.state.isLoaded}, () => {
             alert(res.pesan);
           });
         }
-        console.log('getNews', res);
+        // console.log('getNews', res);
       })
       .catch(error => {
         console.log(error);
@@ -391,18 +395,18 @@ class Home extends React.Component {
         if (!res.Error) {
           let resData = res.data;
           let databanners = [];
-          console.log('resdata promo', resData);
+          // console.log('resdata promo', resData);
           resData.map(item => {
             if (item.banner == 'Y') {
               let banners = {
                 ...item,
                 banner: item.banner,
               };
-              console.log('banners', banners);
+              // console.log('banners', banners);
               databanners.push(banners);
             }
           });
-          console.log('databanner', databanners);
+          // console.log('databanner', databanners);
           this.setState({promo: resData});
           this.setState({promobanner: databanners});
         } else {
@@ -410,12 +414,25 @@ class Home extends React.Component {
             alert(res.Pesan);
           });
         }
-        console.log('getPromo', res);
+        // console.log('getPromo', res);
       })
       .catch(error => {
         console.log(error);
       });
   };
+
+  loopDashMenu(dashmenu) {
+    console.log('dashmenuu loop', dashmenu);
+
+    for (let index = 0; index < dashmenu.length; index++) {
+      const element = dashmenu[index];
+      if (dashmenu[index].priority == 1) {
+        this.setState({dashmenuLoop: element});
+      }
+      console.log('element loop', element);
+    }
+    console.log('dashmenuloop', this.state.dashmenuLoop);
+  }
 
   onRefresh = () => {
     this.setState({refreshing: true});
@@ -441,6 +458,18 @@ class Home extends React.Component {
         },
       },
     });
+  };
+
+  goToFeed = (dataPriority, passedProps) => {
+    const screenName = dataPriority.URL;
+    this.setState({isDisable: true}, () => {
+      this.goToScreen(screenName, passedProps);
+    });
+    // if (val.isProject == 1) {
+    //   Actions.project({goTo: val.URL_angular});
+    // } else {
+    //   Actions[val.URL_angular]();
+    // }
   };
 
   componentDidDisappear() {
@@ -514,10 +543,6 @@ class Home extends React.Component {
             {/* {example1} */}
             {headerCarousel}
 
-            {/* <Button
-              onPress={() => this.handleNavigation('screen.ContohCarousel')}>
-              <Text>carouseel</Text>
-            </Button> */}
             {user != null ? (
               <View
                 style={{
@@ -691,6 +716,167 @@ class Home extends React.Component {
             ) : (
               <View style={{marginBottom: 25}}></View>
             )}
+
+            <View style={{marginTop: 20}}>
+              <Grid>
+                {this.state.dashmenu.map((dataPriority, indexPriority) =>
+                  dataPriority.priority === '1' ? (
+                    <Col
+                      style={{
+                        height: 100,
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                      }}
+                      key={indexPriority}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.goToFeed(
+                            dataPriority,
+                            'props dashmenu ceritanya',
+                          )
+                        }>
+                        <View
+                          style={{
+                            width: 47,
+                            height: 47,
+                            borderRadius: 25,
+                            backgroundColor: colors.bg_peachmuda,
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.22,
+                            elevation: 3,
+                            // -- end create shadow
+                          }}>
+                          <Image
+                            // source={require('@Asset/icons/billing.png')}
+                            source={{uri: dataPriority.file_url}}
+                            // source={require('@Asset/icons/menu_icon/billing2.png')}
+                            style={{
+                              bottom: 5,
+                              left: 3,
+                              width: 40,
+                              height: 40,
+                              alignSelf: 'center',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              // -- create shadow
+                              shadowColor: '#000',
+                              shadowOffset: {
+                                width: 0,
+                                height: 1,
+                              },
+                              shadowOpacity: 0.22,
+                              shadowRadius: 2.1,
+                              // elevation: 3,
+                              // -- end create shadow
+                            }}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            paddingTop: 5,
+                            color: colors.bg_abuabu,
+                            fontSize: 14,
+                            //fontFamily: 'Bold',
+                            paddingLeft: 5,
+                            textAlign: 'center',
+                          }}>
+                          {dataPriority.title_descs}
+                        </Text>
+                      </TouchableOpacity>
+                    </Col>
+                  ) : null,
+                )}
+              </Grid>
+              <Grid>
+                {this.state.dashmenu.map((dataPriority, indexPriority) =>
+                  dataPriority.priority === '2' ? (
+                    <Col
+                      style={{
+                        height: 100,
+                        paddingLeft: 10,
+                        paddingRight: 10,
+                      }}
+                      key={indexPriority}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          this.goToFeed(
+                            dataPriority,
+                            'props dashmenu ceritanya',
+                          )
+                        }>
+                        <View
+                          style={{
+                            width: 47,
+                            height: 47,
+                            borderRadius: 25,
+                            backgroundColor: colors.bg_peachmuda,
+                            alignItems: 'center',
+                            alignSelf: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            // -- create shadow
+                            shadowColor: '#000',
+                            shadowOffset: {
+                              width: 0,
+                              height: 1,
+                            },
+                            shadowOpacity: 0.22,
+                            shadowRadius: 2.22,
+                            elevation: 3,
+                            // -- end create shadow
+                          }}>
+                          <Image
+                            // source={require('@Asset/icons/billing.png')}
+                            source={{uri: dataPriority.file_url}}
+                            // source={require('@Asset/icons/menu_icon/billing2.png')}
+                            style={{
+                              bottom: 5,
+                              left: 3,
+                              width: 40,
+                              height: 40,
+                              alignSelf: 'center',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              // -- create shadow
+                              shadowColor: '#000',
+                              shadowOffset: {
+                                width: 0,
+                                height: 1,
+                              },
+                              shadowOpacity: 0.22,
+                              shadowRadius: 2.1,
+                              // elevation: 3,
+                              // -- end create shadow
+                            }}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            paddingTop: 5,
+                            color: colors.bg_abuabu,
+                            fontSize: 14,
+                            //fontFamily: 'Bold',
+                            paddingLeft: 5,
+                            textAlign: 'center',
+                          }}>
+                          {dataPriority.title_descs}
+                        </Text>
+                      </TouchableOpacity>
+                    </Col>
+                  ) : null,
+                )}
+              </Grid>
+            </View>
 
             {Platform.OS == 'ios' ? (
               // {/* -------- MENU - MENU IOS----------- */}
@@ -1195,10 +1381,9 @@ class Home extends React.Component {
               </View>
             ) : (
               // {/* -------- END MENU - MENU IOS----------- */}
-              // {/* -------- MENU - MENU ANDRO----------- */}
-              <View style={{marginTop: 20}}>
+              <View>
                 <Grid>
-                  <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                  <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
                     <View
                       style={{
                         width: 47,
@@ -1231,16 +1416,6 @@ class Home extends React.Component {
                           alignSelf: 'center',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          // -- create shadow
-                          shadowColor: '#000',
-                          shadowOffset: {
-                            width: 0,
-                            height: 1,
-                          },
-                          shadowOpacity: 0.22,
-                          shadowRadius: 2.1,
-                          // elevation: 3,
-                          // -- end create shadow
                         }}
                       />
                     </View>
@@ -1256,6 +1431,7 @@ class Home extends React.Component {
                       Billing
                     </Text>
                   </Col>
+
                   <Col
                     style={{
                       paddingLeft: 10,
@@ -1322,6 +1498,7 @@ class Home extends React.Component {
                       </Text>
                     </TouchableOpacity>
                   </Col>
+
                   <Col
                     style={{
                       paddingLeft: 10,
@@ -1642,7 +1819,7 @@ class Home extends React.Component {
                   </Col>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
                     <TouchableOpacity
-                      onPress={() => this.handleNavigation('screen.moreMenu')}>
+                      onPress={() => this.handleNavigation('screen.Facility')}>
                       <View
                         style={{
                           width: 47,
@@ -1697,15 +1874,12 @@ class Home extends React.Component {
                           paddingLeft: 5,
                           textAlign: 'center',
                         }}>
-                        {/* Facility */}
-                        More
+                        Facility
                       </Text>
                     </TouchableOpacity>
                   </Col>
                 </Grid>
               </View>
-
-              // {/* -------- END MENU - MENU ANDRO----------- */}
             )}
 
             {/* -------- PROMOTIONS -------- */}

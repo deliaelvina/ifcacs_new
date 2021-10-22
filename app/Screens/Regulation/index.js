@@ -141,6 +141,12 @@ export default class Regulation extends React.Component {
             paddingRight: 10,
             paddingTop: 10,
           }}>
+          <TouchableOpacity
+            onPress={() => this.handleNavigation('screen.rolebook')}>
+            <View>
+              <Text>role book</Text>
+            </View>
+          </TouchableOpacity>
           {this.state.regulation.map((item, index) => (
             <TouchableOpacity
               // onPress={() => this.handleNavigation('screen.showPDF', item)}
