@@ -84,8 +84,8 @@ const nbStyles = {
     color: colors.bg_abuabu,
   },
   btnImage: {
-    height: 50,
-    width: 50,
+    height: 80,
+    width: 80,
     marginBottom: 10,
   },
 };

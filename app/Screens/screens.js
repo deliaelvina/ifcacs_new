@@ -14,8 +14,19 @@ import Profile from './Profile';
 //Home
 import Home from './Home';
 
+//Meter Info
+import MeterInfo from './MeterInfo/MeterInfo';
+
+// Categories
+import ChooseTower from './Categories';
+import CategoriTower from './MeterInfo/CategoriTower';
+
+//
+
+
 //Billing
 import Billing from './Billing';
+import BillingDetail from './Billing/BillingDetail';
 
 //Emergency
 import EmergencyCall from './Emergency/EmergencyCall';
@@ -72,10 +83,18 @@ export function registerScreen() {
     gestureHandlerRootHOC(Profile),
   );
 
+  // Categories
+  Navigation.registerComponent('screen.ChooseTower', () =>
+  gestureHandlerRootHOC(ChooseTower),
+);
+
   //Billing
   Navigation.registerComponent('screen.Billing', () =>
     gestureHandlerRootHOC(Billing),
   );
+  Navigation.registerComponent('screen.BillingDetail', () =>
+  gestureHandlerRootHOC(BillingDetail),
+);
 
   //Emergency
   Navigation.registerComponent('tab.Emergency', () =>
@@ -86,6 +105,16 @@ export function registerScreen() {
   Navigation.registerComponent('screen.Amenities', () =>
     gestureHandlerRootHOC(Amenities),
   );
+
+  //Meter Info
+  Navigation.registerComponent('screen.MeterInfo', () =>
+    gestureHandlerRootHOC(MeterInfo),
+  );
+  Navigation.registerComponent('screen.CategoriTower', () =>
+    gestureHandlerRootHOC(CategoriTower),
+  );
+
+
 
   //NewsDetail
   Navigation.registerComponent('screen.NewsDetail', () =>

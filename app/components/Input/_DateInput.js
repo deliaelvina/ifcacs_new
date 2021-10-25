@@ -7,7 +7,7 @@ import {
     StyleSheet,
     Dimensions
 } from "react-native";
-import DateTimePicker from "react-native-modal-datetime-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 const { height: deviceHeight, width: deviceWidth } = Dimensions.get("window");
 import moment from "moment";
 import Style from "../../Theme/Style";
@@ -39,7 +39,7 @@ const DateInput = props => {
                             time == ""
                                 ? ""
                                 : moment(time).format(
-                                      "dddd, DD MMMM YYYY HH:mm"
+                                      "dddd, DD MMMM YYYY"
                                   )
                         }
                     />
@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#f5f5f5",
         color: "black",
         paddingHorizontal: 10,
-        marginBottom: 16,
+        marginBottom: 10,
+        marginLeft: 20,
         width: null,
         borderRadius: 10,
         justifyContent: "center",

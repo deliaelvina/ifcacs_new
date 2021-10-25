@@ -697,6 +697,7 @@ class Home extends React.Component {
               <View style={{marginTop: 15}}>
                 <Grid>
                   <Col style={{height: 90, paddingLeft: 10, paddingRight: 10}}>
+                  
                     <View
                       style={{
                         width: 47,
@@ -743,6 +744,7 @@ class Home extends React.Component {
                       }}>
                       Billing
                     </Text>
+                    {/* </TouchableOpacity> */}
                   </Col>
 
                   <Col
@@ -818,6 +820,8 @@ class Home extends React.Component {
                       paddingRight: 10,
                       // paddingBottom: 10,
                     }}>
+                      <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.CategoriTower')}>
                     <View
                       style={{
                         width: 47,
@@ -874,6 +878,7 @@ class Home extends React.Component {
                       }}>
                       Meter Info
                     </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col
                     style={{
@@ -1199,6 +1204,8 @@ class Home extends React.Component {
               <View style={{marginTop: 20}}>
                 <Grid>
                   <Col style={{height: 100, paddingLeft: 10, paddingRight: 10}}>
+                  <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.ChooseTower')}>
                     <View
                       style={{
                         width: 47,
@@ -1255,6 +1262,7 @@ class Home extends React.Component {
                       }}>
                       Billing
                     </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col
                     style={{
@@ -1328,6 +1336,8 @@ class Home extends React.Component {
                       paddingRight: 10,
                       // paddingBottom: 10,
                     }}>
+                      <TouchableOpacity
+                      onPress={() => this.handleNavigation('screen.CategoriTower')}>
                     <View
                       style={{
                         width: 47,
@@ -1384,6 +1394,7 @@ class Home extends React.Component {
                       }}>
                       Meter Info
                     </Text>
+                    </TouchableOpacity>
                   </Col>
                   <Col
                     style={{
