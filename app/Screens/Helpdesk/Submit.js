@@ -36,6 +36,9 @@ import moment from 'moment';
 import OfflineNotice from '@Component/OfflineNotice';
 import {urlApi} from '@Config';
 import colors from '../../Theme/Colors';
+import IconFA from 'react-native-vector-icons/FontAwesome';
+
+import {ticketSubmit, uploadPhoto} from '../../_services';
 
 class SubmitHelpDesk extends Component {
   _isMount = false;
@@ -69,12 +72,13 @@ class SubmitHelpDesk extends Component {
     };
 
     console.log('props', props);
-    // this.selectPhotoTapped = this.selectPhotoTapped.bind(this);
+
     Navigation.events().bindComponent(this);
   }
   componentDidMount() {
     this._isMount = true;
     const prevProps = this.props.prevProps;
+
     let titles = '';
     if (prevProps.typeTicket == 'C') {
       titles = 'Complain';
@@ -83,7 +87,13 @@ class SubmitHelpDesk extends Component {
     } else {
       titles = 'Application';
     }
-    this.setState({title: titles});
+    const group_cd = this.props.prevProps.group_cd;
+    console.log('group_cd', group_cd);
+    const reportdate = moment(new Date()).format('DD MMMM YYYY h:mm');
+    // const reportdate = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
+    // const reportdate = '24 August 2021 15:30';
+    console.log('reportdate', reportdate);
+    this.setState({title: titles, group_cd: group_cd, reportdate: reportdate});
   }
 
   componentWillUnmount() {
@@ -163,77 +173,107 @@ class SubmitHelpDesk extends Component {
     this.setState({image: imageArray});
   };
 
-  onSubmit = () => {
+  async onSubmit() {
     this.setState({isLoading: true, loadingText: 'Saving data ...'});
 
     const prevProps = this.props.prevProps;
+    console.log('prevprops submit', prevProps);
+
+    let savePhoto = [];
+    // const x = this.props.prevProps;
+    this.state.image.map((images, index) => {
+      let fileName =
+        prevProps.textUsername +
+        '_' +
+        moment(new Date()).format('MMDDYYYY') +
+        '_ticket_' +
+        (index + 1) +
+        '.jpg';
+      // let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
+      let fileImg = images.uri.replace('file://', '');
+
+      const formData_pict = {
+        // data: data,
+        seq_no_pict: index,
+        filename: fileName,
+        userfile: fileImg,
+      };
+
+      console.log('dataSaveAll', formData_pict);
+      savePhoto.push(formData_pict);
+    });
+
+    console.log('ssavefoto', savePhoto);
+
+    //form data biasa
     const formData = {
+      entity: prevProps.entity, //-entity_cd
+      project: prevProps.project, //-project_no
       rowID: prevProps.rowId,
-      cons: 'IFCAPB',
-      audit_user: prevProps.audit_user,
-      Rtype: prevProps.typeTicket,
-      entity: prevProps.entity,
-      project: prevProps.project,
-      debtor: prevProps.debtor,
-      request_by: prevProps.textUsername,
-      contact_no: prevProps.textContact,
-      lot_no: prevProps.textLot,
-      floorr: prevProps.textFloor,
-      ticket_no: prevProps.ticketNo,
+      email: prevProps.email, //-email
+      debtor: prevProps.debtor, //-debtoracct
+      lot_no: prevProps.textLot, //-lotno
+      // ticket_no: prevProps.ticketNo,
       categoryy:
-        prevProps.appType == '' ? this.props.category_cd : prevProps.appType,
-      descript: this.state.txtDesc,
-      location: this.state.txtLocation,
-      email: prevProps.email,
-      cmpsource: prevProps.comSource,
-      seqnotick: prevProps.seqNo,
+        prevProps.appType == '' ? this.props.category_cd : prevProps.appType, //-category
+      floorr: prevProps.textFloor, //-level_no / floor
+      request_by: prevProps.textUsername, //-username
+      contact_no: prevProps.textContact, //-contact_no
+      reported_by: prevProps.textreportedBy, //reported_by
+      // audit_user: prevProps.audit_user, //-
+      audit_user: prevProps.group_cd, //-
+      workRequested: this.state.txtDesc,
+      reportdate: this.state.reportdate,
+      // savePhoto: savePhoto,
+      // userfile: savePhoto[0].userfile,
+      // filename: savePhoto[0].filename,
     };
 
     console.log('fromData', formData);
 
-    fetch(urlApi + 'c_ticket_entry/saveticket/', {
-      method: 'POST',
-      body: JSON.stringify(formData),
-    })
-      .then(response => response.json())
-      .then(res => {
-        console.log('response', res);
-
-        if (res.Error === false) {
-          if (this._isMount) {
-            this.setState({isLoading: false});
-            if (this.state.image.length !== 0) {
-              this.uploadPhoto();
-            } else {
-              this.setState({isLoading: false}, () =>
-                this.showAlert('Data saved successfuly'),
-              );
-            }
-          }
+    if (this._isMount) {
+      this.setState({isLoading: false});
+      await ticketSubmit.submitTicket(formData).then(res => {
+        console.log('res di lgin', res);
+        console.log('res di eeror', res.Error);
+        if (res.status === 'OK' || res.Error === false || !res.Error) {
+          console.log('errorr false');
+          console.log('res pesan', res.Pesan);
+          console.log('report no', res.Report_no);
+          // alert(res.Pesan);
+          // if (index + 1 === this.state.image.length) {
+          //   if (this._isMount) {
+          //     this.setState({isLoading: false}, () =>
+          //       this.showAlert('Data saved successfuly'),
+          //     );
+          //   }
+          // }
+          this.uploadPhoto(res.Report_no);
         } else {
-          this.setState({isLoading: false}, () => alert('Saving data Failed'));
+          console.log('error true');
+          this.setState({isLoading: false});
+          alert(res.Pesan);
         }
-      })
-      .catch(error => {
-        this.setState({isLoading: false});
-        console.log(error);
       });
-  };
+    }
+  }
 
-  uploadPhoto = () => {
+  async uploadPhoto(dataReportno) {
+    console.log('data report no from submit', dataReportno);
     this.setState({isLoading: true, loadingText: 'Uploading image ...'});
 
     const x = this.props.prevProps;
 
     const data = {
-      cons: 'IFCAPB',
+      // cons: 'IFCAPB',
       entity: x.entity,
       project: x.project,
       request_by: x.textUsername,
       seqNo: x.seqNo,
+      report_no: dataReportno,
     };
-
-    this.state.image.map((images, index) => {
+    let dataSaveAll = [];
+    this.state.image.map(async (images, index) => {
       let fileName =
         x.textUsername +
         '_' +
@@ -241,67 +281,95 @@ class SubmitHelpDesk extends Component {
         '_ticket_' +
         (index + 1) +
         '.jpg';
-      let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
+      // let fileImg = RNFetchBlob.wrap(images.uri.replace('file://', ''));
+      let fileImg = images.uri.replace('file://', '');
 
-      const frmData = {
+      const formData_pict = {
+        name: 'userfile',
         data: data,
         seq_no_pict: index,
+        filename: fileName,
+        userfile: fileImg,
       };
 
-      RNFetchBlob.fetch(
-        'POST',
-        urlApi + 'c_ticket_entry/upload/IFCAPB',
-        {
-          'Content-Type': 'multipart/form-data',
-        },
-        [
-          {name: 'photo', filename: fileName, data: fileImg},
-          {name: 'data', data: JSON.stringify(frmData)},
-        ],
-      ).then(resp => {
-        console.log('resp', resp);
-        if (index + 1 === this.state.image.length) {
-          if (this._isMount) {
-            this.setState({isLoading: false}, () =>
-              this.showAlert('Data saved successfuly'),
-            );
-          }
+      console.log('dataSaveAll', formData_pict);
+
+      // dataSaveAll.push(formData_pict);
+      await ticketSubmit.uploadFoto(formData_pict).then(res => {
+        //hit api ke submit ticket dengan formdata = report no
+        console.log('res di lgin', res);
+        console.log('res di eeror', res.Error);
+        if (res.status === 'OK' || res.Error === false || !res.Error) {
+          console.log('errorr false');
+          console.log('res pesan', res.Pesan);
+          alert(res.Pesan);
+          // if (index + 1 === this.state.image.length) {
+          //   if (this._isMount) {
+          //     this.setState({isLoading: false}, () =>
+          //       this.showAlert('Data saved successfuly'),
+          //     );
+          //   }
+          // }
+          // this.uploadPhoto();
+        } else {
+          console.log('error true');
+          this.setState({isLoading: false});
+          alert(res.Pesan);
         }
       });
+
+      // RNFetchBlob.fetch(
+      //   'POST',
+      //   urlApi + '/csentry-saveTicket',
+      //   {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      //   [
+      //     {name: 'photo', filename: fileName, data: fileImg},
+      //     {name: 'data', data: JSON.stringify(formData_pict)},
+      //   ],
+      // ).then(resp => {
+      //   console.log('resp', resp);
+      //   if (index + 1 === this.state.image.length) {
+      //     if (this._isMount) {
+      //       this.setState({isLoading: false}, () =>
+      //         this.showAlert('Data saved successfuly'),
+      //       );
+      //     }
+      //   }
+      // });
     });
-  };
+    // Object.assign({}, dataSaveAll); // {0:"a", 1:"b", 2:"c"}
+    // const formdata = Object.assign({}, dataSaveAll);
 
-  // getCategoryDetail = () => {
-  //   const dT = this.props.prevProps.dataTower[0]
+    // const obj = Object.fromEntries(dataSaveAll.map(data => [data]));
 
-  //   const formData = {
-  //       entity : dT.entity_cd,
-  //       project : dT.project_no,
-  //       category_group : this.state.category_code
-  //   }
+    // console.log(formData_pict);/
+    // console.log('tes', tes);
 
-  //   fetch(urlApi+'c_ticket_entry/getCategoryDetail/IFCAPB',{
-  //       method : "POST",
-  //       body :JSON.stringify(formData)
-  //   })
-  //   .then((response) => response.json())
-  //   .then((res)=>{
-  //       if(res.Error === false){
-  //           let resData = res.Data
-  //           // console.log('response', resData)
-  //           if(this._isMount){
-  //             this.setState(
-  //                 {
-  //                   dataCategoryDetail : resData,
-  //                   titleCategory : resData[0].descs_category_group
-  //                 }
-  //             )
-  //           }
-  //       }
-  //   }).catch((error) => {
-  //       console.log(error);
-  //   });
-  // }
+    // await ticketSubmit.uploadFoto(formdata).then(res => {
+    //   //hit api ke submit ticket dengan formdata = report no
+    //   console.log('res di lgin', res);
+    //   console.log('res di eeror', res.Error);
+    //   if (res.status === 'OK' || res.Error === false || !res.Error) {
+    //     console.log('errorr false');
+    //     console.log('res pesan', res.Pesan);
+    //     alert(res.Pesan);
+    //     // if (index + 1 === this.state.image.length) {
+    //     //   if (this._isMount) {
+    //     //     this.setState({isLoading: false}, () =>
+    //     //       this.showAlert('Data saved successfuly'),
+    //     //     );
+    //     //   }
+    //     // }
+    //     // this.uploadPhoto();
+    //   } else {
+    //     console.log('error true');
+    //     this.setState({isLoading: false});
+    //     alert(res.Pesan);
+    //   }
+    // });
+  }
 
   handleIndexChange = index => {
     this.setState({
@@ -344,9 +412,8 @@ class SubmitHelpDesk extends Component {
         <View
           style={nbStyles.wrap}
           pointerEvents={this.state.isLoading ? 'none' : 'auto'}>
-          <Title text={'halo'} />
           {/* <Title text={this.state.title} /> */}
-          <TextInput
+          {/* <TextInput
             style={Style.input}
             placeholder={this.state.title + ' Location'}
             placeholderTextColor="#a9a9a9"
@@ -356,10 +423,11 @@ class SubmitHelpDesk extends Component {
             value={this.state.textContact}
             onChangeText={text => this.setState({txtLocation: text})}
             onSubmitEditing={() => this.handleNext('txtDescs')}
-          />
+          /> */}
+          <SubTitle text="Work Request" />
           <Stack space={5} w="100%">
             <TextArea
-              h={20}
+              h={40}
               ref="txtDescs"
               placeholderTextColor="#a9a9a9"
               blurOnSubmit
@@ -367,8 +435,52 @@ class SubmitHelpDesk extends Component {
               style={nbStyles.textArea}
               bordered
               borderColor={colors.bg_coklat}
+              onChangeText={text => this.setState({txtDesc: text})}
             />
           </Stack>
+
+          <View style={nbStyles.pickerWrap}>
+            <Text>Attachment</Text>
+            {this.state.image.length === 0 ? (
+              <TouchableOpacity
+                style={[nbStyles.sel, {marginBottom: 20}]}
+                onPress={() => this.handlePhotoPick()}>
+                <View>
+                  <Text>Select a Photo</Text>
+                  {/* <Icon name="times" size={25} /> */}
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <View>
+                {this.state.image.map((data, key) => (
+                  <TouchableOpacity
+                    key={key}
+                    style={nbStyles.avatarContainer}
+                    onPress={() => console.log('Photo Tapped')}>
+                    <View>
+                      <Image
+                        style={nbStyles.avatar}
+                        source={this.state.image[key]}
+                      />
+                      <IconFA
+                        color="#5A110D"
+                        name="remove"
+                        style={nbStyles.iconRemove}
+                        onPress={() => this.removePhoto(key)}
+                      />
+                    </View>
+                  </TouchableOpacity>
+                ))}
+                {/* <TouchableOpacity
+                  style={[nbStyles.sel, {marginBottom: 20}]}
+                  onPress={() => this.handlePhotoPick()}>
+                  <View>
+                    <Text>Select a Photo</Text>
+                  </View>
+                </TouchableOpacity> */}
+              </View>
+            )}
+          </View>
 
           <View style={nbStyles.subWrap}>
             <Button

@@ -40,6 +40,7 @@ import {authService, contactService, productService} from '../../_services';
 import {nav, sessions} from '../../_helpers';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../Theme/Colors';
+import fonts from '../../Theme/Fonts';
 
 class Login extends Component {
   static options(passProps) {
@@ -190,6 +191,7 @@ class Login extends Component {
       sessions.setSess('@rowID', res.rowID);
       sessions.setSess('@RefreshProfile', false);
       sessions.setSess('@UserProject', res.UserProject);
+      sessions.setSess('@DashMenu', res.DashMenu);
 
       goHome();
     } catch (err) {
@@ -305,7 +307,11 @@ class Login extends Component {
       <NativeBaseProvider style={nbStyles.content}>
         <ImageBackground
           // source={require('@Img/bg-login/loginbg2.png')}
-          style={{flex: 1, resizeMode: 'cover', backgroundColor: '#'}}>
+          style={{
+            flex: 1,
+            resizeMode: 'cover',
+            backgroundColor: colors.bg_putih,
+          }}>
           {/* {this.renderHeader()} */}
           <OfflineNotice />
           <SafeAreaView>
@@ -315,8 +321,27 @@ class Login extends Component {
                 source={require('@Asset/images/logo-login/logo-login.png')}
               /> */}
             </View>
-
-            <View style={nbStyles.wrap}>
+            <View style={nbStyles.wrapLogoText}>
+              <Image
+                style={{
+                  height: 60,
+                  width: 60,
+                  alignSelf: 'center',
+                  padding: 0,
+                  margin: 0,
+                }}
+                source={require('@Asset/images/Pakubuwono-logo-daun.png')}
+              />
+              <Text
+                style={{
+                  fontFamily: fonts.fontbaru,
+                  fontSize: 40,
+                  textAlign: 'center',
+                }}>
+                The Pakubuwono Residence
+              </Text>
+            </View>
+            <View style={nbStyles.wrapTitleLogin}>
               <View>
                 <Text style={nbStyles.title}>Login</Text>
               </View>
@@ -324,6 +349,7 @@ class Login extends Component {
                 <TextInput
                   style={nbStyles.textInput}
                   placeholder={'Email Address'}
+                  placeholderTextColor={colors.rs_grey}
                   onChangeText={val => this.onChangeText('emailTextInput', val)}
                 />
               </View>
@@ -339,6 +365,7 @@ class Login extends Component {
                   ref="password"
                   style={nbStyles.textInput}
                   placeholder={'Password'}
+                  placeholderTextColor={colors.rs_grey}
                   secureTextEntry={this.state.isHidden}
                   onChangeText={val =>
                     this.onChangeText('passwordTextInput', val)
@@ -358,7 +385,7 @@ class Login extends Component {
                   // type={MaterialCommunityIcons}
                   name={this.state.isHidden ? 'eye' : 'eye-slash'}
                   size={20}
-                  color={colors.bg_hijaugelap}
+                  color={colors.rs_grey}
                 />
               </View>
               {/* <Button onPress={() => this.btnLoginClick()}>PRIMARY</Button> */}

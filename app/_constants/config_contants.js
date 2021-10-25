@@ -10,6 +10,9 @@ export const configConstants = {
     'Content-Type': 'application/json',
     token: '',
   },
+  headersMultiple: {
+    'Content-Type': 'multipart/form-data',
+  },
 };
 
 async function getToken() {

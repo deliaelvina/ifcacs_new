@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 
@@ -88,3 +89,15 @@ export default {
   verticalScale,
   moderateScale
 };
+=======
+const fonts = {
+  PTSansWebBold: 'PT_Sans-Web-Bold',
+  PTSansWebRegular: 'PT_Sans-Web-Regular',
+  PTSansWebBoldItalic: 'PT_Sans-Web-BoldItalic',
+  PTSansWebItalic: 'PT_Sans-Web-Italic',
+
+  fontbaru: 'P22-Cezanne-Pro-Regular',
+};
+
+export default fonts;
+>>>>>>> 7658f948fc430d137ef70b2e80c202bbea2bf848

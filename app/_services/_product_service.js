@@ -30,5 +30,9 @@ async function getTower(param) {
     .then(res => {
       console.log('res get tower', res);
       return res.data;
+    })
+    .catch(error => {
+      console.log('error get tower api', error.response.data);
+      alert('error get');
     });
 }

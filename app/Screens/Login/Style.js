@@ -1,10 +1,12 @@
 import colors from '../../Theme/Colors';
+import fonts from '../../Theme/Fonts';
 
 export default {
   content: {
     width: '100%',
     justifyContent: 'center',
     flex: 1,
+    backgroundColor: colors.bg_putih,
     // padding: 10,
   },
   wrap: {
@@ -13,6 +15,20 @@ export default {
     marginTop: 100,
     marginLeft: '10%',
     marginRight: '10%',
+  },
+  wrapTitleLogin: {
+    paddingHorizontal: 30,
+    textAlign: 'center',
+    marginTop: 50,
+    marginLeft: '10%',
+    marginRight: '10%',
+  },
+  wrapLogoText: {
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    marginTop: 100,
+    marginLeft: '5%',
+    marginRight: '5%',
   },
   textInputWrap: {
     marginTop: 5,
@@ -55,6 +71,7 @@ export default {
     textAlign: 'center',
     fontSize: 20,
     marginBottom: '8%',
+    fontFamily: fonts.PTSansWebBold,
     //fontFamily: 'Montserrat-SemiBold',,
     color: colors.bg_abuabu,
   },
@@ -72,6 +89,7 @@ export default {
     fontSize: 16,
     width: '90%',
     borderRadius: 5,
+    color: colors.rs_grey,
     //fontFamily: 'Montserrat-Regular',
   },
   btnYellow: {
@@ -100,7 +118,7 @@ export default {
     width: '100%',
     borderRadius: 8,
     paddingVertical: 20,
-    backgroundColor: colors.bg_coklat,
+    backgroundColor: colors.bg_hijautua,
     paddingHorizontal: 5,
   },
   loginBtnText: {

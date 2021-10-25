@@ -14,6 +14,7 @@ import Profile from './Profile';
 //Home
 import Home from './Home';
 
+<<<<<<< HEAD
 //Meter Info
 import MeterInfo from './MeterInfo/MeterInfo';
 
@@ -23,6 +24,10 @@ import CategoriTower from './MeterInfo/CategoriTower';
 
 //
 
+=======
+// More Menu
+import moreMenu from './Home/moreMenu';
+>>>>>>> 7658f948fc430d137ef70b2e80c202bbea2bf848
 
 //Billing
 import Billing from './Billing';
@@ -61,6 +66,16 @@ import SpecHelpDesk from './Helpdesk/SpecHelpDesk';
 import SubmitHelpDesk from './Helpdesk/Submit';
 import CategoryHelp from './Helpdesk/CategoryHelp';
 import SelectCategory from './Helpdesk/SelectCategory';
+import StatusHelp from './Helpdesk/StatusHelp';
+import ViewHistory from './Helpdesk/ViewHistoryStatus';
+import ViewHistoryDetail from './Helpdesk/ViewHistoryDetail';
+
+//rent sale
+import RentSale from './RentSale';
+import RentSaleDetail from './RentSale/rentsaleDetail';
+import flipPDF from './Regulation/flipPDF';
+import flipPDF2 from './Regulation/flipPDF2';
+import RoleBook from './Regulation/rolebook';
 
 //Registering Component Screen
 export function registerScreen() {
@@ -159,6 +174,15 @@ export function registerScreen() {
   Navigation.registerComponent('screen.showPDF', () =>
     gestureHandlerRootHOC(showPDF),
   );
+  Navigation.registerComponent('screen.flipPDF', () =>
+    gestureHandlerRootHOC(flipPDF),
+  );
+  Navigation.registerComponent('screen.flipPDF2', () =>
+    gestureHandlerRootHOC(flipPDF2),
+  );
+  Navigation.registerComponent('screen.rolebook', () =>
+    gestureHandlerRootHOC(RoleBook),
+  );
 
   //Facility
   Navigation.registerComponent('screen.Facility', () =>
@@ -193,5 +217,27 @@ export function registerScreen() {
   );
   Navigation.registerComponent('screen.SelectCategory', () =>
     gestureHandlerRootHOC(SelectCategory),
+  );
+  Navigation.registerComponent('screen.StatusHelp', () =>
+    gestureHandlerRootHOC(StatusHelp),
+  );
+  Navigation.registerComponent('screen.ViewHistoryStatus', () =>
+    gestureHandlerRootHOC(ViewHistory),
+  );
+  Navigation.registerComponent('screen.ViewHistoryDetail', () =>
+    gestureHandlerRootHOC(ViewHistoryDetail),
+  );
+
+  //more menu
+  Navigation.registerComponent('screen.moreMenu', () =>
+    gestureHandlerRootHOC(moreMenu),
+  );
+
+  //rent sale
+  Navigation.registerComponent('screen.RentSale', () =>
+    gestureHandlerRootHOC(RentSale),
+  );
+  Navigation.registerComponent('screen.RentSaleDetail', () =>
+    gestureHandlerRootHOC(RentSaleDetail),
   );
 }

@@ -134,10 +134,16 @@ export default class Helpdesk extends React.Component {
                   tapTo="screen.SpecHelpDesk"
                   {...this.props}
                 />
-                <ButtonMenuGrid
+                {/* <ButtonMenuGrid
                   imgUrl={require('@Asset/images/icon-helpdesk/history.png')}
                   text="History"
                   tapTo="screen.HistoryHelp"
+                  {...this.props}
+                /> */}
+                <ButtonMenuGrid
+                  imgUrl={require('@Asset/images/icon-helpdesk/history.png')}
+                  text="Status"
+                  tapTo="screen.StatusHelp"
                   {...this.props}
                 />
               </View>

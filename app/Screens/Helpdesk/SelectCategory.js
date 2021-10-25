@@ -66,26 +66,33 @@ class SelectCategory extends Component {
 
   getCategoryDetail = () => {
     const dT = this.props.prevProps.dataTower[0];
+    console.log('category detail', dT);
+    console.log('prevprops category detail', this.props.prevProps);
 
     const formData = {
-      entity: dT.entity_cd,
-      project: dT.project_no,
+      entity_cd: dT.entity_cd,
+      project_no: dT.project_no,
       category_group: this.state.category_code,
       complain_type: this.props.prevProps.typeTicket,
     };
+    console.log('formdata category detail', formData);
 
-    fetch(urlApi + 'c_ticket_entry/getCategoryDetail/IFCAPB', {
+    const params =
+      '?entity_cd=' + dT.entity_cd + '&' + 'project_no=' + dT.project_no;
+
+    fetch(urlApi + '/csentry-getCategoryDetail' + params, {
       method: 'POST',
       body: JSON.stringify(formData),
     })
       .then(response => response.json())
       .then(res => {
+        console.log('res category detail', res);
         if (res.Error === false) {
           let resData = res.Data;
           if (this._isMount) {
             this.setState({
               dataCategoryDetail: resData,
-              titleCategory: resData[0].descs_category_group,
+              titleCategory: resData[0].descs,
             });
           }
         }
@@ -132,18 +139,20 @@ class SelectCategory extends Component {
         <OfflineNotice />
         <ScrollView>
           <View style={nbStyles.wrap}>
+            <Title text={this.state.titleCategory} />
+            <View
+              pointerEvents={this.state.isDisabled ? 'none' : 'auto'}></View>
             <VStack space={3} divider={<Divider />} w="100%">
-              <TouchableOpacity onPress={() => this.onCategoryPress()}>
-                <HStack justifyContent="space-between">
-                  <Text>category 1 selanjutnya</Text>
-                  <IconFA name="chevron-right" style={{fontSize: 14}} />
-                </HStack>
-              </TouchableOpacity>
-
-              <HStack justifyContent="space-between">
-                <Text>category 2 selanjutnya</Text>
-                <IconFA name="chevron-right" style={{fontSize: 14}} />
-              </HStack>
+              {this.state.dataCategoryDetail.map((data, key) => (
+                <TouchableOpacity
+                  onPress={() => this.onCategoryPress(data.category_cd)}
+                  key={key}>
+                  <HStack justifyContent="space-between">
+                    <Text>{data.descs}</Text>
+                    <IconFA name="chevron-right" style={{fontSize: 14}} />
+                  </HStack>
+                </TouchableOpacity>
+              ))}
             </VStack>
           </View>
         </ScrollView>

@@ -59,44 +59,53 @@ class CategoryHelp extends React.Component {
 
   componentDidMount() {
     this._isMount = true;
-    // this.getCategoryHelp();
+    this.getCategoryHelp();
   }
 
   UNSAFE_componentWillUnmount() {
     this._isMount = false;
   }
 
-  // getCategoryHelp = () => {
-  //   const dT = this.props.prevProps.dataTower[0];
+  getCategoryHelp = () => {
+    const dT = this.props.prevProps.dataTower[0];
+    console.log('dt category help', dT);
 
-  //   const formData = {
-  //     entity: dT.entity_cd,
-  //     project: dT.project_no,
-  //   };
+    const formData = {
+      entity: dT.entity_cd,
+      project: dT.project_no,
+    };
 
-  //   fetch(urlApi + 'c_ticket_entry/getCategoryHelp/IFCAPB', {
-  //     method: 'POST',
-  //     body: JSON.stringify(formData),
-  //   })
-  //     .then(response => response.json())
-  //     .then(res => {
-  //       if (res.Error === false) {
-  //         let resData = res.Data;
-  //         if (this._isMount) {
-  //           this.setState({dataCategory: resData});
-  //         }
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // };
+    console.log('formdata category help', formData);
+
+    fetch(urlApi + '/csentry-getCategoryHelp', {
+      method: 'GET',
+      // body: JSON.stringify(formData),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        // Token: this.state.token
+      },
+    })
+      .then(response => response.json())
+      .then(res => {
+        console.log('res category help', res);
+        if (res.Error === false) {
+          let resData = res.Data;
+          if (this._isMount) {
+            this.setState({dataCategory: resData});
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   onCategoryPress = cat => {
-    this.goToScreen('screen.SelectCategory', cat);
-    // this.setState({isDisabled: true}, () => {
-    //   this.goToScreen('screen.SelectCategory', cat);
-    // });
+    // this.goToScreen('screen.SelectCategory', cat);
+    this.setState({isDisabled: true}, () => {
+      this.goToScreen('screen.SelectCategory', cat);
+    });
   };
 
   goToScreen = (screenName, pass) => {
@@ -122,17 +131,16 @@ class CategoryHelp extends React.Component {
         <ScrollView>
           <View style={nbStyles.wrap}>
             <VStack space={3} divider={<Divider />} w="100%">
-              <TouchableOpacity onPress={() => this.onCategoryPress('params')}>
-                <HStack justifyContent="space-between">
-                  <Text>category 1</Text>
-                  <IconFA name="chevron-right" style={{fontSize: 14}} />
-                </HStack>
-              </TouchableOpacity>
-
-              <HStack justifyContent="space-between">
-                <Text>category 2</Text>
-                <IconFA name="chevron-right" style={{fontSize: 14}} />
-              </HStack>
+              {this.state.dataCategory.map((data, key) => (
+                <TouchableOpacity
+                  key={key}
+                  onPress={() => this.onCategoryPress(data.category_group_cd)}>
+                  <HStack justifyContent="space-between">
+                    <Text>{data.descs}</Text>
+                    <IconFA name="chevron-right" style={{fontSize: 14}} />
+                  </HStack>
+                </TouchableOpacity>
+              ))}
             </VStack>
           </View>
         </ScrollView>
